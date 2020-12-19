@@ -1,4 +1,5 @@
-﻿using AdminLTEWithASPNETCore.Models;
+﻿using AdminLTEWithASPNETCore.Attributes;
+using AdminLTEWithASPNETCore.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -23,6 +24,7 @@ namespace AdminLTEWithASPNETCore.Controllers
             return View();
         }
 
+        [Breadcrumb("Privacy")]
         public IActionResult Privacy()
         {
             return View();
