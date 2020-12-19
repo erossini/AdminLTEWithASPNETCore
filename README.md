@@ -6,3 +6,10 @@ For more details about this project, you can read my post titled [Integrating Ad
 The result is this one:
 
 ![Integrating AdminLTE with ASP.NET Core 3.1](https://www.puresourcecode.com/wp-content/uploads/2020/12/image-5-1024x555.png)
+
+In this project template you have already:
+
+- AdminLTE integrated
+- Navigation indicator
+- Breadcrumbs
+- Gravatar
