@@ -9,7 +9,11 @@ The result is this one:
 
 In this project template you have already:
 
-- AdminLTE integrated
-- Navigation indicator
-- Breadcrumbs
-- Gravatar
+- [AdminLTE integrated](https://www.puresourcecode.com/dotnet/net-core/integrating-adminlte-with-asp-net-core/)
+- [Navigation indicator](https://www.puresourcecode.com/dotnet/net-core/features-for-adminlte-with-asp-net-core/#h-adding-navigation)
+- [Breadcrumbs](https://www.puresourcecode.com/dotnet/net-core/features-for-adminlte-with-asp-net-core/#h-breadcrumbs)
+- [Gravatar](https://www.puresourcecode.com/dotnet/net-core/features-for-adminlte-with-asp-net-core/#h-gravatar)
+
+If you have any question, please use the [PureSourceCode Forum](https://www.puresourcecode.com/forum/).
+
+More features are coming...

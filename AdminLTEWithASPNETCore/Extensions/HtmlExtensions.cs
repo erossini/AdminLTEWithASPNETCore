@@ -39,7 +39,7 @@ namespace AdminLTEWithASPNETCore.Extensions
         /// This values are appended between the controller and the page's title
         /// </param>
         /// <returns>IHtmlContent.</returns>
-        public static IHtmlContent BuildBreadcrumbNavigation(this IHtmlHelper helper, List<BreadcrumbExtra> breadcrumbExtras)
+        public static IHtmlContent BuildBreadcrumbNavigation(this IHtmlHelper helper, List<BreadcrumbItem> breadcrumbExtras)
         {
             IHtmlContentBuilder rtn = null;
 
@@ -114,7 +114,7 @@ namespace AdminLTEWithASPNETCore.Extensions
             return link;
         }
 
-        private static string BuildBreadcrumb(BreadcrumbExtra bs)
+        private static string BuildBreadcrumb(BreadcrumbItem bs)
         {
             string link = "<li class='breadcrumb-item'>";
 

@@ -8,7 +8,7 @@
 // Last Modified By : Enrico Rossini
 // Last Modified On : 12-19-2020
 // ***********************************************************************
-// <copyright file="BreadcrumbExtra.cs" company="AdminLTEWithASPNETCore">
+// <copyright file="BreadcrumbItem.cs" company="AdminLTEWithASPNETCore">
 //     Copyright (c) PureSourceCode. All rights reserved.
 // </copyright>
 // <summary></summary>
@@ -21,9 +21,9 @@ using System.Threading.Tasks;
 namespace AdminLTEWithASPNETCore.Models.UI
 {
     /// <summary>
-    /// Class BreadcrumbExtra.
+    /// Class BreadcrumbItem.
     /// </summary>
-    public class BreadcrumbExtra
+    public class BreadcrumbItem
     {
         /// <summary>
         /// Gets or sets the URL.
