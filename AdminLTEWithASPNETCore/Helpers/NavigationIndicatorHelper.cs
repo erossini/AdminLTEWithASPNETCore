@@ -1,4 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿// ***********************************************************************
+// Assembly         : AdminLTEWithASPNETCore
+// Author           : Enrico Rossini
+// Blog             : PureSourceCode
+// Blog URL         : https://www.puresourcecode.com/
+// Created          : 12-18-2020
+//
+// Last Modified By : Enrico Rossini
+// Last Modified On : 12-18-2020
+// ***********************************************************************
+// <copyright file="NavigationIndicatorHelper.cs" company="AdminLTEWithASPNETCore">
+//     Copyright (c) PureSourceCode. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;

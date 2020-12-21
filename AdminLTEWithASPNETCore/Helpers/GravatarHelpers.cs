@@ -1,18 +1,30 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿// ***********************************************************************
+// Assembly         : AdminLTEWithASPNETCore
+// Author           : Enrico Rossini
+// Blog             : PureSourceCode
+// Blog URL         : https://www.puresourcecode.com/
+// Created          : 12-19-2020
+//
+// Last Modified By : Enrico Rossini
+// Last Modified On : 12-19-2020
+// ***********************************************************************
+// <copyright file="GravatarHelpers.cs" company="AdminLTEWithASPNETCore">
+//     Copyright (c) PureSourceCode. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AdminLTEWithASPNETCore.Helpers
 {
     /// <summary>
     /// Class GravatarHelpers.
-    /// 
+    ///
     /// Use a specific image size (the default is 80px)
     /// @Html.Gravatar(Model.User.EmailAddress, size:64)
     ///

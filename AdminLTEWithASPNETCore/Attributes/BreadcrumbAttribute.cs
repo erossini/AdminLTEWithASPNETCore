@@ -1,8 +1,20 @@
-﻿using AdminLTEWithASPNETCore.Helpers;
+﻿// ***********************************************************************
+// Assembly         : AdminLTEWithASPNETCore
+// Author           : Enrico Rossini
+// Blog             : PureSourceCode
+// Blog URL         : https://www.puresourcecode.com/
+// Created          : 12-18-2020
+//
+// Last Modified By : Enrico Rossini
+// Last Modified On : 12-21-2020
+// ***********************************************************************
+// <copyright file="BreadcrumbAttribute.cs" company="AdminLTEWithASPNETCore">
+//     Copyright (c) PureSourceCode. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using AdminLTEWithASPNETCore.Helpers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AdminLTEWithASPNETCore.Attributes
 {
@@ -45,16 +57,19 @@ namespace AdminLTEWithASPNETCore.Attributes
         /// </summary>
         /// <value>The label.</value>
         public string Label { get; }
+
         /// <summary>
         /// Gets the name of the controller.
         /// </summary>
         /// <value>The name of the controller.</value>
         public string ControllerName { get; }
+
         /// <summary>
         /// Gets the name of the action.
         /// </summary>
         /// <value>The name of the action.</value>
         public string ActionName { get; }
+
         /// <summary>
         /// Gets a value indicating whether [pass arguments].
         /// </summary>

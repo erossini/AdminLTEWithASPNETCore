@@ -1,4 +1,19 @@
-﻿using AdminLTEWithASPNETCore.Attributes;
+﻿// ***********************************************************************
+// Assembly         : AdminLTEWithASPNETCore
+// Author           : Enrico Rossini
+// Blog             : PureSourceCode
+// Blog URL         : https://www.puresourcecode.com/
+// Created          : 12-19-2020
+//
+// Last Modified By : Enrico Rossini
+// Last Modified On : 12-19-2020
+// ***********************************************************************
+// <copyright file="HtmlExtensions.cs" company="AdminLTEWithASPNETCore">
+//     Copyright (c) PureSourceCode. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using AdminLTEWithASPNETCore.Attributes;
 using AdminLTEWithASPNETCore.Models.UI;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +24,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace AdminLTEWithASPNETCore.Extensions
 {
