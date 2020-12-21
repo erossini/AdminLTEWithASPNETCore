@@ -8,6 +8,12 @@ namespace AdminLTEWithASPNETCore.Helpers
 {
     public class ResourceHelper
     {
+        /// <summary>
+        /// Gets the resource lookup.
+        /// </summary>
+        /// <param name="resourceType">Type of the resource.</param>
+        /// <param name="resourceName">Name of the resource.</param>
+        /// <returns>System.String.</returns>
         public static string GetResourceLookup(Type resourceType, string resourceName)
         {
             if ((resourceType != null) && (resourceName != null))
