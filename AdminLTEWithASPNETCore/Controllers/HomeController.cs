@@ -1,11 +1,13 @@
 ﻿using AdminLTEWithASPNETCore.Attributes;
 using AdminLTEWithASPNETCore.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
 namespace AdminLTEWithASPNETCore.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

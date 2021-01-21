@@ -20,7 +20,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Starter Page</h1>
+                            <h1 class="m-0">@ViewData["Title"]</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             @Html.BuildBreadcrumbNavigation((List<BreadcrumbItem>)ViewBag.BreadcrumbExtras)
@@ -47,5 +47,6 @@
     </div>
 
     <partial name="AdminLTE/_Scripts" />
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
