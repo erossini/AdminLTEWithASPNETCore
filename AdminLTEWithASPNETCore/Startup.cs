@@ -1,9 +1,15 @@
+using AdminLTEWithASPNETCore.Data;
+using AdminLTEWithASPNETCore.Models.Settings;
+using AdminLTEWithASPNETCore.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,10 +31,23 @@ namespace AdminLTEWithASPNETCore
         {
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            #region Settings
+            services.Configure<SmtpCredentialsSettings>(Configuration.GetSection("SmtpCredentials"));
+            services.AddScoped(cfg => cfg.GetService<IOptions<SmtpCredentialsSettings>>().Value);
+            #endregion
+
+            #region Setting Db
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContextConnection")));
+            #endregion
+
+            #region Dependency Injection
+            services.AddTransient<IEmailSender, EmailSender>();
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext db)
         {
             if (env.IsDevelopment())
             {
@@ -40,6 +59,10 @@ namespace AdminLTEWithASPNETCore
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            // ensure the database is created
+            db.Database.EnsureCreated();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
