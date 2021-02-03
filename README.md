@@ -17,7 +17,7 @@ If you have any question, please use the [PureSourceCode Forum](https://www.pure
 ## Screenshots
 The result of the main application is this one:
 
-![Integrating AdminLTE with ASP.NET Core 3.1](https://www.puresourcecode.com/wp-content/uploads/2020/12/image-5-1024x555.png)
+![Integrating AdminLTE with ASP.NET Core 3.1](https://www.puresourcecode.com/wp-content/uploads/2021/02/adminlte-aspnet-core-integration-2.png)
 
 ## Login
 
