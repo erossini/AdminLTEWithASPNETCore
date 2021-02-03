@@ -1,6 +1,9 @@
 using AdminLTEWithASPNETCore.Data;
 using AdminLTEWithASPNETCore.Models.Settings;
 using AdminLTEWithASPNETCore.Services;
+using IdentityModel;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +39,9 @@ namespace AdminLTEWithASPNETCore
             #region Settings
             services.Configure<SmtpCredentialsSettings>(Configuration.GetSection("SmtpCredentials"));
             services.AddScoped(cfg => cfg.GetService<IOptions<SmtpCredentialsSettings>>().Value);
+
+            services.Configure<IdentityServerSettings>(Configuration.GetSection("IdentityAuthentication"));
+            services.AddScoped(cfg => cfg.GetService<IOptions<IdentityServerSettings>>().Value);
             #endregion
 
             #region Setting Db
@@ -43,6 +50,64 @@ namespace AdminLTEWithASPNETCore
 
             #region Dependency Injection
             services.AddTransient<IEmailSender, EmailSender>();
+            #endregion
+
+            #region Authentication and IdentityServer4
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = ".puresourcecode.session";
+                options.IdleTimeout = TimeSpan.FromHours(12);
+            });
+
+            var idsrv = Configuration.GetSection("IdentityAuthentication").Get<IdentityServerSettings>();
+            if (idsrv.UseIdentityServer)
+            {
+                services.AddAuthentication(options =>
+                {
+                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = "oidc";
+                })
+                .AddCookie(options =>
+                {
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                    options.Cookie.Name = ".puresourcecode.cookie";
+                })
+                .AddOpenIdConnect("oidc", options =>
+                {
+                    options.Authority = idsrv.IdentityServerUrl;
+                    options.ClientId = idsrv.ClientId;
+                    options.ClientSecret = idsrv.ClientSecret;
+
+#if DEBUG
+                    options.RequireHttpsMetadata = false;
+#else
+                    options.RequireHttpsMetadata = true;
+#endif
+
+                    options.ResponseType = "code";
+
+                    options.Scope.Clear();
+                    options.Scope.Add("openid");
+                    options.Scope.Add("profile");
+                    options.Scope.Add("email");
+                    options.Scope.Add("roles");
+                    options.Scope.Add("offline_access");
+
+                    options.ClaimActions.MapAllExcept("iss", "nbf", "exp", "aud", "nonce", "iat", "c_hash");
+                    options.ClaimActions.MapJsonKey("role", "role", "role");
+
+                    options.GetClaimsFromUserInfoEndpoint = true;
+                    options.SaveTokens = true;
+
+                    options.SignedOutRedirectUri = "/";
+
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        NameClaimType = JwtClaimTypes.Name,
+                        RoleClaimType = JwtClaimTypes.Role,
+                    };
+                });
+            }
             #endregion
         }
 
@@ -67,6 +132,9 @@ namespace AdminLTEWithASPNETCore
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseCookiePolicy();
+            app.UseSession();
 
             app.UseAuthentication();
             app.UseAuthorization();
