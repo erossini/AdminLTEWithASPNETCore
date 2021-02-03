@@ -13,6 +13,7 @@ In this project template you have already:
 - [Navigation indicator](https://www.puresourcecode.com/dotnet/net-core/features-for-adminlte-with-asp-net-core/#h-adding-navigation)
 - [Breadcrumbs](https://www.puresourcecode.com/dotnet/net-core/features-for-adminlte-with-asp-net-core/#h-breadcrumbs)
 - [Gravatar](https://www.puresourcecode.com/dotnet/net-core/features-for-adminlte-with-asp-net-core/#h-gravatar)
+- Authentication\Authorization with ASP.NET Identity or IdentityServer4
 
 If you have any question, please use the [PureSourceCode Forum](https://www.puresourcecode.com/forum/).
 
