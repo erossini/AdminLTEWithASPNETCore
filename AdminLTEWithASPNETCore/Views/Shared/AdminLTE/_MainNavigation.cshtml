@@ -1,6 +1,10 @@
 ﻿@using AdminLTEWithASPNETCore.Helpers 
+@using AdminLTEWithASPNETCore.Extensions
 @{ 
-    var userName = "enrico.rossini.uk@live.com";
+    string userName = User.Identity?.Name;
+    string realName = UIHelpers.GetRealName(User.Claims);
+    string role = User.Claims?.GetClaimValue("role");
+    string displayName = realName ?? userName;
 }
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="~/Home" class="brand-link">
@@ -14,7 +18,7 @@
                 <img src="@GravatarHelpers.GravatarUrl(userName)" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Enrico Rossini</a>
+                <a href="#" class="d-block">@displayName</a>
             </div>
         </div>
         <nav class="mt-2">
