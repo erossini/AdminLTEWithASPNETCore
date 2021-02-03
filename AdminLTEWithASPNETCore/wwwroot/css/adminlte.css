@@ -12086,6 +12086,7 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
 
 [class*="sidebar-light-"] .nav-sidebar > .nav-item > .nav-treeview {
   background-color: transparent;
+  padding-left: 1rem;
 }
 
 [class*="sidebar-light-"] .nav-header {
@@ -12167,6 +12168,7 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
 
 [class*="sidebar-dark-"] .nav-sidebar > .nav-item > .nav-treeview {
   background-color: transparent;
+  padding-left: 1rem;
 }
 
 [class*="sidebar-dark-"] .nav-header {

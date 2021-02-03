@@ -35,6 +35,53 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item @Url.MakeAreaMenuOpenClass("Identity")">
+                    <a id="manage" class="nav-link has-treeview" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                        <i class="nav-icon fas fa-user-circle"></i>
+                        <p>Manage your account</p>
+                        <i class="right fas fa-angle-left"></i>
+                    </a>
+                    <ul class="nav nav-treeview" style="display: none;">
+                        <li class="nav-item">
+                            <a class="nav-link @Url.MakeAreaActiveClass("Identity", "/Account/Manage/Index")" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Your account</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @Url.MakeAreaActiveClass("Identity", "/Account/Manage/Email")" asp-area="Identity" asp-page="/Account/Manage/Email" title="Email">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Your email</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @Url.MakeAreaActiveClass("Identity", "/Account/Manage/ChangePassword")" asp-area="Identity" asp-page="/Account/Manage/ChangePassword" title="Change Password">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Change Password</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @Url.MakeAreaActiveClass("Identity", "/Account/Manage/TwoFactorAuthentication")" asp-area="Identity" asp-page="/Account/Manage/TwoFactorAuthentication" title="Two factor authentication">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Authentication</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @Url.MakeAreaActiveClass("Identity", "/Account/Manage/PersonalData")" asp-area="Identity" asp-page="/Account/Manage/PersonalData" title="Personal Data">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Personal Data</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" class="nav-link">
+                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                        <p>
+                            Logout
+                        </p>
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>

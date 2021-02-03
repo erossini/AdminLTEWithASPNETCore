@@ -43,6 +43,9 @@ namespace AdminLTEWithASPNETCore.Extensions
         {
             IHtmlContentBuilder rtn = null;
 
+            if (helper.ViewContext.RouteData.Values["controller"] == null)
+                return null;
+
             string controllerName = helper.ViewContext.RouteData.Values["controller"].ToString();
             string actionName = helper.ViewContext.RouteData.Values["action"].ToString();
             string query = helper.ViewContext.HttpContext.Request.QueryString.Value;
