@@ -70,7 +70,7 @@ namespace AdminLTEWithASPNETCore
                 .AddCookie(options =>
                 {
                     options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-                    options.Cookie.Name = ".puresourcecode.cookie";
+                    options.Cookie.Name = "puresourcecode.cookie";
                 })
                 .AddOpenIdConnect("oidc", options =>
                 {
@@ -93,7 +93,6 @@ namespace AdminLTEWithASPNETCore
                     options.Scope.Add("roles");
                     options.Scope.Add("offline_access");
 
-                    options.ClaimActions.MapAllExcept("iss", "nbf", "exp", "aud", "nonce", "iat", "c_hash");
                     options.ClaimActions.MapJsonKey("role", "role", "role");
 
                     options.GetClaimsFromUserInfoEndpoint = true;
@@ -134,10 +133,9 @@ namespace AdminLTEWithASPNETCore
             app.UseRouting();
 
             app.UseCookiePolicy();
-            app.UseSession();
-
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
