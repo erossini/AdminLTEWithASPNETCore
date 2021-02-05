@@ -97,9 +97,9 @@ namespace AdminLTEWithASPNETCore
                 options.IdleTimeout = TimeSpan.FromHours(12);
             });
 
-            var idsrv = Configuration.GetSection("IdentityAuthentication").Get<IdentityServerSettings>();
-            if (idsrv.UseIdentityServer)
+            if (Convert.ToBoolean(Configuration["Authentication:UseIdentityServer"]))
             {
+                var idsrv = Configuration.GetSection("Authentication:IdentityServer").Get<IdentityServerSettings>();
                 services.AddAuthentication(options =>
                 {
                     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;

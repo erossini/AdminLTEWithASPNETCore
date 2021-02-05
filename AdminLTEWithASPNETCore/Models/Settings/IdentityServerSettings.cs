@@ -11,11 +11,6 @@ namespace AdminLTEWithASPNETCore.Models.Settings
     public class IdentityServerSettings
     {
         /// <summary>
-        /// Gets or sets a value indicating whether [use identity server].
-        /// </summary>
-        /// <value><c>true</c> if [use identity server]; otherwise, <c>false</c>.</value>
-        public bool UseIdentityServer { get; set; }
-        /// <summary>
         /// Gets or sets the identity server URL.
         /// </summary>
         /// <value>The identity server URL.</value>
