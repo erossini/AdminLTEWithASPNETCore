@@ -9,13 +9,14 @@ In this project template you have already:
 - [Navigation indicator](https://www.puresourcecode.com/dotnet/net-core/features-for-adminlte-with-asp-net-core/#h-adding-navigation)
 - [Breadcrumbs](https://www.puresourcecode.com/dotnet/net-core/features-for-adminlte-with-asp-net-core/#h-breadcrumbs)
 - [Gravatar](https://www.puresourcecode.com/dotnet/net-core/features-for-adminlte-with-asp-net-core/#h-gravatar)
-- Authentication\Authorization with ASP.NET Identity or IdentityServer4 (need help)
+- [Authentication\Authorization with ASP.NET Identity](https://www.puresourcecode.com/dotnet/net-core/integration-with-identity-in-adminlte-project/)
+- Authentication\Authorization with IdentityServer4 (need help)
 - Authentication with other providers:
     - Facebook
     - Google
     - Microsoft
     - Twitter
-- Integration with a mail server (such as Outlook.com) to send emails from the authentication process
+- [Integration with a mail server (such as Outlook.com) to send emails from the authentication process](https://www.puresourcecode.com/dotnet/net-core/integration-with-identity-in-adminlte-project#h-account-confirmation-and-password-recovery-in-asp-net-core)
 
 If you have any question, please use the [PureSourceCode Forum](https://www.puresourcecode.com/forum/).
 
