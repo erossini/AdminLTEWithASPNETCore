@@ -27,6 +27,6 @@ The result of the main application is this one:
 
 ## Login
 
-![Login in ASP.NET 5 with AdminLTE](https://www.puresourcecode.com/wp-content/uploads/2021/02/adminlte-aspnet-core-integration-login.png)
+![Login in ASP.NET 5 with AdminLTE](https://www.puresourcecode.com/wp-content/uploads/2021/02/AdminLTE-Dasboard-and-Control-Panel-Template-Login.png)
 
 More features are coming...
