@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -54,6 +55,7 @@ namespace AdminLTEWithASPNETCore
             #endregion
 
             #region Authentication and IdentityServer4
+            services.AddDistributedMemoryCache();
             services.AddSession(options =>
             {
                 options.Cookie.Name = ".puresourcecode.session";
@@ -75,6 +77,50 @@ namespace AdminLTEWithASPNETCore
                 })
                 .AddOpenIdConnect("oidc", options =>
                 {
+                    options.Events = new Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectEvents
+                    {
+                        OnAccessDenied = context =>
+                        {
+                            Console.WriteLine("OnAccessDenied");
+                            return Task.CompletedTask;
+                        },
+                        OnAuthenticationFailed = context =>
+                        {
+                            Console.WriteLine("OnAuthenticationFailed");
+                            return Task.CompletedTask;
+                        },
+                        OnRedirectToIdentityProvider = context =>
+                        {
+                            Console.WriteLine("OnRedirectToIdentityProvider");
+                            return Task.CompletedTask;
+                        },
+                        OnTokenValidated = context =>
+                        {
+                            var idToken = context.SecurityToken;
+                            string userIdentifier = idToken.Subject;
+                            string userEmail =
+                                idToken.Claims.SingleOrDefault(c => c.Type == JwtRegisteredClaimNames.Email)?.Value
+                                ?? idToken.Claims.SingleOrDefault(c => c.Type == "preferred_username")?.Value;
+
+                            string firstName = idToken.Claims.SingleOrDefault(c => c.Type == JwtRegisteredClaimNames.GivenName)?.Value;
+                            string lastName = idToken.Claims.SingleOrDefault(c => c.Type == JwtRegisteredClaimNames.FamilyName)?.Value;
+                            string name = idToken.Claims.SingleOrDefault(c => c.Type == "name")?.Value;
+
+                            // manage roles, modify token and claims etc.
+                            return Task.CompletedTask;
+                        },
+                        OnTicketReceived = context =>
+                        {
+                            // If your authentication logic is based on users then add your logic here
+                            return Task.CompletedTask;
+                        },
+                        OnRemoteFailure = context =>
+                        {
+                            Console.WriteLine("OnRemoteFailure");
+                            return Task.CompletedTask;
+                        }
+                    };
+
                     options.Authority = idsrv.IdentityServerUrl;
                     options.ClientId = idsrv.ClientId;
                     options.ClientSecret = idsrv.ClientSecret;
