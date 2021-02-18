@@ -53,44 +53,6 @@ namespace AdminLTEWithASPNETCore
             #endregion
 
             #region Authentication and IdentityServer4
-            if (!string.IsNullOrEmpty(Configuration["Authentication:Facebook:AppId"]) &&
-                !string.IsNullOrEmpty(Configuration["Authentication:Facebook:AppSecret"]))
-            {
-                services.AddAuthentication().AddFacebook(facebookOptions =>
-                {
-                    facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
-                    facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
-                });
-            }
-            if (!string.IsNullOrEmpty(Configuration["Authentication:Google:ClientId"]) &&
-                !string.IsNullOrEmpty(Configuration["Authentication:Google:ClientSecret"]))
-            {
-                services.AddAuthentication().AddGoogle(googleOptions =>
-                {
-                    googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
-                    googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
-                });
-            }
-            if (!string.IsNullOrEmpty(Configuration["Authentication:Microsoft:ClientId"]) && 
-                !string.IsNullOrEmpty(Configuration["Authentication:Microsoft:ClientSecret"]))
-            {
-                services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
-                {
-                    microsoftOptions.ClientId = Configuration["Authentication:Microsoft:ClientId"];
-                    microsoftOptions.ClientSecret = Configuration["Authentication:Microsoft:ClientSecret"];
-                });
-            }
-            if (!string.IsNullOrEmpty(Configuration["Authentication:Twitter:ConsumerAPIKey"]) && 
-                !string.IsNullOrEmpty(Configuration["Authentication:Twitter:ConsumerSecret"]))
-            {
-                services.AddAuthentication().AddTwitter(twitterOptions =>
-                {
-                    twitterOptions.ConsumerKey = Configuration["Authentication:Twitter:ConsumerAPIKey"];
-                    twitterOptions.ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
-                    twitterOptions.RetrieveUserDetails = true;
-                });
-            }
-
             services.AddSession(options =>
             {
                 options.Cookie.Name = ".puresourcecode.session";
@@ -144,6 +106,46 @@ namespace AdminLTEWithASPNETCore
                         RoleClaimType = JwtClaimTypes.Role,
                     };
                 });
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(Configuration["Authentication:Facebook:AppId"]) &&
+                    !string.IsNullOrEmpty(Configuration["Authentication:Facebook:AppSecret"]))
+                {
+                    services.AddAuthentication().AddFacebook(facebookOptions =>
+                    {
+                        facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                        facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                    });
+                }
+                if (!string.IsNullOrEmpty(Configuration["Authentication:Google:ClientId"]) &&
+                    !string.IsNullOrEmpty(Configuration["Authentication:Google:ClientSecret"]))
+                {
+                    services.AddAuthentication().AddGoogle(googleOptions =>
+                    {
+                        googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
+                        googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                    });
+                }
+                if (!string.IsNullOrEmpty(Configuration["Authentication:Microsoft:ClientId"]) &&
+                    !string.IsNullOrEmpty(Configuration["Authentication:Microsoft:ClientSecret"]))
+                {
+                    services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
+                    {
+                        microsoftOptions.ClientId = Configuration["Authentication:Microsoft:ClientId"];
+                        microsoftOptions.ClientSecret = Configuration["Authentication:Microsoft:ClientSecret"];
+                    });
+                }
+                if (!string.IsNullOrEmpty(Configuration["Authentication:Twitter:ConsumerAPIKey"]) &&
+                    !string.IsNullOrEmpty(Configuration["Authentication:Twitter:ConsumerSecret"]))
+                {
+                    services.AddAuthentication().AddTwitter(twitterOptions =>
+                    {
+                        twitterOptions.ConsumerKey = Configuration["Authentication:Twitter:ConsumerAPIKey"];
+                        twitterOptions.ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
+                        twitterOptions.RetrieveUserDetails = true;
+                    });
+                }
             }
             #endregion
         }
