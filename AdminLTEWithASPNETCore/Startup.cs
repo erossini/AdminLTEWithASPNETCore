@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -85,6 +86,7 @@ namespace AdminLTEWithASPNETCore
 #endif
 
                     options.ResponseType = "code";
+                    options.UsePkce = true;
 
                     options.Scope.Clear();
                     options.Scope.Add("openid");
@@ -155,6 +157,7 @@ namespace AdminLTEWithASPNETCore
         {
             if (env.IsDevelopment())
             {
+                IdentityModelEventSource.ShowPII = true;
                 app.UseDeveloperExceptionPage();
             }
             else
