@@ -73,7 +73,7 @@ namespace AdminLTEWithASPNETCore
                 .AddCookie(options =>
                 {
                     options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-                    options.Cookie.Name = "puresourcecode.cookie";
+                    options.Cookie.Name = ".puresourcecode.cookie";
                 })
                 .AddOpenIdConnect("oidc", options =>
                 {
@@ -89,6 +89,10 @@ namespace AdminLTEWithASPNETCore
                             Console.WriteLine("OnAuthenticationFailed");
                             return Task.CompletedTask;
                         },
+                        OnAuthorizationCodeReceived = context => {
+                            Console.WriteLine("OnAuthorizationCodeReceived");
+                            return Task.CompletedTask;
+                        },
                         OnRedirectToIdentityProvider = context =>
                         {
                             Console.WriteLine("OnRedirectToIdentityProvider");
@@ -96,6 +100,8 @@ namespace AdminLTEWithASPNETCore
                         },
                         OnTokenValidated = context =>
                         {
+                            Console.WriteLine("OnTokenValidated");
+
                             var idToken = context.SecurityToken;
                             string userIdentifier = idToken.Subject;
                             string userEmail =
@@ -111,6 +117,7 @@ namespace AdminLTEWithASPNETCore
                         },
                         OnTicketReceived = context =>
                         {
+                            Console.WriteLine("OnTicketReceived");
                             // If your authentication logic is based on users then add your logic here
                             return Task.CompletedTask;
                         },
