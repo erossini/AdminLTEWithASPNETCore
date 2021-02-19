@@ -11,11 +11,11 @@ In this project template you have already:
 - [Gravatar](https://www.puresourcecode.com/dotnet/net-core/features-for-adminlte-with-asp-net-core/#h-gravatar)
 - [Authentication\Authorization with ASP.NET Identity](https://www.puresourcecode.com/dotnet/net-core/integration-with-identity-in-adminlte-project/)
 - Authentication\Authorization with IdentityServer4 (need help)
-- Authentication with other providers:
-    - Facebook
-    - Google
-    - Microsoft
-    - Twitter
+- [Authentication with other providers](https://www.puresourcecode.com/dotnet/net-core/external-providers-in-adminlte-project/):
+    - [Facebook](https://www.puresourcecode.com/dotnet/net-core/external-providers-in-adminlte-project/#h-add-facebook-authentication)
+    - [Google](https://www.puresourcecode.com/dotnet/net-core/external-providers-in-adminlte-project/#h-add-google-authentication)
+    - [Microsoft](https://www.puresourcecode.com/dotnet/net-core/external-providers-in-adminlte-project/#h-add-microsoft-authentication)
+    - [Twitter](https://www.puresourcecode.com/dotnet/net-core/external-providers-in-adminlte-project/#h-add-twitter-authentication)
 - [Integration with a mail server (such as Outlook.com) to send emails from the authentication process](https://www.puresourcecode.com/dotnet/net-core/integration-with-identity-in-adminlte-project#h-account-confirmation-and-password-recovery-in-asp-net-core)
 
 If you have any question, please use the [PureSourceCode Forum](https://www.puresourcecode.com/forum/).
