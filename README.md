@@ -28,4 +28,15 @@ The result of the main application is this one:
 
 ![Login in ASP.NET 5 with AdminLTE](https://www.puresourcecode.com/wp-content/uploads/2021/02/adminlte-aspnet-core-integration-login.png)
 
+## New View Components
+
+- Boxes
+- Charts with Chart.js
+    - Bar
+    - Line
+    - Pie
+- Card (simple)
+
+![AdminLTE integration with ASP.NET Core 5 - Creation of new view components](https://www.puresourcecode.com/wp-content/uploads/2021/02/adminlte-aspnet-core-integration-3.png)
+
 More features are coming...
