@@ -1,9 +1,150 @@
-﻿@{
+﻿@model AdminLTEWithASPNETCore.Models.Controllers.HomeModel
+@{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h2>InfoBox component</h2>
+<div class="row">
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <vc:info-box title="Messages" description="11,400" css-background="bg-blue"
+                     fontawesome-icon="fa-envelope" shadow="None"></vc:info-box>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <vc:info-box title="Bookmarks" description="400" css-background="bg-green"
+                     fontawesome-icon="fa-flag" shadow="Small"></vc:info-box>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <vc:info-box title="Uploads" description="4,400" css-background="bg-yellow"
+                     fontawesome-icon="fa-copy" shadow="Regular"></vc:info-box>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <vc:info-box title="Likes" description="8,342" css-background="bg-red"
+                     fontawesome-icon="fa-thumbs-up" shadow="Large"></vc:info-box>
+    </div>
 </div>
+
+<h2>ProgressBox component</h2>
+<div class="row">
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <vc:progress-box title="Bookmarks" description="11,400" css-background="bg-info"
+                         fontawesome-icon="fa-bookmark"
+                         percent="70" percent-description="70% Increase in 30 Days"
+                         shadow="Large"></vc:progress-box>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <vc:progress-box title="Likes" description="11,400" css-background="bg-green"
+                         fontawesome-icon="fa-star"
+                         percent="30" percent-description="30% Increase in 30 Days"
+                         shadow="Regular"></vc:progress-box>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <vc:progress-box title="Events" description="11,400" css-background="bg-yellow"
+                         fontawesome-icon="fa-calendar-alt"
+                         percent="60" percent-description="60% Increase in 30 Days"
+                         shadow="Small"></vc:progress-box>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <vc:progress-box title="Comments" description="11,400" css-background="bg-red"
+                         fontawesome-icon="fa-comments"
+                         percent="10" percent-description="10% Increase in 30 Days"
+                         shadow="None"></vc:progress-box>
+    </div>
+</div>
+
+<h2>ShowBox component</h2>
+<div class="row">
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <vc:show-box title="150" description="New orders" css-background="bg-blue"
+                     fontawesome-icon="fa-shopping-cart"
+                     src="https://www.puresourcecode.com" alt="More info"
+                     shadow="None"></vc:show-box>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <vc:show-box title="53%" description="Bounce Rate" css-background="bg-green"
+                     fontawesome-icon="fa-chart-bar"
+                     src="https://www.puresourcecode.com" alt="More info"
+                     shadow="Small"></vc:show-box>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <vc:show-box title="150" description="New orders" css-background="bg-yellow"
+                     fontawesome-icon="fa-shopping-cart"
+                     src="https://www.puresourcecode.com" alt="More info"
+                     shadow="Regular"></vc:show-box>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <vc:show-box title="150" description="New orders" css-background="bg-red"
+                     fontawesome-icon="fa-shopping-cart"
+                     src="https://www.puresourcecode.com" alt="More info"
+                     shadow="Large"></vc:show-box>
+    </div>
+</div>
+
+<div class="row">
+    <section class="col-lg-7 connectedSortable ui-sortable">
+        <div class="card">
+            <div class="card-header border-0">
+                <div class="d-flex justify-content-between">
+                    <h3 class="card-title">Online Store Visitors</h3>
+                    <a href="javascript:void(0);">View Report</a>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="d-flex">
+                    <p class="d-flex flex-column">
+                        <span class="text-bold text-lg">820</span>
+                        <span>Visitors Over Time</span>
+                    </p>
+                    <p class="ml-auto d-flex flex-column text-right">
+                        <span class="text-success">
+                            <i class="fas fa-arrow-up"></i> 12.5%
+                        </span>
+                        <span class="text-muted">Since last week</span>
+                    </p>
+                </div>
+
+                <div class="position-relative mb-4">
+                    <vc:line-chart model="@Model.VisitorChart" />
+                </div>
+
+                <div class="d-flex flex-row justify-content-end">
+                    <span class="mr-2">
+                        <i class="fas fa-square text-primary"></i> This Week
+                    </span>
+
+                    <span>
+                        <i class="fas fa-square text-gray"></i> Last Week
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header border-0">
+                <div class="d-flex justify-content-between">
+                    <h3 class="card-title">Sales</h3>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="position-relative mb-4">
+                    <vc:bar-chart model="@Model.SalesChart" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="col-lg-5 connectedSortable ui-sortable">
+        <vc:card model="@Model.Card" />
+        <vc:direct-chat />
+    </section>
+</div>
+
+@section Header {
+    <link href="~/lib/Chart.js/Chart.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="~/js/pages/index.js"></script>
+    <script src="~/lib/Chart.js/Chart.js"></script>
+} 

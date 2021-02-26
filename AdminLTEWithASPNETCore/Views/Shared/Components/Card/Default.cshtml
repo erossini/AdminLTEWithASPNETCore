@@ -1,0 +1,21 @@
+﻿@model AdminLTEWithASPNETCore.Models.Components.Cards.CardModel
+
+<div class="card card-primary card-outline">
+    <div class="card-header border-0">
+        <div class="d-flex justify-content-between">
+            <h3 class="card-title">@Model.Title</h3>
+        </div>
+    </div>
+    <div class="card-body">
+        <p class="card-text">
+            @Model.Body
+        </p>
+        @if (Model.Links.Count > 0)
+        {
+            foreach (var link in Model.Links)
+            {
+                <a href="@link.Url" target="@link.Target" class="card-link">@link.Text</a>
+            }
+        }
+    </div>
+</div>
