@@ -30,7 +30,11 @@ The result of the main application is this one:
 
 ## New View Components
 
+There are new ASP.NET Core [ViewComponents](https://www.puresourcecode.com/dotnet/net-core/create-view-components-in-asp-net-core/) to enrich the UI:
 - Boxes
+    - simple
+    - progressbox
+    - showbox
 - Charts with Chart.js
     - Bar
     - Line
