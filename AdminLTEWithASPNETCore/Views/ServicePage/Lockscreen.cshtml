@@ -1,0 +1,50 @@
+﻿@using AdminLTEWithASPNETCore.Helpers
+@using AdminLTEWithASPNETCore.Extensions
+@{
+    ViewData["Title"] = "Lockscreen";
+    Layout = "~/Views/Shared/AdminLTEPlain/_Layout.cshtml";
+
+    string userName = User.Identity?.Name;
+    string realName = UIHelpers.GetRealName(User.Claims);
+    string role = User.Claims?.GetClaimValue("role");
+    string displayName = realName ?? userName;
+}
+
+<div class="lockscreen-wrapper">
+    <div class="lockscreen-logo">
+        <a asp-controller="Home" asp-action="Index"><b>Admin</b>LTE</a>
+    </div>
+
+    <div class="lockscreen-name">@displayName</div>
+
+    <div class="lockscreen-item">
+        <div class="lockscreen-image">
+            <img src="@GravatarHelpers.GravatarUrl(userName)" alt="User Image">
+        </div>
+
+        <form class="lockscreen-credentials" method="post" asp-action="LockscreenCheck">
+            <div class="input-group">
+                <input type="password" class="form-control" placeholder="password" id="password" name="password">
+
+                <div class="input-group-append">
+                    <button type="submit" class="btn">
+                        <i class="fas fa-arrow-right text-muted"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="help-block text-center">
+        Enter your password to retrieve your session
+    </div>
+    <div class="text-center">
+        <a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            Or sign in as a different user
+        </a>
+    </div>
+    <div class="lockscreen-footer text-center">
+        Copyright &copy; 2014-2021 <b><a href="https://adminlte.io" class="text-black">AdminLTE.io</a></b><br>
+        All rights reserved
+    </div>
+</div>

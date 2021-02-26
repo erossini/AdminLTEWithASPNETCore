@@ -13,10 +13,10 @@
         fontStyle: '@Model.FontStyle'
     }
 
-    var barChart@(tmpName) = $('#@Model.ChartId')
+    var pieChart@(tmpName) = $('#@Model.ChartId')
     // eslint-disable-next-line no-unused-vars
-    var salesChart = new Chart(barChart@(tmpName), {
-        type: 'bar',
+    var pieChart = new Chart(pieChart@(tmpName), {
+        type: 'doughnut',
         data: {
             labels: [
                 @Html.Raw(string.Join(",", Model.Labels.Select(x => "'" + x.ToString() + "'").ToArray()))
@@ -26,9 +26,7 @@
                 {
                     string rtn = "{";
                     rtn += "data: [" + string.Join(",", ds.Data.Select(d => d).ToArray()) + "],";
-                    rtn += "backgroundColor: '" + ds.BackgroundColors[0] +"',";
-                    rtn += "borderColor: '" + ds.BorderColor + "',";
-                    rtn += "label: '" + ds.Label + "'";
+                    rtn += "backgroundColor: [" + string.Join(",", ds.BackgroundColors.Select(d => "'" + d + "'").ToArray()) + "]";
                     rtn += "},";
                     @Html.Raw(rtn);
                 }
@@ -41,31 +39,9 @@
                 mode: mode,
                 intersect: intersect
             },
-            hover: {
-                mode: mode,
-                intersect: intersect
-            },
             legend: {
                 display: @(Model.ShowLegend ? "true" : "false"),
                 position: '@Model.LegendPosition'
-            },
-            scales: {
-                yAxes: [{
-                    display: @(Model.YAxes.ShowAxes ? "true" : "false"),
-                    gridLines: {
-                        display: @(Model.YAxes.ShowGridLines ? "true" : "false"),
-                        lineWidth: '4px',
-                        color: 'rgba(0, 0, 0, .2)',
-                        zeroLineColor: 'transparent'
-                    }
-                }],
-                xAxes: [{
-                    display: @(Model.XAxes.ShowAxes ? "true" : "false"),
-                    gridLines: {
-                        display: @(Model.XAxes.ShowGridLines ? "true" : "false")
-                    },
-                    ticks: ticksStyle
-                }]
             }
         }
     })

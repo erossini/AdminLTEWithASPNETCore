@@ -19,12 +19,17 @@ namespace AdminLTEWithASPNETCore.Models.Components.Charts
         /// Gets or sets the color of the background.
         /// </summary>
         /// <value>The color of the background.</value>
-        public string BackgroundColor { get; set; } = "transparent";
+        public List<string> BackgroundColors { get; set; } = new List<string>() { "transparent" };
         /// <summary>
         /// Gets or sets the color of the border.
         /// </summary>
         /// <value>The color of the border.</value>
         public string BorderColor { get; set; } = "#007bff";
+        /// <summary>
+        /// Gets or sets the label for this data
+        /// </summary>
+        /// <value>The label.</value>
+        public string Label { get; set; } = string.Empty;
         /// <summary>
         /// Gets or sets the color of the point border.
         /// </summary>

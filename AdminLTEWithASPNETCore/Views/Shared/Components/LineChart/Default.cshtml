@@ -16,6 +16,7 @@
     var lineChart@(tmpName) = $('#@Model.ChartId')
     // eslint-disable-next-line no-unused-vars
     var lineChart = new Chart(lineChart@(tmpName), {
+        type: 'line',
         data: {
             labels: [
                 @Html.Raw(string.Join(",", Model.Labels.Select(x => "'" + x.ToString() + "'").ToArray()))
@@ -24,10 +25,10 @@
                 @foreach (var ds in Model.Datasets)
                 {
                     string rtn = "{";
-                    rtn += "type: '" + Model.Type + "',";
                     rtn += "data: [" + string.Join(",", ds.Data.Select(d => d).ToArray()) + "],";
-                    rtn += "backgroundColor: '" + ds.BackgroundColor +"',";
+                    rtn += "backgroundColor: '" + ds.BackgroundColors[0] +"',";
                     rtn += "borderColor: '" + ds.BorderColor + "',";
+                    rtn += "label: '" + ds.Label + "',";
                     rtn += "pointBorderColor: '" + ds.PointBorderColor + "',";
                     rtn += "pointBackgroundColor: '" + ds.PointBackgroundColor + "',";
                     rtn += "fill: " + (ds.Fill ? "true" : "false") + ",";
@@ -40,6 +41,7 @@
         },
         options: {
             maintainAspectRatio: false,
+            response: true,
             tooltips: {
                 mode: mode,
                 intersect: intersect
@@ -49,13 +51,14 @@
                 intersect: intersect
             },
             legend: {
-                display: false
+                display: @(Model.ShowLegend ? "true" : "false"),
+                position: '@Model.LegendPosition'
             },
             scales: {
                 yAxes: [{
-                    // display: false,
+                    display: @(Model.YAxes.ShowAxes ? "true" : "false"),
                     gridLines: {
-                        display: true,
+                        display: @(Model.YAxes.ShowGridLines ? "true" : "false"),
                         lineWidth: '4px',
                         color: 'rgba(0, 0, 0, .2)',
                         zeroLineColor: 'transparent'
@@ -66,9 +69,9 @@
                     }, ticksStyle)
                 }],
                 xAxes: [{
-                    display: true,
+                    display: @(Model.XAxes.ShowAxes ? "true" : "false"),
                     gridLines: {
-                        display: false
+                        display: @(Model.XAxes.ShowGridLines ? "true" : "false")
                     },
                     ticks: ticksStyle
                 }]

@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
 }
 
-<h2>InfoBox component</h2>
+@*<h2>InfoBox component</h2>*@
 <div class="row">
     <div class="col-md-3 col-sm-6 col-xs-12">
         <vc:info-box title="Messages" description="11,400" css-background="bg-blue"
@@ -24,7 +24,7 @@
     </div>
 </div>
 
-<h2>ProgressBox component</h2>
+@*<h2>ProgressBox component</h2>*@
 <div class="row">
     <div class="col-md-3 col-sm-6 col-xs-12">
         <vc:progress-box title="Bookmarks" description="11,400" css-background="bg-info"
@@ -52,7 +52,7 @@
     </div>
 </div>
 
-<h2>ShowBox component</h2>
+@*<h2>ShowBox component</h2>*@
 <div class="row">
     <div class="col-md-3 col-sm-6 col-xs-12">
         <vc:show-box title="150" description="New orders" css-background="bg-blue"
@@ -67,14 +67,14 @@
                      shadow="Small"></vc:show-box>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">
-        <vc:show-box title="150" description="New orders" css-background="bg-yellow"
-                     fontawesome-icon="fa-shopping-cart"
+        <vc:show-box title="44" description="New users" css-background="bg-yellow"
+                     fontawesome-icon="fa-user"
                      src="https://www.puresourcecode.com" alt="More info"
                      shadow="Regular"></vc:show-box>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">
-        <vc:show-box title="150" description="New orders" css-background="bg-red"
-                     fontawesome-icon="fa-shopping-cart"
+        <vc:show-box title="65" description="Unique Visitors" css-background="bg-red"
+                     fontawesome-icon="fa-chart-pie"
                      src="https://www.puresourcecode.com" alt="More info"
                      shadow="Large"></vc:show-box>
     </div>
@@ -135,6 +135,20 @@
     </section>
 
     <section class="col-lg-5 connectedSortable ui-sortable">
+        <div class="card">
+            <div class="card-header border-0">
+                <div class="d-flex justify-content-between">
+                    <h3 class="card-title">Sales</h3>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="position-relative mb-4">
+                    <vc:pie-chart model="@Model.SalesPie" />
+                </div>
+            </div>
+        </div>
+        
         <vc:card model="@Model.Card" />
         <vc:direct-chat />
     </section>

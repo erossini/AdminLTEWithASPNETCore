@@ -44,12 +44,14 @@ namespace AdminLTEWithASPNETCore.Controllers
                 ChartId = "visitor-chart",
                 Height = 250,
                 Labels = { "18th", "20th", "22nd", "24th", "26th", "28th", "30th" },
+                ShowLegend = true,
                 Datasets = new System.Collections.Generic.List<Models.Components.Charts.Dataset>()
                 {
                     new Models.Components.Charts.Dataset()
                     {
-                        BackgroundColor = "transparent",
+                        BackgroundColors = new System.Collections.Generic.List<string>() { "transparent" },
                         BorderColor = "#007bff",
+                        Label = "This week",
                         PointBackgroundColor = "#007bff",
                         PointBorderColor = "#007bff",
                         Fill = false,
@@ -59,8 +61,9 @@ namespace AdminLTEWithASPNETCore.Controllers
                     },
                     new Models.Components.Charts.Dataset()
                     {
-                        BackgroundColor = "transparent",
+                        BackgroundColors = new System.Collections.Generic.List<string>() { "transparent" },
                         BorderColor = "#ced4da",
+                        Label = "Last week",
                         PointBackgroundColor = "#ced4da",
                         PointBorderColor = "#ced4da",
                         Fill = false,
@@ -75,12 +78,24 @@ namespace AdminLTEWithASPNETCore.Controllers
                 ChartId = "salesChart",
                 Height = 250,
                 Labels = { "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC" },
+                ShowLegend = true,
+                XAxes = new Models.Components.Charts.Axes()
+                {
+                    ShowAxes = true,
+                    ShowGridLines = true
+                },
+                YAxes = new Models.Components.Charts.Axes()
+                {
+                    ShowAxes = true,
+                    ShowGridLines = true
+                },
                 Datasets = new System.Collections.Generic.List<Models.Components.Charts.Dataset>()
                 {
                     new Models.Components.Charts.Dataset()
                     {
-                        BackgroundColor = "#007bff",
+                        BackgroundColors = new System.Collections.Generic.List<string>() { "#007bff" },
                         BorderColor = "#007bff",
+                        Label = "This year",
                         Data = new System.Collections.Generic.List<decimal>()
                         {
                             1000, 2000, 3000, 2500, 2700, 2500, 3000
@@ -88,11 +103,34 @@ namespace AdminLTEWithASPNETCore.Controllers
                     },
                     new Models.Components.Charts.Dataset()
                     {
-                        BackgroundColor = "#ced4da",
+                        BackgroundColors = new System.Collections.Generic.List<string>() { "#ced4da" },
                         BorderColor = "#ced4da",
+                        Label = "Last year",
                         Data = new System.Collections.Generic.List<decimal>()
                         {
                             700, 1700, 2700, 2000, 1800, 1500, 2000
+                        }
+                    }
+                }
+            };
+            model.SalesPie = new Models.Components.Charts.ChartModel()
+            {
+                ChartId = "pieSales",
+                Labels = new System.Collections.Generic.List<string>() { 
+                    "Instore Sales", "Download Sales", "Mail-Order Sales" 
+                },
+                ShowLegend = true,
+                Datasets = new System.Collections.Generic.List<Models.Components.Charts.Dataset>()
+                {
+                    new Models.Components.Charts.Dataset()
+                    {
+                        BackgroundColors = new System.Collections.Generic.List<string>()
+                        {
+                            "#f56954", "#00a65a", "#f39c12"
+                        },
+                        Data = new System.Collections.Generic.List<decimal>()
+                        {
+                            30, 20, 10
                         }
                     }
                 }

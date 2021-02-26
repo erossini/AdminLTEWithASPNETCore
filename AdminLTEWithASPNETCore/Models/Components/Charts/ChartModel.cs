@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AdminLTEWithASPNETCore.Enums.Components;
+using AdminLTEWithASPNETCore.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -45,5 +47,30 @@ namespace AdminLTEWithASPNETCore.Models.Components.Charts
         /// </summary>
         /// <value>The type.</value>
         public string Type { get; set; } = "line";
+        /// <summary>
+        /// Gets or sets a value indicating whether [show legend].
+        /// </summary>
+        /// <value><c>true</c> if [show legend]; otherwise, <c>false</c>.</value>
+        public bool ShowLegend { get; set; } = false;
+        /// <summary>
+        /// Gets or sets the legend position.
+        /// </summary>
+        /// <value>The legend position.</value>
+        public PositionType PositionLegend { get; set; } = PositionType.Top;
+        /// <summary>
+        /// Gets the position legend.
+        /// </summary>
+        /// <value>The position legend.</value>
+        public string LegendPosition => PositionLegend.GetDescription();
+        /// <summary>
+        /// Gets or sets the x axes.
+        /// </summary>
+        /// <value>The x axes.</value>
+        public Axes XAxes { get; set; } = new Axes();
+        /// <summary>
+        /// Gets or sets the y axes.
+        /// </summary>
+        /// <value>The y axes.</value>
+        public Axes YAxes { get; set; } = new Axes();
     }
 }

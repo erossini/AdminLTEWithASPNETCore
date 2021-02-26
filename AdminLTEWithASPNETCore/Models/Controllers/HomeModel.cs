@@ -12,5 +12,6 @@ namespace AdminLTEWithASPNETCore.Models.Controllers
         public CardModel Card { get; set; }
         public ChartModel VisitorChart { get; set; }
         public ChartModel SalesChart { get; set; }
+        public ChartModel SalesPie { get; set; }
     }
 }

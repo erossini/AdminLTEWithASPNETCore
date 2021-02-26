@@ -1,0 +1,18 @@
+﻿@using AdminLTEWithASPNETCore.Extensions
+@using AdminLTEWithASPNETCore.Models.UI
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AdminLTE 3 | Login</title>
+
+    <partial name="AdminLTE/_Styles" />
+</head>
+<body class="hold-transition @ViewBag.Reason">
+    @RenderBody()
+
+    <partial name="AdminLTEPlain/_Scripts" />
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

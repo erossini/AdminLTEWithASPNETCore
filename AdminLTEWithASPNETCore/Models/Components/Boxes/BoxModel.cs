@@ -1,7 +1,10 @@
 ﻿using AdminLTEWithASPNETCore.Enums.Components;
+using AdminLTEWithASPNETCore.Extensions;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace AdminLTEWithASPNETCore.Models.Components.Boxes
@@ -41,23 +44,6 @@ namespace AdminLTEWithASPNETCore.Models.Components.Boxes
         /// Gets the CSS for the shadow
         /// </summary>
         /// <returns>Returns the CSS for the requested shadow</returns>
-        public string ShadowText()
-        {
-            string rtn = "";
-            switch (Shadow)
-            {
-                case ShadowType.Large:
-                    rtn = "shadow-lg";
-                    break;
-                case ShadowType.Regular:
-                    rtn = "shadow";
-                    break;
-                case ShadowType.Small:
-                    rtn = "shadow-sm";
-                    break;
-            }
-
-            return rtn;
-        }
+        public string ShadowText => Shadow.GetDescription();
     }
 }

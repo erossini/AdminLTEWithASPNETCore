@@ -7,29 +7,29 @@ using System.Threading.Tasks;
 namespace AdminLTEWithASPNETCore.Enums.Components
 {
     /// <summary>
-    /// Enum ShadowType
+    /// Enum PositionType
     /// </summary>
-    public enum ShadowType
+    public enum PositionType
     {
         /// <summary>
-        /// The none
+        /// The bottom
         /// </summary>
-        [Description("")]
-        None,
+        [Description("bottom")]
+        Bottom,
         /// <summary>
-        /// The small
+        /// The left
         /// </summary>
-        [Description("shadow-sm")]
-        Small,
+        [Description("left")] 
+        Left,
         /// <summary>
-        /// The regular
+        /// The right
         /// </summary>
-        [Description("shadow")]
-        Regular,
+        [Description("right")] 
+        Right,
         /// <summary>
-        /// The large
+        /// The top
         /// </summary>
-        [Description("shadow-lg")]
-        Large
+        [Description("top")]
+        Top
     }
 }
