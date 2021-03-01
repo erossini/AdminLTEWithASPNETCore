@@ -19,6 +19,7 @@ In this project template you have already:
     - [Microsoft](https://www.puresourcecode.com/dotnet/net-core/external-providers-in-adminlte-project/#h-add-microsoft-authentication)
     - [Twitter](https://www.puresourcecode.com/dotnet/net-core/external-providers-in-adminlte-project/#h-add-twitter-authentication)
 - [Integration with a mail server (such as Outlook.com) to send emails from the authentication process](https://www.puresourcecode.com/dotnet/net-core/integration-with-identity-in-adminlte-project#h-account-confirmation-and-password-recovery-in-asp-net-core)
+- [New View Components in AdminLTE project](https://www.puresourcecode.com/dotnet/net-core/new-view-components-in-adminlte-project/)
 
 If you have any question, please use the [PureSourceCode Forum](https://www.puresourcecode.com/forum/).
 
