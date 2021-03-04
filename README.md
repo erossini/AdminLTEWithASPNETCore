@@ -67,4 +67,6 @@ Clean the solution, the cookies in your browser and then everything will work.
 
 ## More info
 
+If you want an implementation of a particular view or feature, please use our [Forum](https://www.puresourcecode.com/forum/) and explain what you like to have.
+
 More features are coming...
