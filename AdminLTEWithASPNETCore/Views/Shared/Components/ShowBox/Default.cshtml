@@ -1,0 +1,15 @@
+﻿@model AdminLTEWithASPNETCore.Models.Components.Boxes.ShowBoxModel
+
+<div class="small-box @Model.BackgroundColor @Model.ShadowText">
+    <div class="inner">
+        <h3>@Model.Text</h3>
+
+        <p>@Model.SubText</p>
+    </div>
+    <div class="icon">
+        <i class="fa @Model.Icon"></i>
+    </div>
+    <a href="@Model.Link" class="small-box-footer">
+        @Model.LinkDescription <i class="fa fa-arrow-circle-right"></i>
+    </a>
+</div>

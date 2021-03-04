@@ -1,0 +1,48 @@
+﻿@model AdminLTEWithASPNETCore.Models.Components.Charts.ChartModel
+@{ 
+    var tmpName = Guid.NewGuid().ToString().Replace("-", "");
+}
+<canvas id="@Model.ChartId" height="@Model.Height"></canvas>
+
+<script type="text/javascript" on-content-loaded="true">
+    var mode = 'index'
+    var intersect = true
+
+    var ticksStyle = {
+        fontColor: '@Model.FontColor',
+        fontStyle: '@Model.FontStyle'
+    }
+
+    var pieChart@(tmpName) = $('#@Model.ChartId')
+    // eslint-disable-next-line no-unused-vars
+    var pieChart = new Chart(pieChart@(tmpName), {
+        type: 'doughnut',
+        data: {
+            labels: [
+                @Html.Raw(string.Join(",", Model.Labels.Select(x => "'" + x.ToString() + "'").ToArray()))
+            ],
+            datasets: [
+                @foreach (var ds in Model.Datasets)
+                {
+                    string rtn = "{";
+                    rtn += "data: [" + string.Join(",", ds.Data.Select(d => d).ToArray()) + "],";
+                    rtn += "backgroundColor: [" + string.Join(",", ds.BackgroundColors.Select(d => "'" + d + "'").ToArray()) + "]";
+                    rtn += "},";
+                    @Html.Raw(rtn);
+                }
+            ]
+        },
+        options: {
+            maintainAspectRatio: false,
+            response: true,
+            tooltips: {
+                mode: mode,
+                intersect: intersect
+            },
+            legend: {
+                display: @(Model.ShowLegend ? "true" : "false"),
+                position: '@Model.LegendPosition'
+            }
+        }
+    })
+</script>

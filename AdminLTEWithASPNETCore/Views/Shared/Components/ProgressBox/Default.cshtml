@@ -1,0 +1,17 @@
+﻿@model AdminLTEWithASPNETCore.Models.Components.Boxes.ProgressBoxModel
+
+<div class="info-box @Model.BackgroundColor @Model.ShadowText">
+    <span class="info-box-icon"><i class="fa @Model.Icon"></i></span>
+
+    <div class="info-box-content">
+        <span class="info-box-text">@Model.Text</span>
+        <span class="info-box-number">@Model.SubText</span>
+
+        <div class="progress">
+            <div class="progress-bar" style="width: @Model.Percent%"></div>
+        </div>
+        <span class="progress-description">
+            @Model.PercentDescription
+        </span>
+    </div>
+</div>

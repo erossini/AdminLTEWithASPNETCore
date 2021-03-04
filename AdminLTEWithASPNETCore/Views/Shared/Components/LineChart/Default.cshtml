@@ -1,0 +1,81 @@
+﻿@model AdminLTEWithASPNETCore.Models.Components.Charts.ChartModel
+@{ 
+    var tmpName = Guid.NewGuid().ToString().Replace("-", "");
+}
+<canvas id="@Model.ChartId" height="@Model.Height"></canvas>
+
+<script type="text/javascript" on-content-loaded="true">
+    var mode = 'index'
+    var intersect = true
+
+    var ticksStyle = {
+        fontColor: '@Model.FontColor',
+        fontStyle: '@Model.FontStyle'
+    }
+
+    var lineChart@(tmpName) = $('#@Model.ChartId')
+    // eslint-disable-next-line no-unused-vars
+    var lineChart = new Chart(lineChart@(tmpName), {
+        type: 'line',
+        data: {
+            labels: [
+                @Html.Raw(string.Join(",", Model.Labels.Select(x => "'" + x.ToString() + "'").ToArray()))
+            ],
+            datasets: [
+                @foreach (var ds in Model.Datasets)
+                {
+                    string rtn = "{";
+                    rtn += "data: [" + string.Join(",", ds.Data.Select(d => d).ToArray()) + "],";
+                    rtn += "backgroundColor: '" + ds.BackgroundColors[0] +"',";
+                    rtn += "borderColor: '" + ds.BorderColor + "',";
+                    rtn += "label: '" + ds.Label + "',";
+                    rtn += "pointBorderColor: '" + ds.PointBorderColor + "',";
+                    rtn += "pointBackgroundColor: '" + ds.PointBackgroundColor + "',";
+                    rtn += "fill: " + (ds.Fill ? "true" : "false") + ",";
+                    rtn += "pointHoverBackgroundColor: '" + ds.PointHoverBackgroundColor + "',";
+                    rtn += "pointHoverBorderColor: '" + ds.PointHoverBorderColor + "'";
+                    rtn += "},";
+                    @Html.Raw(rtn);
+                }
+            ]
+        },
+        options: {
+            maintainAspectRatio: false,
+            response: true,
+            tooltips: {
+                mode: mode,
+                intersect: intersect
+            },
+            hover: {
+                mode: mode,
+                intersect: intersect
+            },
+            legend: {
+                display: @(Model.ShowLegend ? "true" : "false"),
+                position: '@Model.LegendPosition'
+            },
+            scales: {
+                yAxes: [{
+                    display: @(Model.YAxes.ShowAxes ? "true" : "false"),
+                    gridLines: {
+                        display: @(Model.YAxes.ShowGridLines ? "true" : "false"),
+                        lineWidth: '4px',
+                        color: 'rgba(0, 0, 0, .2)',
+                        zeroLineColor: 'transparent'
+                    },
+                    ticks: $.extend({
+                        beginAtZero: true,
+                        suggestedMax: 200
+                    }, ticksStyle)
+                }],
+                xAxes: [{
+                    display: @(Model.XAxes.ShowAxes ? "true" : "false"),
+                    gridLines: {
+                        display: @(Model.XAxes.ShowGridLines ? "true" : "false")
+                    },
+                    ticks: ticksStyle
+                }]
+            }
+        }
+    })
+</script>
