@@ -59,6 +59,7 @@ In the project you find an integration with `IdentityServer4`. To enable the aut
         "ClientSecret": ""
     }
 }
+
 ```
 
 Although the implementation in the project is correct, you will face an issue: after the login with `IdentityServer`, the application calls again and again `IdentityServer` for authentication. Basically, there is a loop between the application and `IdentityServer`. I discovered that this issue is coming from `Microsoft Identity`. 
