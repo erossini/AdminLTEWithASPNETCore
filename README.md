@@ -12,7 +12,7 @@ In this project template you have already:
 - [Breadcrumbs](https://www.puresourcecode.com/dotnet/net-core/features-for-adminlte-with-asp-net-core/#h-breadcrumbs)
 - [Gravatar](https://www.puresourcecode.com/dotnet/net-core/features-for-adminlte-with-asp-net-core/#h-gravatar)
 - [Authentication\Authorization with ASP.NET Identity](https://www.puresourcecode.com/dotnet/net-core/integration-with-identity-in-adminlte-project/)
-- Authentication\Authorization with IdentityServer4 (need help)
+- Authentication\Authorization with IdentityServer4
 - [Authentication with other providers](https://www.puresourcecode.com/dotnet/net-core/external-providers-in-adminlte-project/):
     - [Facebook](https://www.puresourcecode.com/dotnet/net-core/external-providers-in-adminlte-project/#h-add-facebook-authentication)
     - [Google](https://www.puresourcecode.com/dotnet/net-core/external-providers-in-adminlte-project/#h-add-google-authentication)
@@ -46,5 +46,23 @@ There are new ASP.NET Core [ViewComponents](https://www.puresourcecode.com/dotne
 - Card (simple)
 
 ![AdminLTE integration with ASP.NET Core 5 - Creation of new view components](https://www.puresourcecode.com/wp-content/uploads/2021/02/adminlte-aspnet-core-integration-3.png)
+
+## Integration with IdentityServer4
+In the project you find an integration with `IdentityServer4`. To enable the authentication with `IdentityServer`, you have to change the `appsettings.json` under **Authentication** and modify **UseIdentityServer** to `true`.
+
+```
+  "Authentication": {
+    "UseIdentityServer": true,
+    "IdentityServer": {
+      "IdentityServerUrl": "https://youridentityserver.com",
+      "ClientId": "",
+      "ClientSecret": ""
+    }
+```
+
+Although the implementation is correct, you will face an issue: after the login with `IdentityServer`, the application calls again and again `IdentityServer` for authentication. Basically, there is a loop between the application and `IdentityServer`.
+I discovered that this issue is coming from `Microsoft Identity`. If you want the authentication with `IdentityServer`, you have to remove all packages related to `Microsoft Identity` and under the **Area** folder remove the **Pages** folder and **IdentityHostingStartup.cs**. Clean the solution and probably the cookies in your browser and then everything will work.
+
+## More info
 
 More features are coming...

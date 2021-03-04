@@ -16,6 +16,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -53,44 +54,7 @@ namespace AdminLTEWithASPNETCore
             #endregion
 
             #region Authentication and IdentityServer4
-            if (!string.IsNullOrEmpty(Configuration["Authentication:Facebook:AppId"]) &&
-                !string.IsNullOrEmpty(Configuration["Authentication:Facebook:AppSecret"]))
-            {
-                services.AddAuthentication().AddFacebook(facebookOptions =>
-                {
-                    facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
-                    facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
-                });
-            }
-            if (!string.IsNullOrEmpty(Configuration["Authentication:Google:ClientId"]) &&
-                !string.IsNullOrEmpty(Configuration["Authentication:Google:ClientSecret"]))
-            {
-                services.AddAuthentication().AddGoogle(googleOptions =>
-                {
-                    googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
-                    googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
-                });
-            }
-            if (!string.IsNullOrEmpty(Configuration["Authentication:Microsoft:ClientId"]) && 
-                !string.IsNullOrEmpty(Configuration["Authentication:Microsoft:ClientSecret"]))
-            {
-                services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
-                {
-                    microsoftOptions.ClientId = Configuration["Authentication:Microsoft:ClientId"];
-                    microsoftOptions.ClientSecret = Configuration["Authentication:Microsoft:ClientSecret"];
-                });
-            }
-            if (!string.IsNullOrEmpty(Configuration["Authentication:Twitter:ConsumerAPIKey"]) && 
-                !string.IsNullOrEmpty(Configuration["Authentication:Twitter:ConsumerSecret"]))
-            {
-                services.AddAuthentication().AddTwitter(twitterOptions =>
-                {
-                    twitterOptions.ConsumerKey = Configuration["Authentication:Twitter:ConsumerAPIKey"];
-                    twitterOptions.ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
-                    twitterOptions.RetrieveUserDetails = true;
-                });
-            }
-
+            services.AddDistributedMemoryCache();
             services.AddSession(options =>
             {
                 options.Cookie.Name = ".puresourcecode.session";
@@ -108,10 +72,61 @@ namespace AdminLTEWithASPNETCore
                 .AddCookie(options =>
                 {
                     options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-                    options.Cookie.Name = "puresourcecode.cookie";
+                    options.Cookie.Name = ".puresourcecode.cookie";
                 })
                 .AddOpenIdConnect("oidc", options =>
                 {
+                    options.Events = new Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectEvents
+                    {
+                        OnAccessDenied = context =>
+                        {
+                            Console.WriteLine("OnAccessDenied");
+                            return Task.CompletedTask;
+                        },
+                        OnAuthenticationFailed = context =>
+                        {
+                            Console.WriteLine("OnAuthenticationFailed");
+                            return Task.CompletedTask;
+                        },
+                        OnAuthorizationCodeReceived = context => {
+                            Console.WriteLine("OnAuthorizationCodeReceived");
+                            return Task.CompletedTask;
+                        },
+                        OnRedirectToIdentityProvider = context =>
+                        {
+                            Console.WriteLine("OnRedirectToIdentityProvider");
+                            return Task.CompletedTask;
+                        },
+                        OnTokenValidated = context =>
+                        {
+                            Console.WriteLine("OnTokenValidated");
+
+                            var idToken = context.SecurityToken;
+                            string userIdentifier = idToken.Subject;
+                            string userEmail =
+                                idToken.Claims.SingleOrDefault(c => c.Type == JwtRegisteredClaimNames.Email)?.Value
+                                ?? idToken.Claims.SingleOrDefault(c => c.Type == "preferred_username")?.Value;
+
+                            string firstName = idToken.Claims.SingleOrDefault(c => c.Type == JwtRegisteredClaimNames.GivenName)?.Value;
+                            string lastName = idToken.Claims.SingleOrDefault(c => c.Type == JwtRegisteredClaimNames.FamilyName)?.Value;
+                            string name = idToken.Claims.SingleOrDefault(c => c.Type == "name")?.Value;
+
+                            // manage roles, modify token and claims etc.
+                            return Task.CompletedTask;
+                        },
+                        OnTicketReceived = context =>
+                        {
+                            Console.WriteLine("OnTicketReceived");
+                            // If your authentication logic is based on users then add your logic here
+                            return Task.CompletedTask;
+                        },
+                        OnRemoteFailure = context =>
+                        {
+                            Console.WriteLine("OnRemoteFailure");
+                            return Task.CompletedTask;
+                        }
+                    };
+
                     options.Authority = idsrv.IdentityServerUrl;
                     options.ClientId = idsrv.ClientId;
                     options.ClientSecret = idsrv.ClientSecret;
@@ -123,6 +138,7 @@ namespace AdminLTEWithASPNETCore
 #endif
 
                     options.ResponseType = "code";
+                    options.UsePkce = true;
 
                     options.Scope.Clear();
                     options.Scope.Add("openid");
@@ -144,6 +160,46 @@ namespace AdminLTEWithASPNETCore
                         RoleClaimType = JwtClaimTypes.Role,
                     };
                 });
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(Configuration["Authentication:Facebook:AppId"]) &&
+                    !string.IsNullOrEmpty(Configuration["Authentication:Facebook:AppSecret"]))
+                {
+                    services.AddAuthentication().AddFacebook(facebookOptions =>
+                    {
+                        facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                        facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                    });
+                }
+                if (!string.IsNullOrEmpty(Configuration["Authentication:Google:ClientId"]) &&
+                    !string.IsNullOrEmpty(Configuration["Authentication:Google:ClientSecret"]))
+                {
+                    services.AddAuthentication().AddGoogle(googleOptions =>
+                    {
+                        googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
+                        googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                    });
+                }
+                if (!string.IsNullOrEmpty(Configuration["Authentication:Microsoft:ClientId"]) &&
+                    !string.IsNullOrEmpty(Configuration["Authentication:Microsoft:ClientSecret"]))
+                {
+                    services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
+                    {
+                        microsoftOptions.ClientId = Configuration["Authentication:Microsoft:ClientId"];
+                        microsoftOptions.ClientSecret = Configuration["Authentication:Microsoft:ClientSecret"];
+                    });
+                }
+                if (!string.IsNullOrEmpty(Configuration["Authentication:Twitter:ConsumerAPIKey"]) &&
+                    !string.IsNullOrEmpty(Configuration["Authentication:Twitter:ConsumerSecret"]))
+                {
+                    services.AddAuthentication().AddTwitter(twitterOptions =>
+                    {
+                        twitterOptions.ConsumerKey = Configuration["Authentication:Twitter:ConsumerAPIKey"];
+                        twitterOptions.ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
+                        twitterOptions.RetrieveUserDetails = true;
+                    });
+                }
             }
             #endregion
         }
