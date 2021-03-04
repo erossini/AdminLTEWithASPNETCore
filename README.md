@@ -67,6 +67,8 @@ Although the implementation in the project is correct, you will face an issue: a
 If you want the authentication with `IdentityServer`, you have to remove all packages related to `Microsoft Identity` and under the **Area** folder remove the **Pages** folder and **IdentityHostingStartup.cs**. 
 Clean the solution, the cookies in your browser and then everything will work.
 
+I left the branch named [Only IdentityServer](https://github.com/erossini/AdminLTEWithASPNETCore/tree/feature/only-identityserver) where I removed all the `Microsoft.Identity` Nuget packages and clean the solution for that.
+
 ## More info
 
 If you want an implementation of a particular view or feature, please use our [Forum](https://www.puresourcecode.com/forum/) and explain what you like to have.
