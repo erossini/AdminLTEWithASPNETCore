@@ -60,9 +60,10 @@ In the project you find an integration with `IdentityServer4`. To enable the aut
     }
 ```
 
-Although the implementation is correct, you will face an issue: after the login with `IdentityServer`, the application calls again and again `IdentityServer` for authentication. Basically, there is a loop between the application and `IdentityServer`. I discovered that this issue is coming from `Microsoft Identity`. 
+Although the implementation in the project is correct, you will face an issue: after the login with `IdentityServer`, the application calls again and again `IdentityServer` for authentication. Basically, there is a loop between the application and `IdentityServer`. I discovered that this issue is coming from `Microsoft Identity`. 
 
-If you want the authentication with `IdentityServer`, you have to remove all packages related to `Microsoft Identity` and under the **Area** folder remove the **Pages** folder and **IdentityHostingStartup.cs**. Clean the solution and probably the cookies in your browser and then everything will work.
+If you want the authentication with `IdentityServer`, you have to remove all packages related to `Microsoft Identity` and under the **Area** folder remove the **Pages** folder and **IdentityHostingStartup.cs**. 
+Clean the solution, the cookies in your browser and then everything will work.
 
 ## More info
 
