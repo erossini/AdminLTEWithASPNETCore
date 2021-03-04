@@ -65,6 +65,7 @@
                         @foreach (var provider in Model.ExternalLogins)
                         {
                             string logo = "";
+                            string cssButton = "btn-primary";
                             switch (provider.Name)
                             {
                                 case "Facebook":
@@ -72,16 +73,18 @@
                                     break;
                                 case "Google":
                                     logo = "<i class=\"fab fa-google-plus mr-2\"></i>";
+                                    cssButton = "btn-danger";
                                     break;
                                 case "Microsoft":
                                     logo = "<i class=\"fab fa-microsoft mr-2\"></i>";
                                     break;
                                 case "Twitter":
                                     logo = "<i class=\"fab fa-twitter mr-2\"></i>";
+                                    cssButton = "btn-info";
                                     break;
                             }
 
-                            <button type="submit" class="btn btn-block btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@Html.Raw(logo) @provider.DisplayName</button>
+                            <button type="submit" class="btn btn-block @cssButton" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@Html.Raw(logo) @provider.DisplayName</button>
                         }
                     </p>
                 </div>
