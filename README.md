@@ -32,6 +32,27 @@ The result of the main application is this one:
 
 ![Login in ASP.NET 5 with AdminLTE](https://www.puresourcecode.com/wp-content/uploads/2021/02/adminlte-aspnet-core-integration-login.png)
 
+## How do I organize the solution?
+The project is divided into the following layers:
+
+- Tasks
+- Domain
+- Infrastructure
+- Presentation
+- Specs/Tests
+
+### Task
+Previous known as “Application Services,” the Tasks Layer serves to tie together any non-business logic from a variety of third-party services or persistence technologies.
+
+### Presentation
+The Presentation Layer contains the familiar MVC project with views, viewmodels and controllers, along with application setup tasks.
+
+### Infrastructure
+The Infrastructure Layer setups up third party data sources. You can extend the repository implementation with additional methods to perform specific queries.
+
+### Domain
+The Domain Layer is where business entities and other business logic resides. The domain layer should be persistence ignorant, with any persistence existing in the Tasks Layer or in the Presentation Layer (for populating viewModels).
+
 ## New View Components
 
 There are new ASP.NET Core [ViewComponents](https://www.puresourcecode.com/dotnet/net-core/create-view-components-in-asp-net-core/) to enrich the UI:

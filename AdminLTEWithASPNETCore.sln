@@ -5,6 +5,18 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminLTEWithASPNETCore", "AdminLTEWithASPNETCore\AdminLTEWithASPNETCore.csproj", "{06AAFF54-6964-46D7-8138-60A69D67E835}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataRepositories", "DataRepositories", "{E17EA1F6-9ABE-4707-B46C-DC92AC972413}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSC.AdminLTE.Repositories", "PSC.AdminLTE.Repositories\PSC.AdminLTE.Repositories.csproj", "{2C1E21D9-2642-4D44-B304-B860C562B102}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSC.AdminLTE.Services", "PSC.AdminLTE.Services\PSC.AdminLTE.Services.csproj", "{A272D417-744D-40B2-B275-661A89752124}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tasks", "Tasks", "{28C08EC6-E526-4AEF-BB7A-683AF2F94701}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{2E127C5F-AA00-4E77-8D7B-311594323616}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSC.AdminLTE.Domain", "PSC.AdminLTE.Domain\PSC.AdminLTE.Domain.csproj", "{33BFEDF0-D9FC-4B1E-969F-6A63508D22A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +27,26 @@ Global
 		{06AAFF54-6964-46D7-8138-60A69D67E835}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06AAFF54-6964-46D7-8138-60A69D67E835}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06AAFF54-6964-46D7-8138-60A69D67E835}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C1E21D9-2642-4D44-B304-B860C562B102}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C1E21D9-2642-4D44-B304-B860C562B102}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C1E21D9-2642-4D44-B304-B860C562B102}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C1E21D9-2642-4D44-B304-B860C562B102}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A272D417-744D-40B2-B275-661A89752124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A272D417-744D-40B2-B275-661A89752124}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A272D417-744D-40B2-B275-661A89752124}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A272D417-744D-40B2-B275-661A89752124}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33BFEDF0-D9FC-4B1E-969F-6A63508D22A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33BFEDF0-D9FC-4B1E-969F-6A63508D22A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33BFEDF0-D9FC-4B1E-969F-6A63508D22A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33BFEDF0-D9FC-4B1E-969F-6A63508D22A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2C1E21D9-2642-4D44-B304-B860C562B102} = {E17EA1F6-9ABE-4707-B46C-DC92AC972413}
+		{A272D417-744D-40B2-B275-661A89752124} = {28C08EC6-E526-4AEF-BB7A-683AF2F94701}
+		{33BFEDF0-D9FC-4B1E-969F-6A63508D22A1} = {2E127C5F-AA00-4E77-8D7B-311594323616}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EFDCE405-86D2-4A64-B01E-0E6B3B108CD0}
