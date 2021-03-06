@@ -1,0 +1,867 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AdminLTEWithASPNETCore</name>
+    </assembly>
+    <members>
+        <member name="T:AdminLTEWithASPNETCore.Attributes.BreadcrumbAttribute">
+            <summary>Class BreadcrumbAttribute.
+            Implements the <see cref="T:System.Attribute" /></summary>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Attributes.BreadcrumbAttribute.#ctor(System.String,System.String,System.String,System.Boolean)">
+            <summary>Initializes a new instance of the <see cref="T:AdminLTEWithASPNETCore.Attributes.BreadcrumbAttribute" /> class.</summary>
+            <param name="label">The label.</param>
+            <param name="controller">The controller.</param>
+            <param name="action">The action.</param>
+            <param name="passArgs">if set to <c>true</c> [pass arguments].</param>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Attributes.BreadcrumbAttribute.#ctor(System.Type,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AdminLTEWithASPNETCore.Attributes.BreadcrumbAttribute"/> class.
+            </summary>
+            <param name="resourceType">Type of the resource.</param>
+            <param name="resourceName">Name of the resource.</param>
+            <param name="controller">The controller.</param>
+            <param name="action">The action.</param>
+            <param name="passArgs">if set to <c>true</c> [pass arguments].</param>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Attributes.BreadcrumbAttribute.Label">
+            <summary>
+            Gets the label.
+            </summary>
+            <value>The label.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Attributes.BreadcrumbAttribute.ControllerName">
+            <summary>
+            Gets the name of the controller.
+            </summary>
+            <value>The name of the controller.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Attributes.BreadcrumbAttribute.ActionName">
+            <summary>
+            Gets the name of the action.
+            </summary>
+            <value>The name of the action.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Attributes.BreadcrumbAttribute.PassArguments">
+            <summary>
+            Gets a value indicating whether [pass arguments].
+            </summary>
+            <value><c>true</c> if [pass arguments]; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Controllers.Apis.MessagesController">
+            <summary>
+            Class MessagesController.
+            Implements the <see cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.MessagesController.Get">
+            <summary>
+            Gets this instance.
+            </summary>
+            <returns>IEnumerable&lt;System.String&gt;.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.MessagesController.Get(System.Int32)">
+            <summary>
+            Gets the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>System.String.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.MessagesController.Post(System.String)">
+            <summary>
+            Posts the specified value.
+            </summary>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.MessagesController.Put(System.Int32,System.String)">
+            <summary>
+            Puts the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.MessagesController.Delete(System.Int32)">
+            <summary>
+            Deletes the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Enums.Components.PositionType">
+            <summary>
+            Enum PositionType
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.Components.PositionType.Bottom">
+            <summary>
+            The bottom
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.Components.PositionType.Left">
+            <summary>
+            The left
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.Components.PositionType.Right">
+            <summary>
+            The right
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.Components.PositionType.Top">
+            <summary>
+            The top
+            </summary>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Enums.Components.ShadowType">
+            <summary>
+            Enum ShadowType
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.Components.ShadowType.None">
+            <summary>
+            The none
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.Components.ShadowType.Small">
+            <summary>
+            The small
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.Components.ShadowType.Regular">
+            <summary>
+            The regular
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.Components.ShadowType.Large">
+            <summary>
+            The large
+            </summary>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Extensions.ClaimExtensions">
+            <summary>
+            Class ClaimExtensions.
+            </summary>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Extensions.ClaimExtensions.GetClaim(System.Collections.Generic.IEnumerable{System.Security.Claims.Claim},System.String)">
+            <summary>
+            Gets a claim from a list of claims
+            </summary>
+            <param name="claims"></param>
+            <param name="claimName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Extensions.ClaimExtensions.GetClaimValue(System.Collections.Generic.IEnumerable{System.Security.Claims.Claim},System.String)">
+            <summary>
+            Gets the value of the requested claim if it exists
+            </summary>
+            <param name="claims"></param>
+            <param name="claimName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Extensions.ClaimExtensions.UpdateClaim(System.Collections.Generic.List{System.Security.Claims.Claim},System.String,System.String)">
+            <summary>
+            Updates a claim with a new value
+            </summary>
+            <param name="claims"></param>
+            <param name="claimName"></param>
+            <param name="newValue"></param>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Extensions.EnumExtensions">
+            <summary>
+            Class EnumExtensions.
+            </summary>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Extensions.EnumExtensions.GetDescription``1(``0)">
+            <summary>
+            Gets the description.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="enumerationValue">The enumeration value.</param>
+            <returns>System.String.</returns>
+            <exception cref="T:System.ArgumentException">enumerationValue</exception>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Extensions.HtmlExtensions.BuildBreadcrumbNavigation(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.Collections.Generic.List{AdminLTEWithASPNETCore.Models.UI.BreadcrumbItem})">
+            <summary>
+            Builds the breadcrumb navigation.
+            </summary>
+            <param name="helper">The helper.</param>
+            <param name="breadcrumbExtras">
+            This values are appended between the controller and the page's title
+            </param>
+            <returns>IHtmlContent.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Extensions.UrlExtensions.AbsoluteAction(Microsoft.AspNetCore.Mvc.IUrlHelper,System.String,System.String,System.Object)">
+            <summary>
+            Generates a fully qualified URL to an action method by using the specified action name, controller name and
+            route values.
+            </summary>
+            <param name="url">The URL helper.</param>
+            <param name="actionName">The name of the action method.</param>
+            <param name="controllerName">The name of the controller.</param>
+            <param name="routeValues">The route values.</param>
+            <returns>The absolute URL.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Extensions.UrlExtensions.AbsoluteContent(Microsoft.AspNetCore.Mvc.IUrlHelper,System.String)">
+            <summary>
+            Generates a fully qualified URL to the specified content by using the specified content path. Converts a
+            virtual (relative) path to an application absolute path.
+            </summary>
+            <param name="url">The URL helper.</param>
+            <param name="contentPath">The content path.</param>
+            <returns>The absolute URL.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Extensions.UrlExtensions.AbsoluteRouteUrl(Microsoft.AspNetCore.Mvc.IUrlHelper,System.String,System.Object)">
+            <summary>
+            Generates a fully qualified URL to the specified route by using the route name and route values.
+            </summary>
+            <param name="url">The URL helper.</param>
+            <param name="routeName">Name of the route.</param>
+            <param name="routeValues">The route values.</param>
+            <returns>The absolute URL.</returns>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Helpers.GravatarHelpers">
+             <summary>
+             Class GravatarHelpers.
+            
+             Use a specific image size (the default is 80px)
+             @Html.Gravatar(Model.User.EmailAddress, size:64)
+            
+             Specify what image should appear if the email address is not
+             associated with a Gravatar account
+             @Html.Gravatar(Model.User.EmailAddress, defaultImage:GravatarDefaultImage.Identicon)
+            
+             Specify the maximum rating allowed for images
+             @Html.Gravatar(Model.User.EmailAddress, rating:GravatarRating.Pg)
+            
+             Add any additional HTML attributes for the <img /> tag
+             @Html.Gravatar(Model.User.EmailAddress, htmlAttributes:new { @class = "gravatar" })
+             </summary>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Helpers.GravatarHelpers.Gravatar(Microsoft.AspNetCore.Mvc.ViewFeatures.HtmlHelper,System.String,System.Nullable{System.Int32},AdminLTEWithASPNETCore.Helpers.GravatarRating,AdminLTEWithASPNETCore.Helpers.GravatarDefaultImage,System.Object)">
+            <summary>
+            Creates HTML for an <c>img</c> element that presents a Gravatar icon.
+            </summary>
+            <param name="html">The <see cref="T:Microsoft.AspNetCore.Mvc.ViewFeatures.HtmlHelper"/> upon which this extension method is provided.</param>
+            <param name="email">The email address used to identify the icon.</param>
+            <param name="size">An optional parameter that specifies the size of the square image in pixels.</param>
+            <param name="rating">An optional parameter that specifies the safety level of allowed images.</param>
+            <param name="defaultImage">An optional parameter that controls what image is displayed for email addresses that don't have associated Gravatar icons.</param>
+            <param name="htmlAttributes">An optional parameter holding additional attributes to be included on the <c>img</c> element.</param>
+            <returns>An HTML string of the <c>img</c> element that presents a Gravatar icon.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Helpers.GravatarHelpers.GravatarUrl(System.String,System.Nullable{System.Int32},AdminLTEWithASPNETCore.Helpers.GravatarRating,AdminLTEWithASPNETCore.Helpers.GravatarDefaultImage)">
+            <summary>
+            Gravatars the URL.
+            </summary>
+            <param name="email">The email.</param>
+            <param name="size">The size.</param>
+            <param name="rating">The rating.</param>
+            <param name="defaultImage">The default image.</param>
+            <returns>System.String.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">size - Must be null or between 1 and 512, inclusive.</exception>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Helpers.GravatarHelpers.GetEmailHash(System.String)">
+            <summary>
+            Gets the email hash.
+            </summary>
+            <param name="email">The email.</param>
+            <returns>System.String.</returns>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Helpers.GravatarRating">
+            <summary>
+            Enum GravatarRating
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Helpers.GravatarRating.Default">
+            <summary>
+            The default value as specified by the Gravatar service.  That is, no rating value is specified
+            with the request.  At the time of authoring, the default level was <see cref="F:AdminLTEWithASPNETCore.Helpers.GravatarRating.G"/>.
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Helpers.GravatarRating.G">
+            <summary>
+            Suitable for display on all websites with any audience type.  This is the default.
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Helpers.GravatarRating.Pg">
+            <summary>
+            May contain rude gestures, provocatively dressed individuals, the lesser swear words, or mild violence.
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Helpers.GravatarRating.R">
+            <summary>
+            May contain such things as harsh profanity, intense violence, nudity, or hard drug use.
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Helpers.GravatarRating.X">
+            <summary>
+            May contain hardcore sexual imagery or extremely disturbing violence.
+            </summary>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Helpers.GravatarDefaultImage">
+            <summary>
+            Enum GravatarDefaultImage
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Helpers.GravatarDefaultImage.Default">
+            <summary>
+            The default value image.  That is, the image returned when no specific default value is included
+            with the request.  At the time of authoring, this image is the Gravatar icon.
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Helpers.GravatarDefaultImage.Http404">
+            <summary>
+            Do not load any image if none is associated with the email hash, instead return an HTTP 404 (File Not Found) response.
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Helpers.GravatarDefaultImage.MysteryMan">
+            <summary>
+            A simple, cartoon-style silhouetted outline of a person (does not vary by email hash).
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Helpers.GravatarDefaultImage.Identicon">
+            <summary>
+            A geometric pattern based on an email hash.
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Helpers.GravatarDefaultImage.MonsterId">
+            <summary>
+            A generated 'monster' with different colors, faces, etc.
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Helpers.GravatarDefaultImage.Wavatar">
+            <summary>
+            Generated faces with differing features and backgrounds.
+            </summary>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Helpers.NavigationIndicatorHelper">
+            <summary>
+            Class NavigationIndicatorHelper
+            </summary>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Helpers.NavigationIndicatorHelper.MakeActiveClass(Microsoft.AspNetCore.Mvc.IUrlHelper,System.String,System.String)">
+            <summary>
+            Checks controller and action with the current route data.
+            If they match, it returns a string “active”, else null.
+            </summary>
+            <param name="urlHelper"></param>
+            <param name="controller"></param>
+            <param name="action"></param>
+            <returns>"active" if controller and action match, null in other cases</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Helpers.NavigationIndicatorHelper.MakeAreaActiveClass(Microsoft.AspNetCore.Mvc.IUrlHelper,System.String,System.String)">
+            <summary>
+            Checks area and page with the current route data.
+            If they match, it returns a string “active”, else null.
+            </summary>
+            <param name="urlHelper">The URL helper.</param>
+            <param name="area">The area.</param>
+            <param name="page">The page.</param>
+            <returns>System.String.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Helpers.NavigationIndicatorHelper.MakeAreaMenuOpenClass(Microsoft.AspNetCore.Mvc.IUrlHelper,System.String)">
+            <summary>
+            Makes the area menu open class.
+            </summary>
+            <param name="urlHelper">The URL helper.</param>
+            <param name="area">The area.</param>
+            <returns>System.String.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Helpers.ResourceHelper.GetResourceLookup(System.Type,System.String)">
+            <summary>
+            Gets the resource lookup.
+            </summary>
+            <param name="resourceType">Type of the resource.</param>
+            <param name="resourceName">Name of the resource.</param>
+            <returns>System.String.</returns>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Helpers.ScriptTagHelper.OnContentLoaded">
+            <summary>
+            Execute script only once document is loaded.
+            </summary>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Helpers.UIHelpers">
+            <summary>
+            Class UIHelpers.
+            </summary>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Helpers.UIHelpers.GetRealName(System.Collections.Generic.IEnumerable{System.Security.Claims.Claim})">
+            <summary>
+            Gets the real name for the current user from Active Directory
+            </summary>
+            <param name="claims"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Models.Components.Boxes.BoxModel">
+            <summary>
+            Class BoxModel.
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Boxes.BoxModel.BackgroundColor">
+            <summary>
+            Gets or sets the color of the background.
+            </summary>
+            <value>The color of the background.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Boxes.BoxModel.Icon">
+            <summary>
+            Gets or sets the icon.
+            </summary>
+            <value>The icon.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Boxes.BoxModel.Text">
+            <summary>
+            Gets or sets the text.
+            </summary>
+            <value>The text.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Boxes.BoxModel.Shadow">
+            <summary>
+            Gets or sets the shadow.
+            </summary>
+            <value>The shadow.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Boxes.BoxModel.SubText">
+            <summary>
+            Gets or sets the sub text.
+            </summary>
+            <value>The sub text.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Boxes.BoxModel.ShadowText">
+            <summary>
+            Gets the CSS for the shadow
+            </summary>
+            <returns>Returns the CSS for the requested shadow</returns>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Models.Components.Cards.CardModel">
+            <summary>
+            Class CardModel.
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Cards.CardModel.Title">
+            <summary>
+            Gets or sets the title.
+            </summary>
+            <value>The title.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Cards.CardModel.Body">
+            <summary>
+            Gets or sets the body.
+            </summary>
+            <value>The body.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Cards.CardModel.Links">
+            <summary>
+            Gets or sets the links.
+            </summary>
+            <value>The links.</value>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Models.Components.Charts.Axes">
+            <summary>
+            Class Axes.
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Charts.Axes.ShowAxes">
+            <summary>
+            Gets or sets if the axis must be shown
+            </summary>
+            <value><c>true</c> if the axis must be shown otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Charts.Axes.ShowGridLines">
+            <summary>
+            Gets or sets if the grid lines must to be shown
+            </summary>
+            <value><c>true</c> if the grid lines must be shown otherwise, <c>false</c>.</value>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Models.Components.Charts.ChartModel">
+            <summary>
+            Class ChartModel.
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Charts.ChartModel.ChartId">
+            <summary>
+            Gets or sets the name of the chart.
+            </summary>
+            <value>The name of the chart.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Charts.ChartModel.Height">
+            <summary>
+            Gets or sets the height.
+            </summary>
+            <value>The height.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Charts.ChartModel.Labels">
+            <summary>
+            Gets or sets the labels.
+            </summary>
+            <value>The labels.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Charts.ChartModel.Datasets">
+            <summary>
+            Gets or sets the datasets.
+            </summary>
+            <value>The datasets.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Charts.ChartModel.FontColor">
+            <summary>
+            Gets or sets the color of the font.
+            </summary>
+            <value>The color of the font.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Charts.ChartModel.FontStyle">
+            <summary>
+            Gets or sets the font style.
+            </summary>
+            <value>The font style.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Charts.ChartModel.Type">
+            <summary>
+            Gets or sets the type.
+            </summary>
+            <value>The type.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Charts.ChartModel.ShowLegend">
+            <summary>
+            Gets or sets a value indicating whether [show legend].
+            </summary>
+            <value><c>true</c> if [show legend]; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Charts.ChartModel.PositionLegend">
+            <summary>
+            Gets or sets the legend position.
+            </summary>
+            <value>The legend position.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Charts.ChartModel.LegendPosition">
+            <summary>
+            Gets the position legend.
+            </summary>
+            <value>The position legend.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Charts.ChartModel.XAxes">
+            <summary>
+            Gets or sets the x axes.
+            </summary>
+            <value>The x axes.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Charts.ChartModel.YAxes">
+            <summary>
+            Gets or sets the y axes.
+            </summary>
+            <value>The y axes.</value>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Models.Components.Charts.Dataset">
+            <summary>
+            Class Dataset.
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Charts.Dataset.Data">
+            <summary>
+            Gets or sets the data.
+            </summary>
+            <value>The data.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Charts.Dataset.BackgroundColors">
+            <summary>
+            Gets or sets the color of the background.
+            </summary>
+            <value>The color of the background.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Charts.Dataset.BorderColor">
+            <summary>
+            Gets or sets the color of the border.
+            </summary>
+            <value>The color of the border.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Charts.Dataset.Label">
+            <summary>
+            Gets or sets the label for this data
+            </summary>
+            <value>The label.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Charts.Dataset.PointBorderColor">
+            <summary>
+            Gets or sets the color of the point border.
+            </summary>
+            <value>The color of the point border.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Charts.Dataset.PointBackgroundColor">
+            <summary>
+            Gets or sets the color of the point background.
+            </summary>
+            <value>The color of the point background.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Charts.Dataset.Fill">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:AdminLTEWithASPNETCore.Models.Components.Charts.Dataset"/> is fill.
+            </summary>
+            <value><c>true</c> if fill; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Charts.Dataset.PointHoverBackgroundColor">
+            <summary>
+            Gets or sets the color of the point hover background.
+            </summary>
+            <value>The color of the point hover background.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Charts.Dataset.PointHoverBorderColor">
+            <summary>
+            Gets or sets the color of the point hover border.
+            </summary>
+            <value>The color of the point hover border.</value>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Models.Components.LinkModel">
+            <summary>
+            Class LinkModel.
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.LinkModel.Url">
+            <summary>
+            Gets or sets the URL.
+            </summary>
+            <value>The URL.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.LinkModel.Target">
+            <summary>
+            Gets or sets the target.
+            </summary>
+            <value>The target.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.LinkModel.Text">
+            <summary>
+            Gets or sets the text.
+            </summary>
+            <value>The text.</value>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Models.Settings.IdentityServerSettings">
+            <summary>
+            Class IdentityServerSettings.
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Settings.IdentityServerSettings.IdentityServerUrl">
+            <summary>
+            Gets or sets the identity server URL.
+            </summary>
+            <value>The identity server URL.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Settings.IdentityServerSettings.ClientId">
+            <summary>
+            Gets or sets the client identifier.
+            </summary>
+            <value>The client identifier.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Settings.IdentityServerSettings.ClientSecret">
+            <summary>
+            Gets or sets the client password.
+            </summary>
+            <value>The client password.</value>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Models.Settings.SmtpCredentialsSettings">
+            <summary>
+            Class SmtpCredentialsSettings.
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Settings.SmtpCredentialsSettings.MailFrom">
+            <summary>
+            Gets or sets the mail from.
+            </summary>
+            <value>The mail from.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Settings.SmtpCredentialsSettings.Username">
+            <summary>
+            Gets or sets the username.
+            </summary>
+            <value>The username.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Settings.SmtpCredentialsSettings.Password">
+            <summary>
+            Gets or sets the password.
+            </summary>
+            <value>The password.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Settings.SmtpCredentialsSettings.Server">
+            <summary>
+            Gets or sets the server.
+            </summary>
+            <value>The server.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Settings.SmtpCredentialsSettings.Port">
+            <summary>
+            Gets or sets the port.
+            </summary>
+            <value>The port.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Settings.SmtpCredentialsSettings.EnableSSL">
+            <summary>
+            Gets or sets the enable SSL.
+            </summary>
+            <value>The enable SSL.</value>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Models.UI.BreadcrumbItem">
+            <summary>
+            Class BreadcrumbItem.
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.UI.BreadcrumbItem.URL">
+            <summary>
+            Gets or sets the URL.
+            </summary>
+            <value>The URL.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.UI.BreadcrumbItem.Label">
+            <summary>
+            Gets or sets the label.
+            </summary>
+            <value>The label.</value>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Resources.StringResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Resources.StringResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Resources.StringResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Resources.StringResources.APIContactEmail">
+            <summary>
+              Looks up a localized string similar to enrico.rossini.uk@live.com.
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Resources.StringResources.APIContactName">
+            <summary>
+              Looks up a localized string similar to Enrico Rossini.
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Resources.StringResources.APIContactUrl">
+            <summary>
+              Looks up a localized string similar to https://www.puresourcecode.com/contact-us.
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Resources.StringResources.APIDescription">
+            <summary>
+              Looks up a localized string similar to When the application is running in debug mode, PureSourceCode (PSC) AdminLTE shows all the available APIs via Swagger. Swagger (OpenAPI) is a language-agnostic specification for describing REST APIs. It allows both computers and humans to understand the capabilities of a REST API without direct access to the source code..
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Resources.StringResources.APITitle">
+            <summary>
+              Looks up a localized string similar to PureSourceCode AdminLTE APIs.
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Resources.StringResources.APITitleV1">
+            <summary>
+              Looks up a localized string similar to PureSourceCode AdminLTE v1.
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Resources.StringResources.JobDashboardTitle">
+            <summary>
+              Looks up a localized string similar to Jobs dashboard.
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Resources.StringResources.V1">
+            <summary>
+              Looks up a localized string similar to v1.
+            </summary>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Views.Shared.Components.BarChart.BarChartViewComponent.InvokeAsync(AdminLTEWithASPNETCore.Models.Components.Charts.ChartModel)">
+            <summary>
+            invoke the creation of a new BarChart
+            </summary>
+            <param name="model">The model.</param>
+            <returns>A Task&lt;IViewComponentResult&gt; representing the asynchronous operation.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Views.Shared.Components.Card.CardViewComponent.InvokeAsync(AdminLTEWithASPNETCore.Models.Components.Cards.CardModel)">
+            <summary>
+            invoke the creationg of a card
+            </summary>
+            <param name="model">The model.</param>
+            <returns>A Task&lt;IViewComponentResult&gt; representing the asynchronous operation.</returns>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Views.Shared.Components.InfoBox.InfoBoxViewComponent">
+            <summary>
+            Class InfoBoxViewComponent.
+            Implements the <see cref="T:Microsoft.AspNetCore.Mvc.ViewComponent" />
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ViewComponent" />
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Views.Shared.Components.InfoBox.InfoBoxViewComponent.InvokeAsync(System.String,System.String,System.String,System.String,AdminLTEWithASPNETCore.Enums.Components.ShadowType)">
+            <summary>
+            invoke as an asynchronous operation.
+            </summary>
+            <param name="title">The title of the box</param>
+            <param name="description">The description under the title</param>
+            <param name="cssBackground">The CSS background.</param>
+            <param name="fontawesomeIcon">The fontawesome icon.</param>
+            <param name="shadow">The shadow type for the box</param>
+            <returns>A Task&lt;IViewComponentResult&gt; representing the asynchronous operation.</returns>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Views.Shared.Components.LineChart.LineChartViewComponent">
+            <summary>
+            Class AreaChartViewComponent.
+            Implements the <see cref="T:Microsoft.AspNetCore.Mvc.ViewComponent" />
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ViewComponent" />
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Views.Shared.Components.LineChart.LineChartViewComponent.InvokeAsync(AdminLTEWithASPNETCore.Models.Components.Charts.ChartModel)">
+            <summary>
+            invoke the creation of a new LineChart
+            </summary>
+            <param name="model">The model.</param>
+            <returns>A Task&lt;IViewComponentResult&gt; representing the asynchronous operation.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Views.Shared.Components.PieChart.PieChartViewComponent.InvokeAsync(AdminLTEWithASPNETCore.Models.Components.Charts.ChartModel)">
+            <summary>
+            invoke the creation of a new LineChart
+            </summary>
+            <param name="model">The model.</param>
+            <returns>A Task&lt;IViewComponentResult&gt; representing the asynchronous operation.</returns>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Views.Shared.Components.ProgressBox.ProgressBoxViewComponent">
+            <summary>
+            Class ProgressBoxViewComponent.
+            Implements the <see cref="T:Microsoft.AspNetCore.Mvc.ViewComponent" />
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ViewComponent" />
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Views.Shared.Components.ProgressBox.ProgressBoxViewComponent.InvokeAsync(System.String,System.String,System.Int32,System.String,System.String,System.String,AdminLTEWithASPNETCore.Enums.Components.ShadowType)">
+            <summary>
+            Invoke the creation of ProgressBoxView
+            </summary>
+            <param name="title">The title of the box</param>
+            <param name="description">The description under the title</param>
+            <param name="percent">The percent of the progress bar</param>
+            <param name="percentDescription">The percent description.</param>
+            <param name="cssBackground">The CSS background.</param>
+            <param name="fontawesomeIcon">The fontawesome icon.</param>
+            <param name="shadow">The shadow type for the box</param>
+            <returns>A Task&lt;IViewComponentResult&gt; representing the asynchronous operation.</returns>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Views.Shared.Components.ShowBox.ShowBoxViewComponent">
+            <summary>
+            Class ShowBoxViewComponent.
+            Implements the <see cref="T:Microsoft.AspNetCore.Mvc.ViewComponent" />
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ViewComponent" />
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Views.Shared.Components.ShowBox.ShowBoxViewComponent.InvokeAsync(System.String,System.String,System.String,System.String,System.String,System.String,AdminLTEWithASPNETCore.Enums.Components.ShadowType)">
+            <summary>
+            Invoke the creation of ShowBoxView
+            </summary>
+            <param name="title">The title of the box</param>
+            <param name="description">The description under the title</param>
+            <param name="src">The URL to redirect the user</param>
+            <param name="alt">The alternate text for the URL</param>
+            <param name="cssBackground">The CSS background.</param>
+            <param name="fontawesomeIcon">The fontawesome icon to display</param>
+            <param name="shadow">The shadow type for the box</param>
+            <returns>A Task&lt;IViewComponentResult&gt; representing the asynchronous operation.</returns>
+        </member>
+    </members>
+</doc>

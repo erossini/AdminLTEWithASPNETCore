@@ -1,6 +1,6 @@
-﻿@using AdminLTEWithASPNETCore.Helpers 
+﻿@using AdminLTEWithASPNETCore.Helpers
 @using AdminLTEWithASPNETCore.Extensions
-@{ 
+@{
     string userName = User.Identity?.Name;
     string realName = UIHelpers.GetRealName(User.Claims);
     string role = User.Claims?.GetClaimValue("role");
@@ -74,6 +74,31 @@
                             <a class="nav-link @Url.MakeAreaActiveClass("Identity", "/Account/Manage/PersonalData")" asp-area="Identity" asp-page="/Account/Manage/PersonalData" title="Personal Data">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Personal Data</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item @Url.MakeAreaMenuOpenClass("System")">
+                    <a id="manage" class="nav-link has-treeview" title="System">
+                        <i class="nav-icon fas fa-cogs"></i>
+                        <p>System</p>
+                        <i class="right fas fa-angle-left"></i>
+                    </a>
+                    <ul class="nav nav-treeview" style="display: none;">
+                        <li class="nav-item">
+                            <a href="/jobs" target="_blank" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Jobs
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/swagger" target="_blank" class="nav-link">
+                                <i class="nav-icon fas fa-external-link-alt"></i>
+                                <p>
+                                    Swagger
+                                </p>
                             </a>
                         </li>
                     </ul>

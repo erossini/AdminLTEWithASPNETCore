@@ -4,4 +4,17 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Audit.EntityFramework.Core" Version="16.5.3" />
+    <PackageReference Include="Audit.NET" Version="16.5.3" />
+    <PackageReference Include="Audit.NET.SqlServer" Version="16.5.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PSC.AdminLTE.Domain\PSC.AdminLTE.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
