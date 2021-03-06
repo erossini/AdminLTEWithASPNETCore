@@ -20,6 +20,10 @@ In this project template you have already:
     - [Twitter](https://www.puresourcecode.com/dotnet/net-core/external-providers-in-adminlte-project/#h-add-twitter-authentication)
 - [Integration with a mail server (such as Outlook.com) to send emails from the authentication process](https://www.puresourcecode.com/dotnet/net-core/integration-with-identity-in-adminlte-project#h-account-confirmation-and-password-recovery-in-asp-net-core)
 - [New View Components in AdminLTE project](https://www.puresourcecode.com/dotnet/net-core/new-view-components-in-adminlte-project/)
+- API controllers
+- Integration with Swagger functionalities and comment generation
+- Integration with Hangfire.io for background processes
+- Integration with SignalR
 
 If you have any question, please use the [PureSourceCode Forum](https://www.puresourcecode.com/forum/).
 
@@ -31,6 +35,27 @@ The result of the main application is this one:
 ## Login
 
 ![Login in ASP.NET 5 with AdminLTE](https://www.puresourcecode.com/wp-content/uploads/2021/02/adminlte-aspnet-core-integration-login.png)
+
+## How do I organize the solution?
+The project is divided into the following layers:
+
+- Tasks
+- Domain
+- Infrastructure
+- Presentation
+- Specs/Tests
+
+### Task
+Previous known as “Application Services,” the Tasks Layer serves to tie together any non-business logic from a variety of third-party services or persistence technologies.
+
+### Presentation
+The Presentation Layer contains the familiar MVC project with views, viewmodels and controllers, along with application setup tasks.
+
+### Infrastructure
+The Infrastructure Layer setups up third party data sources. You can extend the repository implementation with additional methods to perform specific queries.
+
+### Domain
+The Domain Layer is where business entities and other business logic resides. The domain layer should be persistence ignorant, with any persistence existing in the Tasks Layer or in the Presentation Layer (for populating viewModels).
 
 ## New View Components
 

@@ -1,14 +1,33 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <Authors>Enrico Rossini</Authors>
+    <Company>PureSourceCode</Company>
+    <PackageProjectUrl>https://www.puresourcecode.com</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/erossini/AdminLTEWithASPNETCore</RepositoryUrl>
+    <PackageTags>adminlte, csharp, net5</PackageTags>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Projects\FromGitHub\AdminLTEWithASPNETCore\AdminLTEWithASPNETCore\AdminLTEWithASPNETCore.xml</DocumentationFile>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+  
   <ItemGroup>
     <None Include="wwwroot\js\site.js" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Audit.NET.SqlServer" Version="16.5.3" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.19" />
+    <PackageReference Include="Hangfire.Core" Version="1.7.19" />
+    <PackageReference Include="Hangfire.Dashboard.Basic.Authentication" Version="5.0.0" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.7.19" />
     <PackageReference Include="IdentityModel" Version="5.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="5.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="5.0.3" />
@@ -24,6 +43,34 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.0.7" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.0.7" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PSC.AdminLTE.Domain.Interfaces\PSC.AdminLTE.Domain.Interfaces.csproj" />
+    <ProjectReference Include="..\PSC.AdminLTE.Domain\PSC.AdminLTE.Domain.csproj" />
+    <ProjectReference Include="..\PSC.AdminLTE.Infrastructures\PSC.AdminLTE.Infrastructures.csproj" />
+    <ProjectReference Include="..\PSC.AdminLTE.Providers\PSC.AdminLTE.Providers.csproj" />
+    <ProjectReference Include="..\PSC.AdminLTE.Repositories\PSC.AdminLTE.Repositories.csproj" />
+    <ProjectReference Include="..\PSC.AdminLTE.Services\PSC.AdminLTE.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\StringResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>StringResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\StringResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>StringResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

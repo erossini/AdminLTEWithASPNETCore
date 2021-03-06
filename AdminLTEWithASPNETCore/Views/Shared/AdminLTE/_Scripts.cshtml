@@ -2,8 +2,11 @@
 <script src="~/plugins/jquery/jquery.min.js"></script>
 <script src="~/lib/jqueryui/jquery-ui.js"></script>
 <script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/toastr.js/toastr.min.js"></script>
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/adminlte.min.js"></script>
-<script>
+<script language="javascript">
+    <!--
     var redirectUrl = '@Url.Action("Lockscreen", "ServicePage")';
     var afterMinutes = 10;
 
@@ -30,4 +33,107 @@
             window.location.href = redirectUrl;
         }
     }
+    //-->
+</script>
+<script language="javascript">
+    <!--
+    var userId = '@User.Identity.Name';
+    var connection = new signalR.HubConnectionBuilder().withUrl("/notificationHub").build();
+    connection.start().catch(err => console.error(err.toString()));
+    connection.on("Send", (user, title, message) => {
+        console.log('Received a message');
+        if (user === userId) showNotification(title, message);
+    });
+
+    function showNotification(title, message, notificationClass) {
+        toastr.info(message, title, {
+            // tap to dismiss
+            tapToDismiss: true,
+
+            // toast class
+            toastClass: 'toast',
+
+            // container ID
+            containerId: 'toast-container',
+
+            // debug mode
+            debug: false,
+
+            // fadeIn, slideDown, and show are built into jQuery
+            showMethod: 'fadeIn',
+
+            // duration of animation
+            showDuration: 300,
+
+            // easing function
+            showEasing: 'swing',
+
+            // callback function
+            onShown: undefined,
+            onHidden: undefined,
+
+            // hide animation
+            hideMethod: 'fadeOut',
+
+            // duration of animation
+            hideDuration: 1000,
+
+            // easing function
+            hideEasing: 'swing',
+
+            // close animation
+            closeMethod: false,
+
+            // duration of animation
+            closeDuration: false,
+
+            // easing function
+            closeEasing: false,
+
+            // timeout in ms
+            extendedTimeOut: 1000,
+
+            // you can customize icons here
+            iconClasses: {
+                error: 'toast-error',
+                info: 'toast-info',
+                success: 'toast-success',
+                warning: 'toast-warning'
+            },
+            iconClass: notificationClass ?? 'toast-info',
+
+            // toast-top-center, toast-bottom-center, toast-top-full-width
+            // toast-bottom-full-width, toast-top-left, toast-bottom-right
+            // toast-bottom-left, toast-top-right
+            positionClass: 'toast-top-right',
+
+            // set timeOut and extendedTimeOut to 0 to make it sticky
+            timeOut: 5000,
+
+            // title class
+            titleClass: 'toast-title',
+
+            // message class
+            messageClass: 'toast-message',
+
+            // allows HTML content in the toast?
+            escapeHtml: false,
+
+            // target container
+            target: 'body',
+
+            // close button
+            closeHtml: '<button type="button">&times;</button>',
+
+            // place the newest toast on the top
+            newestOnTop: true,
+
+            // revent duplicate toasts
+            preventDuplicates: false,
+
+            // shows progress bar
+            progressBar: true
+        })
+    }
+    //-->
 </script>

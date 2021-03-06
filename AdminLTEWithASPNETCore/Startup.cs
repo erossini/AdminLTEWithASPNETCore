@@ -1,6 +1,10 @@
 using AdminLTEWithASPNETCore.Data;
 using AdminLTEWithASPNETCore.Models.Settings;
+using AdminLTEWithASPNETCore.Resources;
 using AdminLTEWithASPNETCore.Services;
+using Hangfire;
+using Hangfire.SqlServer;
+using HangfireBasicAuthenticationFilter;
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -15,10 +19,16 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using PSC.AdminLTE.Infrastructures.Hubs;
+using PSC.AdminLTE.Providers;
+using PSC.AdminLTE.Repositories;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace AdminLTEWithASPNETCore
@@ -47,11 +57,16 @@ namespace AdminLTEWithASPNETCore
             #endregion
 
             #region Setting Db
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContextConnection")));
+            services.AddDbContext<ApplicationDbContext>(_ => _.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContextConnection")));
+
+            var cnnString = Configuration.GetConnectionString("PSCContextConnection");
+            services.AddDbContext<PSCContext>(_ => _.UseSqlServer(cnnString));
+            services.ConfigureAudit(cnnString);
             #endregion
 
             #region Dependency Injection
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<MessagesProvider>();
             #endregion
 
             #region Authentication and IdentityServer4
@@ -89,7 +104,8 @@ namespace AdminLTEWithASPNETCore
                             Console.WriteLine("OnAuthenticationFailed");
                             return Task.CompletedTask;
                         },
-                        OnAuthorizationCodeReceived = context => {
+                        OnAuthorizationCodeReceived = context =>
+                        {
                             Console.WriteLine("OnAuthorizationCodeReceived");
                             return Task.CompletedTask;
                         },
@@ -203,15 +219,58 @@ namespace AdminLTEWithASPNETCore
                 }
             }
             #endregion
+
+            #region Hangfire.io
+            #region Configure Hangfire  
+            services.AddHangfire(c => c.UseSqlServerStorage(cnnString));
+            GlobalConfiguration.Configuration.UseSqlServerStorage(cnnString).WithJobExpirationTimeout(TimeSpan.FromDays(7));
+            #endregion
+            #endregion
+
+            #region SignarR
+            services.AddSignalR(hubOptions =>
+            {
+#if DEBUG
+                hubOptions.EnableDetailedErrors = true;
+#endif
+                hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(1);
+            });
+            #endregion
+            #region Swagger
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Contact = new OpenApiContact()
+                    {
+                        Email = StringResources.APIContactEmail,
+                        Url = new Uri(StringResources.APIContactUrl),
+                        Name = StringResources.APIContactName
+                    },
+                    Description = StringResources.APIDescription,
+                    Title = StringResources.APITitle,
+                    Version = StringResources.V1
+                });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext db)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
+            ApplicationDbContext db, PSCContext dbPSC)
         {
             if (env.IsDevelopment())
             {
                 IdentityModelEventSource.ShowPII = true;
                 app.UseDeveloperExceptionPage();
+
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", StringResources.APITitleV1));
             }
             else
             {
@@ -222,6 +281,24 @@ namespace AdminLTEWithASPNETCore
 
             // ensure the database is created
             db.Database.EnsureCreated();
+            dbPSC.Database.EnsureCreated();
+
+            #region Configure Hangfire  
+            app.UseHangfireServer();
+
+            //Basic Authentication added to access the Hangfire Dashboard  
+            app.UseHangfireDashboard("/jobs", new DashboardOptions()
+            {
+                AppPath = null,
+                DashboardTitle = StringResources.JobDashboardTitle,
+                Authorization = new[] {
+                    new HangfireCustomBasicAuthenticationFilter{
+                        User = Configuration.GetSection("HangfireCredentials:UserName").Value,
+                        Pass = Configuration.GetSection("HangfireCredentials:Password").Value
+                    }
+                }
+            });
+            #endregion
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -235,6 +312,10 @@ namespace AdminLTEWithASPNETCore
 
             app.UseEndpoints(endpoints =>
             {
+                #region SignalR
+                endpoints.MapHub<NotificationHub>("/notificationHub");
+                #endregion
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

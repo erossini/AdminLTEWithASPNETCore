@@ -3,8 +3,12 @@ using AdminLTEWithASPNETCore.Models;
 using AdminLTEWithASPNETCore.Models.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
+using PSC.AdminLTE.Infrastructures.Hubs;
+using PSC.AdminLTE.Providers;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace AdminLTEWithASPNETCore.Controllers
 {
