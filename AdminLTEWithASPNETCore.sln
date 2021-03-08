@@ -7,29 +7,29 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminLTEWithASPNETCore", "A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataRepositories", "DataRepositories", "{E17EA1F6-9ABE-4707-B46C-DC92AC972413}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSC.AdminLTE.Repositories", "PSC.AdminLTE.Repositories\PSC.AdminLTE.Repositories.csproj", "{2C1E21D9-2642-4D44-B304-B860C562B102}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSC.Repositories", "PSC.Repositories\PSC.Repositories.csproj", "{2C1E21D9-2642-4D44-B304-B860C562B102}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSC.AdminLTE.Services", "PSC.AdminLTE.Services\PSC.AdminLTE.Services.csproj", "{A272D417-744D-40B2-B275-661A89752124}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSC.Services", "PSC.Services\PSC.Services.csproj", "{A272D417-744D-40B2-B275-661A89752124}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tasks", "Tasks", "{28C08EC6-E526-4AEF-BB7A-683AF2F94701}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{2E127C5F-AA00-4E77-8D7B-311594323616}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSC.AdminLTE.Domain", "PSC.AdminLTE.Domain\PSC.AdminLTE.Domain.csproj", "{33BFEDF0-D9FC-4B1E-969F-6A63508D22A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSC.Domain", "PSC.Domain\PSC.Domain.csproj", "{33BFEDF0-D9FC-4B1E-969F-6A63508D22A1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A1AF896C-33DA-450E-8DEF-C7A133843979}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSC.AdminLTE.Tests", "PSC.AdminLTE.Tests\PSC.AdminLTE.Tests.csproj", "{77F7A30E-B55B-4887-A33A-9812F12B5658}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSC.Tests", "PSC.Tests\PSC.Tests.csproj", "{77F7A30E-B55B-4887-A33A-9812F12B5658}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSC.AdminLTE.UITests", "PSC.AdminLTE.UITests\PSC.AdminLTE.UITests.csproj", "{2EED4032-CC99-41CF-929B-DF3D8AE4CF41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSC.UITests", "PSC.UITests\PSC.UITests.csproj", "{2EED4032-CC99-41CF-929B-DF3D8AE4CF41}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSC.AdminLTE.Domain.Interfaces", "PSC.AdminLTE.Domain.Interfaces\PSC.AdminLTE.Domain.Interfaces.csproj", "{AEB03D6C-A120-4367-AE06-4C1B916C08EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSC.Domain.Interfaces", "PSC.Domain.Interfaces\PSC.Domain.Interfaces.csproj", "{AEB03D6C-A120-4367-AE06-4C1B916C08EC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructures", "Infrastructures", "{1781FE79-261C-4022-B1D4-2A85B3B25052}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSC.AdminLTE.Infrastructures", "PSC.AdminLTE.Infrastructures\PSC.AdminLTE.Infrastructures.csproj", "{55110CB0-E727-4ADF-99FF-BF8AF16E5D69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSC.Infrastructures", "PSC.Infrastructures\PSC.Infrastructures.csproj", "{55110CB0-E727-4ADF-99FF-BF8AF16E5D69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSC.AdminLTE.Providers", "PSC.AdminLTE.Providers\PSC.AdminLTE.Providers.csproj", "{546A8BD4-4203-439F-B3EA-7C13C2498683}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSC.Providers", "PSC.Providers\PSC.Providers.csproj", "{546A8BD4-4203-439F-B3EA-7C13C2498683}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

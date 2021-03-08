@@ -44,18 +44,10 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.0.7" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.0.7" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.0.7" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\PSC.AdminLTE.Domain.Interfaces\PSC.AdminLTE.Domain.Interfaces.csproj" />
-    <ProjectReference Include="..\PSC.AdminLTE.Domain\PSC.AdminLTE.Domain.csproj" />
-    <ProjectReference Include="..\PSC.AdminLTE.Infrastructures\PSC.AdminLTE.Infrastructures.csproj" />
-    <ProjectReference Include="..\PSC.AdminLTE.Providers\PSC.AdminLTE.Providers.csproj" />
-    <ProjectReference Include="..\PSC.AdminLTE.Repositories\PSC.AdminLTE.Repositories.csproj" />
-    <ProjectReference Include="..\PSC.AdminLTE.Services\PSC.AdminLTE.Services.csproj" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.1.0" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.8" />
   </ItemGroup>
 
   <ItemGroup>
@@ -71,6 +63,15 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>StringResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PSC.Domain.Interfaces\PSC.Domain.Interfaces.csproj" />
+    <ProjectReference Include="..\PSC.Domain\PSC.Domain.csproj" />
+    <ProjectReference Include="..\PSC.Infrastructures\PSC.Infrastructures.csproj" />
+    <ProjectReference Include="..\PSC.Providers\PSC.Providers.csproj" />
+    <ProjectReference Include="..\PSC.Repositories\PSC.Repositories.csproj" />
+    <ProjectReference Include="..\PSC.Services\PSC.Services.csproj" />
   </ItemGroup>
 
 </Project>

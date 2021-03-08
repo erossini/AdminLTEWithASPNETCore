@@ -74,7 +74,7 @@ namespace AdminLTEWithASPNETCore.Helpers
 
                 string result = "active";
                 string areaName = urlHelper.ActionContext.RouteData.Values["area"].ToString();
-                string pageName = urlHelper.ActionContext.RouteData.Values["page"].ToString();
+                string pageName = urlHelper.ActionContext.RouteData.Values["page"]?.ToString();
                 if (string.IsNullOrEmpty(areaName)) return null;
                 if (areaName.Equals(area, StringComparison.OrdinalIgnoreCase))
                     if (pageName.Equals(page, StringComparison.OrdinalIgnoreCase))

@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,9 +22,9 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using PSC.AdminLTE.Infrastructures.Hubs;
-using PSC.AdminLTE.Providers;
-using PSC.AdminLTE.Repositories;
+using PSC.Infrastructures.Hubs;
+using PSC.Providers;
+using PSC.Repositories;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -45,7 +47,7 @@ namespace AdminLTEWithASPNETCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddJsonOptions(opts => opts.JsonSerializerOptions.PropertyNamingPolicy = null);
             services.AddRazorPages();
 
             #region Settings
@@ -279,10 +281,11 @@ namespace AdminLTEWithASPNETCore
                 app.UseHsts();
             }
 
+            #region Database creation
             // ensure the database is created
             db.Database.EnsureCreated();
             dbPSC.Database.EnsureCreated();
-
+            #endregion
             #region Configure Hangfire  
             app.UseHangfireServer();
 
@@ -316,6 +319,9 @@ namespace AdminLTEWithASPNETCore
                 endpoints.MapHub<NotificationHub>("/notificationHub");
                 #endregion
 
+                endpoints.MapControllerRoute(
+                    name: "Tables",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

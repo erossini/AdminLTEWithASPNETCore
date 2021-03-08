@@ -1,0 +1,35 @@
+{
+    "name": "datatables.net-searchbuilder-bs4",
+    "version": "1.0.1",
+    "description": "Advanced Search Builder for DataTables with styling for [Bootstrap](http://getbootstrap.com/)",
+    "files": [
+        "css/**/*.css",
+        "js/**/*.js"
+    ],
+    "main": "js/searchBuilder.bootstrap4.js",
+    "style": "css/searchBuilder.bootstrap4.css",
+    "keywords": [
+        "Search",
+        "Filtering",
+        "DataTables",
+        "jQuery",
+        "table",
+        "Bootstrap"
+    ],
+    "homepage": "https://datatables.net",
+    "bugs": "https://datatables.net/forums",
+    "license": "MIT",
+    "author": {
+        "name": "SpryMedia ltd",
+        "url": "http://datatables.net"
+    },
+    "dependencies": {
+        "jquery": ">=1.7",
+        "datatables.net-bs4": "^1.10.15",
+        "datatables.net-searchbuilder": "1.0.1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/DataTables/Dist-DataTables-SearchBuilder-Bootstrap4.git"
+    }
+}
