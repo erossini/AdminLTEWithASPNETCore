@@ -1,0 +1,5 @@
+﻿/* Fix for DataTables button and search */
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: right;
+    float: right;
+}
