@@ -88,6 +88,18 @@
             </summary>
             <param name="id">The identifier.</param>
         </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableCountriesController.Post(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Returns the list of countries
+            </summary>
+            <param name="draw">The draw.</param>
+            <param name="length">The length of the page in record</param>
+            <param name="start">The start page</param>
+            <param name="columnSort">The column for sorting the list</param>
+            <param name="columnDirectrion">The column direction (asc, desc) for sorting the list.</param>
+            <param name="search">The search</param>
+            <returns>IEnumerable&lt;System.String&gt;.</returns>
+        </member>
         <member name="T:AdminLTEWithASPNETCore.Enums.Components.PositionType">
             <summary>
             Enum PositionType
@@ -713,6 +725,40 @@
             Gets or sets the label.
             </summary>
             <value>The label.</value>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Models.UI.CommonTables.FieldUI">
+            <summary>
+            Class FieldUI.
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.UI.CommonTables.FieldUI.Data">
+            <summary>
+            Gets or sets the data.
+            </summary>
+            <value>The data.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.UI.CommonTables.FieldUI.Label">
+            <summary>
+            Gets or sets the label.
+            </summary>
+            <value>The label.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.UI.CommonTables.FieldUI.Render">
+            <summary>
+            Gets or sets the render.
+            </summary>
+            <value>The render.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.UI.CommonTables.FieldUI.Visible">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:AdminLTEWithASPNETCore.Models.UI.CommonTables.FieldUI"/> is visible.
+            </summary>
+            <value><c>true</c> if visible; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.UI.CommonTables.TableUI.FieldString">
+            <summary>
+            Returns a string with the list of fields
+            </summary>
         </member>
         <member name="T:AdminLTEWithASPNETCore.Resources.StringResources">
             <summary>

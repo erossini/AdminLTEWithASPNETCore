@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
-using PSC.AdminLTE.Infrastructures.Hubs;
-using PSC.AdminLTE.Providers;
+using PSC.Infrastructures.Hubs;
+using PSC.Providers;
 using System.Diagnostics;
 using System.Threading.Tasks;
 

@@ -24,6 +24,8 @@ In this project template you have already:
 - Integration with Swagger functionalities and comment generation
 - Integration with Hangfire.io for background processes
 - Integration with SignalR
+- Add `Tables` area for common tables such as **Countries**
+- Create API for the DataTables
 
 If you have any question, please use the [PureSourceCode Forum](https://www.puresourcecode.com/forum/).
 
@@ -93,6 +95,19 @@ If you want the authentication with `IdentityServer`, you have to remove all pac
 Clean the solution, the cookies in your browser and then everything will work.
 
 I left the branch named [Only IdentityServer](https://github.com/erossini/AdminLTEWithASPNETCore/tree/feature/only-identityserver) where I removed all the `Microsoft.Identity` Nuget packages and clean the solution for that.
+
+## Integration with DataTables
+I love this javascript component! [DataTables](https://www.datatables.net/) is a very powerful script to create a table with data from your database. It is doing everything for you if you have the right configuration.
+
+In this project, I added under `Area` a folder called `Tables`. In all my projects, the admin wants to have a list of items for dropdown lists across all the application. So, with DataTables it is easy to create a view with search, order, column visibility, pagination, export (copy the table, csv, Excel, PDF and print). And all of it just adding few libraries.
+
+The result is quite nice and I'm working to generalize as much as possible this part.
+
+![Integration with DataTables](https://www.puresourcecode.com/wp-content/uploads/2021/03/adminlte-aspnet-core-integration-datatables.png)
+
+## Swagger
+
+![Swagger integration](https://www.puresourcecode.com/wp-content/uploads/2021/03/adminlte-aspnet-core-integration-swagger.png)
 
 ## More info
 

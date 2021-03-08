@@ -103,6 +103,23 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item @Url.MakeAreaMenuOpenClass("Tables")">
+                    <a id="manage" class="nav-link has-treeview" title="System">
+                        <i class="nav-icon fas fa-database"></i>
+                        <p>Tables</p>
+                        <i class="right fas fa-angle-left"></i>
+                    </a>
+                    <ul class="nav nav-treeview" style="display: none;">
+                        <li class="nav-item">
+                            <a class="nav-link @Url.MakeActiveClass("Countries", "Index")" asp-area="Tables" asp-controller="Countries" asp-action="Index" title="Countries">
+                                <i class="nav-icon fas fa-table"></i>
+                                <p>
+                                    Countries
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-item">
                     <a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" class="nav-link">
                         <i class="nav-icon fas fa-sign-out-alt"></i>

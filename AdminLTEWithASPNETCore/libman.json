@@ -28,6 +28,79 @@
         "dist/browser/signalr.js.map",
         "dist/browser/signalr.min.js.map"
       ]
+    },
+    {
+      "library": "pdfmake@0.1.70",
+      "destination": "wwwroot/lib/pdfmake/"
+    },
+    {
+      "library": "datatables.net@1.10.23",
+      "destination": "wwwroot/lib/datatables.net/"
+    },
+    {
+      "library": "datatables.net-autofill-bs4@2.3.5",
+      "destination": "wwwroot/lib/datatables.net-autofill-bs4/"
+    },
+    {
+      "library": "datatables.net-bs4@1.10.23",
+      "destination": "wwwroot/lib/datatables.net-bs4/"
+    },
+    {
+      "library": "datatables.net-buttons-bs4@1.6.5",
+      "destination": "wwwroot/lib/datatables.net-buttons-bs4/"
+    },
+    {
+      "library": "datatables.net-colreorder-bs4@1.5.3",
+      "destination": "wwwroot/lib/datatables.net-colreorder-bs4/"
+    },
+    {
+      "library": "datatables.net-fixedcolumns-bs4@3.3.2",
+      "destination": "wwwroot/lib/datatables.net-fixedcolumns-bs4/"
+    },
+    {
+      "library": "datatables.net-fixedheader-bs4@3.1.8",
+      "destination": "wwwroot/lib/datatables.net-fixedheader-bs4/"
+    },
+    {
+      "library": "datatables.net-keytable-bs4@2.6.1",
+      "destination": "wwwroot/lib/datatables.net-keytable-bs4/"
+    },
+    {
+      "library": "datatables.net-responsive-bs4@2.2.7",
+      "destination": "wwwroot/lib/datatables.net-responsive-bs4/"
+    },
+    {
+      "library": "datatables.net-rowgroup-bs4@1.1.2",
+      "destination": "wwwroot/lib/datatables.net-rowgroup-bs4/"
+    },
+    {
+      "library": "datatables.net-rowreorder-bs4@1.2.7",
+      "destination": "wwwroot/lib/datatables.net-rowreorder-bs4/"
+    },
+    {
+      "library": "datatables.net-scroller-bs4@2.0.3",
+      "destination": "wwwroot/lib/datatables.net-scroller-bs4/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "datatables.net-searchbuilder-bs4@1.0.1",
+      "destination": "wwwroot/lib/datatables.net-searchbuilder-bs4/"
+    },
+    {
+      "library": "datatables.net-searchpanes-bs4@1.2.2",
+      "destination": "wwwroot/lib/datatables.net-searchpanes-bs4/"
+    },
+    {
+      "library": "datatables.net-select-bs4@1.3.1",
+      "destination": "wwwroot/lib/datatables.net-select-bs4/"
+    },
+    {
+      "library": "datatables-buttons@1.6.5",
+      "destination": "wwwroot/lib/datatables-buttons/"
+    },
+    {
+      "library": "jszip@3.5.0",
+      "destination": "wwwroot/lib/jszip/"
     }
   ]
 }
