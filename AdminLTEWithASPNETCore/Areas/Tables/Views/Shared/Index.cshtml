@@ -1,11 +1,12 @@
 ﻿@model AdminLTEWithASPNETCore.Models.UI.CommonTables.TableUI
+@using AdminLTEWithASPNETCore.Models.UI.CommonTables
 @{
     Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
 }
 
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">@ViewData["Title"]</h3>
+        <h3 class="card-title">@ViewData["TableTitle"]</h3>
     </div>
     <div class="card-body">
         <table id="list" class="table table-bordered table-hover display">
@@ -52,8 +53,10 @@
                 "serverSide": true,
                 "filter": true,
                 "columns": [
-                    { "data": "IDCountry", "name": "IDCountry" },
-                    { "data": "Name", "name": "Name" },
+                    @foreach (FieldUI item in Model.Fields)
+                    {
+                        @:{ "data": "@item.Data", "name": "@item.Data" },
+                    }
                 ],
                 "columnDefs": [{
                     "targets": [0],

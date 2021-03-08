@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PSC.Domain.CommonTables;
+using PSC.Extensions;
 using PSC.Repositories;
+using PSC.Services.TableAPIs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace AdminLTEWithASPNETCore.Controllers.Apis
@@ -34,26 +37,16 @@ namespace AdminLTEWithASPNETCore.Controllers.Apis
         public IActionResult Post([FromForm] string draw, [FromForm] string length, [FromForm] string start, 
             string columnSort, string columnDirectrion, string search)
         {
-            var sortColumn = columnSort ?? Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
-            var sortColumnDirection = columnDirectrion ?? Request.Form["order[0][dir]"].FirstOrDefault();
-            var searchValue = search ?? Request.Form["search[value]"].FirstOrDefault();
-
-            int pageSize = !string.IsNullOrEmpty(length) ? Convert.ToInt32(length) : 10;
-            int skip = !string.IsNullOrEmpty(start) ? Convert.ToInt32(start) : 0;
-            int recordsTotal = 0;
+            var searchValue = Request.Form.GetValueOrDefault("search[value]", search);
 
             var customerData = (from tempcustomer in _db.Countries select tempcustomer);
-            if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
-                customerData = customerData.OrderBy(sortColumn + " " + sortColumnDirection);
 
-            if (!string.IsNullOrEmpty(searchValue))
-                customerData = customerData.Where(m => m.Name.Contains(searchValue));
+            Expression<Func<Country, bool>> exp = r => r.Name.Contains(searchValue);
+            var service = new TableService<Country>();
+            var rtn = service.GetRecords(draw, length, start, columnSort, columnDirectrion,
+                searchValue, Request.Form, customerData, exp);
 
-            recordsTotal = customerData.Count();
-            
-            var data = customerData.Skip(skip).Take(pageSize).ToList();
-            var jsonData = new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data };
-            return Ok(jsonData);
+            return Ok(rtn);
         }
     }
 }

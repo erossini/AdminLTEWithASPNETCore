@@ -31,6 +31,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSC.Infrastructures", "PSC.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSC.Providers", "PSC.Providers\PSC.Providers.csproj", "{546A8BD4-4203-439F-B3EA-7C13C2498683}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSC.Extensions", "PSC.Extensions\PSC.Extensions.csproj", "{0FAE590D-BD54-4D26-8C8C-FDC07F042D00}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{546A8BD4-4203-439F-B3EA-7C13C2498683}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{546A8BD4-4203-439F-B3EA-7C13C2498683}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{546A8BD4-4203-439F-B3EA-7C13C2498683}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FAE590D-BD54-4D26-8C8C-FDC07F042D00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FAE590D-BD54-4D26-8C8C-FDC07F042D00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FAE590D-BD54-4D26-8C8C-FDC07F042D00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FAE590D-BD54-4D26-8C8C-FDC07F042D00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,6 +92,7 @@ Global
 		{AEB03D6C-A120-4367-AE06-4C1B916C08EC} = {2E127C5F-AA00-4E77-8D7B-311594323616}
 		{55110CB0-E727-4ADF-99FF-BF8AF16E5D69} = {1781FE79-261C-4022-B1D4-2A85B3B25052}
 		{546A8BD4-4203-439F-B3EA-7C13C2498683} = {28C08EC6-E526-4AEF-BB7A-683AF2F94701}
+		{0FAE590D-BD54-4D26-8C8C-FDC07F042D00} = {28C08EC6-E526-4AEF-BB7A-683AF2F94701}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EFDCE405-86D2-4A64-B01E-0E6B3B108CD0}

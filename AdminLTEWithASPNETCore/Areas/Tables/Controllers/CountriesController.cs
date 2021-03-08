@@ -13,14 +13,15 @@ namespace AdminLTEWithASPNETCore.Areas.Tables.Controllers
         public IActionResult Index()
         {
             var model = new TableUI() {
-                ApiUrl = "https://localhost:5001/api/TableCountries",
+                ApiUrl = "/api/TableCountries",
                 Fields = new FieldUI[] {
-                    new FieldUI() { Label = "ID", Data = "idCountry" },
-                    new FieldUI() { Label = "Country", Data = "name" }
+                    new FieldUI() { Label = "ID", Data = "IDCountry" },
+                    new FieldUI() { Label = "Country", Data = "Name" }
                 }
             };
 
-            ViewData["Title"] = "Countries";
+            ViewData["Title"] = "Tables";
+            ViewData["TableTitle"] = "Countries";
             return View("~/Areas/Tables/Views/Shared/Index.cshtml", model);
         }
     }

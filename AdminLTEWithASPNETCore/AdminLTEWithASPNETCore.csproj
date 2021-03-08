@@ -68,6 +68,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PSC.Domain.Interfaces\PSC.Domain.Interfaces.csproj" />
     <ProjectReference Include="..\PSC.Domain\PSC.Domain.csproj" />
+    <ProjectReference Include="..\PSC.Extensions\PSC.Extensions.csproj" />
     <ProjectReference Include="..\PSC.Infrastructures\PSC.Infrastructures.csproj" />
     <ProjectReference Include="..\PSC.Providers\PSC.Providers.csproj" />
     <ProjectReference Include="..\PSC.Repositories\PSC.Repositories.csproj" />
