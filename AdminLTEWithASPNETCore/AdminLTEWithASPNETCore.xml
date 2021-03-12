@@ -49,6 +49,25 @@
             </summary>
             <value><c>true</c> if [pass arguments]; otherwise, <c>false</c>.</value>
         </member>
+        <member name="T:AdminLTEWithASPNETCore.Code.Processes.ImportExcelProcess">
+            <summary>
+            Class ImportExcelProcess.
+            </summary>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Code.Processes.ImportExcelProcess.#ctor(PSC.Services.Imports.ImportExcel,Microsoft.AspNetCore.SignalR.IHubContext{PSC.Infrastructures.Hubs.NotificationHub})">
+            <summary>
+            Initializes a new instance of the <see cref="T:AdminLTEWithASPNETCore.Code.Processes.ImportExcelProcess"/> class.
+            </summary>
+            <param name="excel">The excel.</param>
+            <param name="hubContext">The hub context.</param>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.FilesController.Get(System.String)">
+            <summary>
+            Gets the specified filename.
+            </summary>
+            <param name="filename">The filename.</param>
+            <returns>DataGrid.</returns>
+        </member>
         <member name="T:AdminLTEWithASPNETCore.Controllers.Apis.MessagesController">
             <summary>
             Class MessagesController.
@@ -755,6 +774,47 @@
             </summary>
             <value><c>true</c> if visible; otherwise, <c>false</c>.</value>
         </member>
+        <member name="T:AdminLTEWithASPNETCore.Models.UI.CommonTables.TableUI">
+            <summary>
+            Class TableUI.
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.UI.CommonTables.TableUI.ApiUrl">
+            <summary>
+            Gets or sets the API URL.
+            </summary>
+            <value>The API URL.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.UI.CommonTables.TableUI.Fields">
+            <summary>
+            Gets or sets the fields.
+            </summary>
+            <value>The fields.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.UI.CommonTables.TableUI.IsEditAllow">
+            <summary>
+            Gets or sets a value indicating whether this instance is edit allow.
+            </summary>
+            <value><c>true</c> if this instance is edit allow; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.UI.CommonTables.TableUI.IsDeleteAllow">
+            <summary>
+            Gets or sets a value indicating whether this instance is delete allow.
+            </summary>
+            <value><c>true</c> if this instance is delete allow; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.UI.CommonTables.TableUI.EditUrl">
+            <summary>
+            Gets or sets the edit URL.
+            </summary>
+            <value>The edit URL.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.UI.CommonTables.TableUI.DeleteUrl">
+            <summary>
+            Gets or sets the delete URL.
+            </summary>
+            <value>The delete URL.</value>
+        </member>
         <member name="P:AdminLTEWithASPNETCore.Models.UI.CommonTables.TableUI.FieldString">
             <summary>
             Returns a string with the list of fields
@@ -815,6 +875,18 @@
             <summary>
               Looks up a localized string similar to v1.
             </summary>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Services.FileService">
+            <summary>
+            Class FileService.
+            </summary>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Services.FileService.ImportFolder(System.String)">
+            <summary>
+            Imports the folder.
+            </summary>
+            <param name="rootPath">The web root path.</param>
+            <returns>System.String.</returns>
         </member>
         <member name="M:AdminLTEWithASPNETCore.Views.Shared.Components.BarChart.BarChartViewComponent.InvokeAsync(AdminLTEWithASPNETCore.Models.Components.Charts.ChartModel)">
             <summary>

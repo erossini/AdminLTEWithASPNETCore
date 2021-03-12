@@ -1,0 +1,143 @@
+﻿@{
+    ViewData["Title"] = "Excel Import";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+
+<input type="hidden" id="filename" value="" />
+<div class="bs-stepper">
+    <div class="bs-stepper-header" role="tablist">
+        <!-- your steps here -->
+        <div class="step" data-target="#upload-part">
+            <button type="button" class="step-trigger" role="tab" aria-controls="logins-part" id="upload-part-trigger">
+                <span class="bs-stepper-circle">1</span>
+                <span class="bs-stepper-label">Update file</span>
+            </button>
+        </div>
+        <div class="line"></div>
+        <div class="step" data-target="#validate-part">
+            <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="validate-part-trigger">
+                <span class="bs-stepper-circle">2</span>
+                <span class="bs-stepper-label">Validate file</span>
+            </button>
+        </div>
+        <div class="line"></div>
+        <div class="step" data-target="#start-part">
+            <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="start-part-trigger">
+                <span class="bs-stepper-circle">3</span>
+                <span class="bs-stepper-label">In progress</span>
+            </button>
+        </div>
+    </div>
+    <div class="bs-stepper-content">
+        <div class="alert alert-danger alert-dismissible" id="divAlert1" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fas fa-ban"></i> File doesn't recognized</h5>
+            This procecure allows you to upload only Microsoft Excel files (with extension <i>.xls</i> or <i>.xlsx</i>). Please check your file again.
+            <span id="spanAlert1"></span>
+        </div>
+        <div id="upload-part" class="content" role="tabpanel" aria-labelledby="upload-part-trigger">
+            <div id="dropSection">
+                Drop a file here
+            </div>
+            <br />
+            Uploaded Files:
+            <hr />
+            <div id="uploadedFiles">
+            </div>
+            <input type="button" id="btnUpload" value="Upload" />
+        </div>
+        <div id="validate-part" class="content" role="tabpanel" aria-labelledby="validate-part-trigger">
+            <div class="card">
+                <div class="card-body">
+                    <table id="preview" class="table table-bordered table-hover display"></table>
+                </div>
+                <div class="card-footer">
+                    <button id="btnImport" type="submit" class="btn btn-primary float-right">Accept and import</button>
+                </div>
+            </div>
+        </div>
+        <div id="start-part" class="content" role="tabpanel" aria-labelledby="start-part-trigger">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Import started!</h5>
+                    <p class="card-text">
+                        The Excel file had been uploaded correctly. Now, the background process will import the file.
+                        When it finishes, you will receive a notification.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Header {
+    <link href="~/lib/bs-stepper/dist/css/bs-stepper.css" rel="stylesheet" />
+    <link href="~/lib/datatables.net-bs4/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/lib/datatables.net-responsive-bs4/responsive.bootstrap4.css" rel="stylesheet" />
+    <link href="~/lib/datatables.net-buttons-bs4/buttons.bootstrap4.css" rel="stylesheet" />
+    <link href="~/lib/datatables.net-responsive-bs4/responsive.bootstrap4.css" rel="stylesheet" />
+    <link href="~/css/datatables-fix.css" rel="stylesheet" />
+    <link href="~/css/import.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="~/lib/bs-stepper/dist/js/bs-stepper.js"></script>
+    <script src="~/lib/datatables.net/jquery.dataTables.js"></script>
+    <script src="~/lib/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+    <script src="~/lib/datatables-buttons/js/dataTables.buttons.js"></script>
+    <script src="~/lib/datatables.net-buttons-bs4/buttons.bootstrap4.js"></script>
+    <script src="~/lib/datatables.net-responsive-bs4/responsive.bootstrap4.js"></script>
+    <script src="~/lib/datatables-buttons/js/buttons.colVis.js"></script>
+    <script src="~/lib/datatables.net-responsive/dataTables.responsive.js"></script>
+    <script src="~/js/filedrop.js"></script>
+    <script src="~/js/readExcel.js"></script>
+    <script language="javascript">
+        $(document).ready(function () {
+            $('#divAlert1').hide();
+            var stepper = new Stepper($('.bs-stepper')[0])
+            var files;
+            var nextStep = false;
+
+            $('#btnImport').click(function () {
+                startProcess('@Url.Action("StartProcess")', $('#filename').val());
+                stepper.next();
+            });
+
+            $("#dropSection").filedrop({
+                fallback_id: 'btnUpload',
+                fallback_dropzoneClick: true,
+                url: '@Url.Action("UploadExcel")',
+                allowedfileextensions: ['.xls', '.xlsx', '.png'],
+                paramname: 'postedFiles',
+                maxfiles: 1,
+                maxfilesize: 2,
+                dragOver: function () {
+                    $('#dropSection').addClass('active');
+                },
+                dragLeave: function () {
+                    $('#divAlert1').hide();
+                    $('#dropSection').removeClass('active');
+                },
+                drop: function () {
+                    $('#dropSection').removeClass('active');
+                },
+                uploadFinished: function (i, file, response, time) {
+                    if (response.includes('Success')) {
+                        nextStep = true;
+
+                        files = response.substring(8, response.lengh).split(',');
+                        $('#filename').val(files[0]);
+                        readExcelFile('@Url.Action("Get", "Files")', 'preview', files[0], 5);
+                    }
+                    if (response.includes('Error')) {
+                        $('#spanAlert1').html(response.substring(6));
+                        $('#divAlert1').show();
+                    }
+                },
+                afterAll: function (e) {
+                    if (nextStep) stepper.next();
+                }
+            })
+        })
+    </script>
+}

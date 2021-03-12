@@ -72,6 +72,8 @@
     <ProjectReference Include="..\PSC.Infrastructures\PSC.Infrastructures.csproj" />
     <ProjectReference Include="..\PSC.Providers\PSC.Providers.csproj" />
     <ProjectReference Include="..\PSC.Repositories\PSC.Repositories.csproj" />
+    <ProjectReference Include="..\PSC.Services.AspNetCore\PSC.Services.AspNetCore.csproj" />
+    <ProjectReference Include="..\PSC.Services.Imports\PSC.Services.Imports.csproj" />
     <ProjectReference Include="..\PSC.Services\PSC.Services.csproj" />
   </ItemGroup>
 

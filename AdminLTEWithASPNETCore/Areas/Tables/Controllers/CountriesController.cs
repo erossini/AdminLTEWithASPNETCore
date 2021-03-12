@@ -15,7 +15,7 @@ namespace AdminLTEWithASPNETCore.Areas.Tables.Controllers
             var model = new TableUI() {
                 ApiUrl = "/api/TableCountries",
                 Fields = new FieldUI[] {
-                    new FieldUI() { Label = "ID", Data = "IDCountry" },
+                    new FieldUI() { Label = "ID", Data = "ID" },
                     new FieldUI() { Label = "Country", Data = "Name" }
                 }
             };

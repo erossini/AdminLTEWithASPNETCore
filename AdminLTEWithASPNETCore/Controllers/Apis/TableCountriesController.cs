@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using PSC.Domain.CommonTables;
 using PSC.Extensions;
 using PSC.Repositories;
-using PSC.Services.TableAPIs;
+using PSC.Services.AspNetCore.TableAPIs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,7 @@ namespace AdminLTEWithASPNETCore.Controllers.Apis
         /// <param name="search">The search</param>
         /// <returns>IEnumerable&lt;System.String&gt;.</returns>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IQueryable<Country>))]
         public IActionResult Post([FromForm] string draw, [FromForm] string length, [FromForm] string start, 
             string columnSort, string columnDirectrion, string search)
         {
@@ -46,7 +48,7 @@ namespace AdminLTEWithASPNETCore.Controllers.Apis
             var rtn = service.GetRecords(draw, length, start, columnSort, columnDirectrion,
                 searchValue, Request.Form, customerData, exp);
 
-            return Ok(rtn);
+            return StatusCode(StatusCodes.Status200OK, rtn);
         }
     }
 }

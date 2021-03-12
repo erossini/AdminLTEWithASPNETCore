@@ -1,20 +1,18 @@
+using AdminLTEWithASPNETCore.Code.Processes;
 using AdminLTEWithASPNETCore.Data;
 using AdminLTEWithASPNETCore.Models.Settings;
 using AdminLTEWithASPNETCore.Resources;
 using AdminLTEWithASPNETCore.Services;
 using Hangfire;
-using Hangfire.SqlServer;
 using HangfireBasicAuthenticationFilter;
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,8 +23,9 @@ using Microsoft.OpenApi.Models;
 using PSC.Infrastructures.Hubs;
 using PSC.Providers;
 using PSC.Repositories;
+using PSC.Services.AspNetCore;
+using PSC.Services.Imports;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
@@ -69,6 +68,10 @@ namespace AdminLTEWithASPNETCore
             #region Dependency Injection
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<MessagesProvider>();
+
+            services.AddTransient<ImportExcel>();
+            services.AddTransient<UploadFiles>();
+            services.AddTransient<ImportExcelProcess>();
             #endregion
 
             #region Authentication and IdentityServer4
@@ -269,7 +272,7 @@ namespace AdminLTEWithASPNETCore
             if (env.IsDevelopment())
             {
                 IdentityModelEventSource.ShowPII = true;
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
 
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", StringResources.APITitleV1));
@@ -280,11 +283,14 @@ namespace AdminLTEWithASPNETCore
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseStatusCodePagesWithRedirects("/Home/Error/{0}");
 
             #region Database creation
             // ensure the database is created
             db.Database.EnsureCreated();
+
             dbPSC.Database.EnsureCreated();
+            dbPSC.Database.Migrate();
             #endregion
             #region Configure Hangfire  
             app.UseHangfireServer();

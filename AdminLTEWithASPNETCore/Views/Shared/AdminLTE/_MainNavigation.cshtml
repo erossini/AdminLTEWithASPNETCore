@@ -39,6 +39,23 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item @Url.MakeAreaMenuOpenClass("Import")">
+                    <a id="manage" class="nav-link has-treeview" title="Import">
+                        <i class="nav-icon fas fa-cloud-upload-alt"></i>
+                        <p>Import</p>
+                        <i class="right fas fa-angle-left"></i>
+                    </a>
+                    <ul class="nav nav-treeview" style="display: none;">
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="ExcelImport" asp-action="Index" class="nav-link @Url.MakeActiveClass("ExcelImport", "Index")">
+                                <i class="nav-icon fas fa-file-excel"></i>
+                                <p>
+                                    Excel
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-item @Url.MakeAreaMenuOpenClass("Identity")">
                     <a id="manage" class="nav-link has-treeview" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
                         <i class="nav-icon fas fa-user-circle"></i>

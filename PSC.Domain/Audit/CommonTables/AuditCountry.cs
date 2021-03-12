@@ -20,7 +20,7 @@ namespace PSC.Domain.Audit.CommonTables
         /// Gets or sets the identifier country.
         /// </summary>
         /// <value>The identifier country.</value>
-        public long IDCountry { get; set; }
+        public long ID { get; set; }
         /// <summary>
         /// Gets or sets the name.
         /// </summary>

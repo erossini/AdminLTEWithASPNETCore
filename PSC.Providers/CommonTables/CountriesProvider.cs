@@ -31,7 +31,7 @@ namespace PSC.Providers.CommonTables
         {
             await _db.AddAsync(value);
             await _db.SaveChangesAsync();
-            return value.IDCountry;
+            return value.ID;
         }
 
         public async Task ReplaceAsync(int id, Country value)

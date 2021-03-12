@@ -2,6 +2,7 @@
 using AdminLTEWithASPNETCore.Models;
 using AdminLTEWithASPNETCore.Models.Controllers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
@@ -12,7 +13,6 @@ using System.Threading.Tasks;
 
 namespace AdminLTEWithASPNETCore.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -22,6 +22,7 @@ namespace AdminLTEWithASPNETCore.Controllers
             _logger = logger;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             HomeModel model = new HomeModel();
@@ -143,6 +144,7 @@ namespace AdminLTEWithASPNETCore.Controllers
             return View("Index", model);
         }
 
+        [Authorize]
         [Breadcrumb("Privacy")]
         public IActionResult Privacy()
         {
@@ -150,9 +152,22 @@ namespace AdminLTEWithASPNETCore.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [Route("/Home/Error/{statusCode}")]
+        public IActionResult Error(int statusCode)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (statusCode == 404)
+            {
+                var statusFeature = HttpContext.Features.Get<IStatusCodeReExecuteFeature>();
+                if (statusFeature != null)
+                {
+                    //log.LogWarning("handled 404 for url: {OriginalPath}", statusFeature.OriginalPath);
+                }
+                return View("~/Views/Home/Error404.cshtml", new ErrorViewModel { 
+                    RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier, 
+                    StatusCode = statusCode 
+                });
+            }
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier, StatusCode = statusCode });
         }
     }
 }

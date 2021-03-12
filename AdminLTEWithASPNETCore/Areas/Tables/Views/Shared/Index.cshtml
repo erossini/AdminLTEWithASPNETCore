@@ -15,8 +15,16 @@
                     @foreach (var f in Model.Fields)
                         if (f.Visible)
                         {
-                            <th>@f.Label</th>
+                    <th>@f.Label</th>
                         }
+                    @if (Model.IsEditAllow)
+                    {
+                        <th></th>
+                    }
+                    @if (Model.IsDeleteAllow)
+                    {
+                        <th></th>
+                    }
                 </tr>
             </thead>
         </table>
@@ -36,6 +44,7 @@
     <script src="~/lib/jszip/jszip.js"></script>
     <script src="~/lib/datatables.net/jquery.dataTables.js"></script>
     <script src="~/lib/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+    <script src="~/lib/datatables.net-responsive/dataTables.responsive.js"></script>
     <script src="~/lib/datatables-buttons/js/dataTables.buttons.js"></script>
     <script src="~/lib/datatables.net-buttons-bs4/buttons.bootstrap4.js"></script>
     <script src="~/lib/datatables-buttons/js/buttons.colVis.js"></script>
@@ -43,7 +52,7 @@
     <script src="~/lib/datatables-buttons/js/buttons.print.js"></script>
     <script language="javascript">
         $(document).ready(function () {
-            $('#list').dataTable({
+            var tblList = $('#list').dataTable({
                 "processing": true,
                 "responsive": true,
                 "lengthChange": false,
@@ -58,6 +67,14 @@
                     {
                         @:{ "data": "@item.Data", "name": "@item.Data" },
                     }
+                    @if(Model.IsEditAllow)
+                    {
+                        @:{ data: null, className: "dt-center editor-edit", defaultContent: '<i class="fa fa-edit"/>', orderable: false, width: "25px" },
+                    }
+                    @if(Model.IsDeleteAllow)
+                    {
+                        @:{ data: null, className: "dt-center editor-delete", defaultContent: '<i class="fa fa-trash"/>', orderable: false, width: "25px" },
+                    }
                 ],
                 "columnDefs": [{
                     "targets": [0],
@@ -68,8 +85,31 @@
                     "url": "@Model.ApiUrl",
                     "type": "POST",
                     "datatype": "json"
+                },
+                "initComplete": function (settings, json) {
+                    $('#list tbody').on('click', 'tr', function () {
+                        Edit(this);
+                    });
+
+                    $('#list tbody').on('click', 'tr', function () {
+                        Delete(this);
+                    });
                 }
             });
+
+            // Edit record
+            function Edit(el) {
+                var row = $(el).closest('tr');
+                var id = tblList.row(row).data().id;
+                alert('Edit ' + id);
+            }
+
+            // Delete a record
+            function Delete(el) {
+                var row = $(el).closest('tr');
+                var id = tblList.row(row).data().id;
+                alert('Edit ' + id);
+            }
         });
     </script>
 }
