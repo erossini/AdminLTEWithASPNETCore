@@ -7,15 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PSC.Domain.Audit.CommonTables
+namespace PSC.Domain.Audit
 {
     /// <summary>
-    /// Class AuditCountry.
+    /// Class AuditAzureCostImport.
     /// Implements the <see cref="PSC.Domain.Interfaces.IAudit" />
     /// </summary>
     /// <seealso cref="PSC.Domain.Interfaces.IAudit" />
-    [Table("Audit_tbl_Countries")]
-    public class AuditCountry : IAudit
+    [Table("Audit_AzureCostImports")]
+    public class AuditAzureCostImport : IAudit
     {
         /// <summary>
         /// Gets or sets the audit identifier.
@@ -29,15 +29,15 @@ namespace PSC.Domain.Audit.CommonTables
         /// <value>The identifier country.</value>
         public long ID { get; set; }
         /// <summary>
-        /// Gets or sets the name.
+        /// Gets or sets the name of the file.
         /// </summary>
-        /// <value>The name.</value>
-        public string Name { get; set; }
+        /// <value>The name of the file.</value>
+        public string FileName { get; set; }
         /// <summary>
-        /// Gets or sets the order.
+        /// Gets or sets the period.
         /// </summary>
-        /// <value>The order.</value>
-        public int Order { get; set; } = 0;
+        /// <value>The period.</value>
+        public string Period { get; set; }
 
         public string AuditAction { get; set; }
         public DateTime AuditDate { get; set; }

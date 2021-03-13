@@ -49,17 +49,26 @@
             </summary>
             <value><c>true</c> if [pass arguments]; otherwise, <c>false</c>.</value>
         </member>
-        <member name="T:AdminLTEWithASPNETCore.Code.Processes.ImportExcelProcess">
+        <member name="T:AdminLTEWithASPNETCore.Code.Processes.ImportExcelProcessBase">
             <summary>
             Class ImportExcelProcess.
             </summary>
         </member>
-        <member name="M:AdminLTEWithASPNETCore.Code.Processes.ImportExcelProcess.#ctor(PSC.Services.Imports.ImportExcel,Microsoft.AspNetCore.SignalR.IHubContext{PSC.Infrastructures.Hubs.NotificationHub})">
+        <member name="M:AdminLTEWithASPNETCore.Code.Processes.ImportExcelProcessBase.#ctor(PSC.Services.Imports.ImportExcel,Microsoft.AspNetCore.SignalR.IHubContext{PSC.Infrastructures.Hubs.NotificationHub},Microsoft.Extensions.Logging.ILogger{AdminLTEWithASPNETCore.Code.Processes.ImportExcelProcessBase})">
             <summary>
-            Initializes a new instance of the <see cref="T:AdminLTEWithASPNETCore.Code.Processes.ImportExcelProcess"/> class.
+            Initializes a new instance of the <see cref="T:AdminLTEWithASPNETCore.Code.Processes.ImportExcelProcessBase" /> class.
             </summary>
             <param name="excel">The excel.</param>
             <param name="hubContext">The hub context.</param>
+            <param name="log">The log.</param>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Code.Processes.ImportExcelProcessBase.ReadData(System.String,PSC.Services.Imports.Models.RowDef)">
+            <summary>
+            Reads the data.
+            </summary>
+            <param name="filename">The filename.</param>
+            <param name="rowDef">The row definition.</param>
+            <returns>System.ValueTuple&lt;System.Boolean, List&lt;System.String&gt;, DataGrid&gt;.</returns>
         </member>
         <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.FilesController.Get(System.String)">
             <summary>
@@ -921,6 +930,11 @@
             Gets or sets the events.
             </summary>
             <value>The events.</value>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Models.Imports.FileStructure.AzureReportStructure">
+            <summary>
+            The Azure Report structure (cost report generated from Azure)
+            </summary>
         </member>
         <member name="T:AdminLTEWithASPNETCore.Models.Settings.IdentityServerSettings">
             <summary>

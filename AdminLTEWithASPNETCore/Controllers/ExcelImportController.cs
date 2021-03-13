@@ -22,11 +22,11 @@ namespace AdminLTEWithASPNETCore.Controllers
     {
         private readonly IWebHostEnvironment _environment;
         private readonly ImportExcel _excel;
-        private readonly ImportExcelProcess _process;
+        private readonly ImportAzureProcess _process;
         private readonly UploadFiles _upload;
 
-        public ExcelImportController(IWebHostEnvironment environment, ImportExcel excel, 
-            ImportExcelProcess process, UploadFiles upload)
+        public ExcelImportController(IWebHostEnvironment environment, ImportExcel excel,
+            ImportAzureProcess process, UploadFiles upload)
         {
             _environment = environment;
             _excel = excel;
@@ -51,7 +51,7 @@ namespace AdminLTEWithASPNETCore.Controllers
                 DataGrid g = _excel.ReadToGrid(response.Files.FirstOrDefault());
                 if (g.Success)
                 {
-                    var (IsValid, errors) = _excel.ValidateHeader(g, FileStructure.TestStructure);
+                    var (IsValid, errors) = _excel.ValidateHeader(g, FileStructure.AzureReportStructure);
                     if (IsValid)
                         return Content("Success:" + string.Join(',', response.Files));
                     else

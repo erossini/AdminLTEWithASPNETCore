@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using PSC.Domain;
 using PSC.Domain.Audit;
+using PSC.Domain.Audit.CommonTables;
+using PSC.Domain.CommonTables;
 using PSC.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -24,6 +26,14 @@ namespace PSC.Repositories
             #region Use this when you have another table for audit
             Audit.Core.Configuration.Setup()
                 .UseEntityFramework(ef => ef.AuditTypeExplicitMapper(m => m
+                    .Map<AzureCost, AuditAzureCost>()
+                    .Map<AzureCostImport, AuditAzureCostImport>()
+                    .Map<AzureCostImportLog, AuditAzureCostImportLog>()
+                    .Map<AzureCategory, AuditAzureCategory>()
+                    .Map<AzureLocation, AuditAzureLocation>()
+                    .Map<AzureResource, AuditAzureResource>()
+                    .Map<AzureResourceGroup, AuditAzureResourceGroup>()
+                    .Map<AzureSubcategory, AuditAzureSubcategory>() 
                     .Map<Message, AuditMessage>()
                     .AuditEntityAction<IAudit>((evt, entry, auditEntity) =>
                     {

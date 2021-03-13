@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace PSC.Providers.CommonTables
 {
     /// <summary>
-    /// Class CountriesProvider.
+    /// Class AzureCategoryProvider.
     /// </summary>
-    public class CountriesProvider
+    public class AzureCategoryProvider
     {
         /// <summary>
         /// The database
@@ -19,31 +19,51 @@ namespace PSC.Providers.CommonTables
         private PSCContext _db;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CountriesProvider"/> class.
+        /// Initializes a new instance of the <see cref="AzureCategoryProvider"/> class.
         /// </summary>
         /// <param name="dbContext">The database context.</param>
-        public CountriesProvider(PSCContext dbContext)
+        public AzureCategoryProvider(PSCContext dbContext)
         {
             _db = dbContext;
+        }
+
+        public async Task<AzureCategory> CreateIfNotExist(string name)
+        {
+            long id = GetIdByNameAsync(name);
+
+            if (id == 0)
+                id = await InsertAsync(new AzureCategory() { Name = name });
+
+            return await GetAsync(id);
         }
 
         /// <summary>
         /// Gets the values.
         /// </summary>
-        /// <returns>IEnumerable&lt;Country&gt;.</returns>
-        public IEnumerable<Country> GetValues()
+        /// <returns>IEnumerable&lt;AzureCategory&gt;.</returns>
+            public IEnumerable<AzureCategory> GetValues()
         {
-            return _db.Countries;
+            return _db.AzureCategories;
         }
 
         /// <summary>
         /// get as an asynchronous operation.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns>A Task&lt;Country&gt; representing the asynchronous operation.</returns>
-        public async Task<Country> GetAsync(long id)
+        /// <returns>A Task&lt;AzureCategory&gt; representing the asynchronous operation.</returns>
+        public async Task<AzureCategory> GetAsync(long id)
         {
-            return await _db.Countries.FindAsync(id);
+            return await _db.AzureCategories.FindAsync(id);
+        }
+
+        /// <summary>
+        /// Gets the identifier by name asynchronous.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>System.Int64.</returns>
+        public long GetIdByNameAsync(string name)
+        {
+            return _db.AzureCategories.Where(r => r.Name.ToLower() == name.ToLower())?.FirstOrDefault()?.ID ?? 0;
         }
 
         /// <summary>
@@ -51,7 +71,7 @@ namespace PSC.Providers.CommonTables
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A Task&lt;System.Int64&gt; representing the asynchronous operation.</returns>
-        public async Task<long> InsertAsync(Country value)
+        public async Task<long> InsertAsync(AzureCategory value)
         {
             await _db.AddAsync(value);
             await _db.SaveChangesAsync();
@@ -64,7 +84,7 @@ namespace PSC.Providers.CommonTables
         /// <param name="id">The identifier.</param>
         /// <param name="value">The value.</param>
         /// <returns>A Task representing the asynchronous operation.</returns>
-        public async Task ReplaceAsync(int id, Country value)
+        public async Task ReplaceAsync(int id, AzureCategory value)
         {
             _db.Update(value);
             await _db.SaveChangesAsync();
@@ -77,7 +97,7 @@ namespace PSC.Providers.CommonTables
         /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
         public async Task<bool> DeleteAsync(long id)
         {
-            var entity = await _db.Countries.FindAsync(id);
+            var entity = await _db.AzureCategories.FindAsync(id);
             if (entity != null)
             {
                 _db.Remove(entity);

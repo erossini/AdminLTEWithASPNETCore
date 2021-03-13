@@ -10,7 +10,7 @@ using PSC.Repositories;
 namespace PSC.Repositories.Migrations
 {
     [DbContext(typeof(PSCContext))]
-    [Migration("20210313174224_InitialMigration")]
+    [Migration("20210313225411_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,119 @@ namespace PSC.Repositories.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("PSC.Domain.Audit.AuditAzureCost", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AuditAction")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("AuditDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("CategoryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("Cost")
+                        .HasPrecision(24, 20)
+                        .HasColumnType("decimal(24,20)");
+
+                    b.Property<long>("ID")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("LocationId")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("Quantity")
+                        .HasPrecision(24, 20)
+                        .HasColumnType("decimal(24,20)");
+
+                    b.Property<long>("ResourceGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ResourceId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("SubcategoryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AuditId");
+
+                    b.ToTable("Audit_AzureCosts");
+                });
+
+            modelBuilder.Entity("PSC.Domain.Audit.AuditAzureCostImport", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AuditAction")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("AuditDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("ID")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Period")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AuditId");
+
+                    b.ToTable("Audit_AzureCostImports");
+                });
+
+            modelBuilder.Entity("PSC.Domain.Audit.AuditAzureCostImportLog", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AuditAction")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("AuditDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("AzureCostImportId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ID")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("LogData")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("LogType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AuditId");
+
+                    b.ToTable("Audit_AzureCostImportLogs");
+                });
 
             modelBuilder.Entity("PSC.Domain.Audit.AuditMessage", b =>
                 {
@@ -69,7 +182,142 @@ namespace PSC.Repositories.Migrations
 
                     b.HasKey("AuditId");
 
-                    b.ToTable("Audit_Messages");
+                    b.ToTable("AuditMessages");
+                });
+
+            modelBuilder.Entity("PSC.Domain.Audit.CommonTables.AuditAzureCategory", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AuditAction")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("AuditDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("ID")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AuditId");
+
+                    b.ToTable("Audit_tbl_AzureCategories");
+                });
+
+            modelBuilder.Entity("PSC.Domain.Audit.CommonTables.AuditAzureLocation", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AuditAction")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("AuditDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("ID")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AuditId");
+
+                    b.ToTable("Audit_tbl_AzureLocations");
+                });
+
+            modelBuilder.Entity("PSC.Domain.Audit.CommonTables.AuditAzureResource", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AuditAction")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("AuditDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("ID")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AuditId");
+
+                    b.ToTable("Audit_tbl_AzureResources");
+                });
+
+            modelBuilder.Entity("PSC.Domain.Audit.CommonTables.AuditAzureResourceGroup", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AuditAction")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("AuditDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("ID")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AuditId");
+
+                    b.ToTable("Audit_tbl_AzureResourceGroups");
+                });
+
+            modelBuilder.Entity("PSC.Domain.Audit.CommonTables.AuditAzureSubcategory", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AuditAction")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("AuditDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("ID")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AuditId");
+
+                    b.ToTable("Audit_tbl_AzureSubcategories");
                 });
 
             modelBuilder.Entity("PSC.Domain.Audit.CommonTables.AuditCountry", b =>
@@ -100,6 +348,175 @@ namespace PSC.Repositories.Migrations
                     b.HasKey("AuditId");
 
                     b.ToTable("Audit_tbl_Countries");
+                });
+
+            modelBuilder.Entity("PSC.Domain.AzureCost", b =>
+                {
+                    b.Property<long>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("AzureCostImportId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("CategoryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("Cost")
+                        .HasPrecision(24, 20)
+                        .HasColumnType("decimal(24,20)");
+
+                    b.Property<long>("LocationId")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("Quantity")
+                        .HasPrecision(24, 20)
+                        .HasColumnType("decimal(24,20)");
+
+                    b.Property<long>("ResourceGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ResourceId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("SubcategoryId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AzureCostImportId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("LocationId");
+
+                    b.HasIndex("ResourceGroupId");
+
+                    b.HasIndex("ResourceId");
+
+                    b.HasIndex("SubcategoryId");
+
+                    b.ToTable("AzureCosts");
+                });
+
+            modelBuilder.Entity("PSC.Domain.AzureCostImport", b =>
+                {
+                    b.Property<long>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Period")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("AzureCostImports");
+                });
+
+            modelBuilder.Entity("PSC.Domain.AzureCostImportLog", b =>
+                {
+                    b.Property<long>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("AzureCostImportId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("LogData")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("LogType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AzureCostImportId");
+
+                    b.ToTable("AzureCostImportLogs");
+                });
+
+            modelBuilder.Entity("PSC.Domain.CommonTables.AzureCategory", b =>
+                {
+                    b.Property<long>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("tbl_AzureCategories");
+                });
+
+            modelBuilder.Entity("PSC.Domain.CommonTables.AzureLocation", b =>
+                {
+                    b.Property<long>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("tbl_AzureLocations");
+                });
+
+            modelBuilder.Entity("PSC.Domain.CommonTables.AzureResource", b =>
+                {
+                    b.Property<long>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("tbl_AzureResources");
+                });
+
+            modelBuilder.Entity("PSC.Domain.CommonTables.AzureResourceGroup", b =>
+                {
+                    b.Property<long>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("tbl_AzureResourceGroups");
+                });
+
+            modelBuilder.Entity("PSC.Domain.CommonTables.AzureSubcategory", b =>
+                {
+                    b.Property<long>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("tbl_AzureSubcategories");
                 });
 
             modelBuilder.Entity("PSC.Domain.CommonTables.Country", b =>
@@ -1335,6 +1752,66 @@ namespace PSC.Repositories.Migrations
                     b.HasKey("IdMessage");
 
                     b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("PSC.Domain.AzureCost", b =>
+                {
+                    b.HasOne("PSC.Domain.AzureCostImport", "AzureCostImport")
+                        .WithMany()
+                        .HasForeignKey("AzureCostImportId");
+
+                    b.HasOne("PSC.Domain.CommonTables.AzureCategory", "AzureCategory")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PSC.Domain.CommonTables.AzureLocation", "AzureLocation")
+                        .WithMany()
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PSC.Domain.CommonTables.AzureResourceGroup", "AzureResourceGroup")
+                        .WithMany()
+                        .HasForeignKey("ResourceGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PSC.Domain.CommonTables.AzureResource", "AzureResource")
+                        .WithMany()
+                        .HasForeignKey("ResourceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PSC.Domain.CommonTables.AzureSubcategory", "AzureSubcategory")
+                        .WithMany()
+                        .HasForeignKey("SubcategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AzureCategory");
+
+                    b.Navigation("AzureCostImport");
+
+                    b.Navigation("AzureLocation");
+
+                    b.Navigation("AzureResource");
+
+                    b.Navigation("AzureResourceGroup");
+
+                    b.Navigation("AzureSubcategory");
+                });
+
+            modelBuilder.Entity("PSC.Domain.AzureCostImportLog", b =>
+                {
+                    b.HasOne("PSC.Domain.AzureCostImport", "AzureCostImport")
+                        .WithMany()
+                        .HasForeignKey("AzureCostImportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AzureCostImport");
                 });
 #pragma warning restore 612, 618
         }

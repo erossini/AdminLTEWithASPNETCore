@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -49,6 +48,7 @@ namespace AdminLTEWithASPNETCore
         {
             services.AddControllersWithViews().AddJsonOptions(opts => opts.JsonSerializerOptions.PropertyNamingPolicy = null);
             services.AddRazorPages();
+            services.AddLogging();
 
             #region Settings
             services.Configure<SmtpCredentialsSettings>(Configuration.GetSection("SmtpCredentials"));
@@ -57,7 +57,6 @@ namespace AdminLTEWithASPNETCore
             services.Configure<IdentityServerSettings>(Configuration.GetSection("IdentityAuthentication"));
             services.AddScoped(cfg => cfg.GetService<IOptions<IdentityServerSettings>>().Value);
             #endregion
-
             #region Setting Db
             services.AddDbContext<ApplicationDbContext>(_ => _.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContextConnection")));
 
@@ -65,16 +64,17 @@ namespace AdminLTEWithASPNETCore
             services.AddDbContext<PSCContext>(_ => _.UseSqlServer(cnnString));
             services.ConfigureAudit(cnnString);
             #endregion
-
             #region Dependency Injection
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<MessagesProvider>();
 
             services.AddTransient<ImportExcel>();
             services.AddTransient<UploadFiles>();
-            services.AddTransient<ImportExcelProcess>();
-            #endregion
+            services.AddTransient<ImportExcelProcessBase>();
+            services.AddTransient<ImportAzureProcess>();
 
+            services.AddTransient<DataProviders>();
+            #endregion
             #region Authentication and IdentityServer4
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
@@ -225,14 +225,12 @@ namespace AdminLTEWithASPNETCore
                 }
             }
             #endregion
-
             #region Hangfire.io
             #region Configure Hangfire  
             services.AddHangfire(c => c.UseSqlServerStorage(cnnString));
             GlobalConfiguration.Configuration.UseSqlServerStorage(cnnString).WithJobExpirationTimeout(TimeSpan.FromDays(7));
             #endregion
             #endregion
-
             #region SignarR
             services.AddSignalR(hubOptions =>
             {

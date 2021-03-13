@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 namespace PSC.Domain.Audit.CommonTables
 {
     /// <summary>
-    /// Class AuditCountry.
+    /// Class AuditAzureSubcategory.
     /// Implements the <see cref="PSC.Domain.Interfaces.IAudit" />
     /// </summary>
     /// <seealso cref="PSC.Domain.Interfaces.IAudit" />
-    [Table("Audit_tbl_Countries")]
-    public class AuditCountry : IAudit
+    [Table("Audit_tbl_AzureSubcategories")]
+    public class AuditAzureSubcategory : IAudit
     {
         /// <summary>
         /// Gets or sets the audit identifier.
@@ -33,11 +33,6 @@ namespace PSC.Domain.Audit.CommonTables
         /// </summary>
         /// <value>The name.</value>
         public string Name { get; set; }
-        /// <summary>
-        /// Gets or sets the order.
-        /// </summary>
-        /// <value>The order.</value>
-        public int Order { get; set; } = 0;
 
         public string AuditAction { get; set; }
         public DateTime AuditDate { get; set; }
