@@ -40,7 +40,7 @@ If you have any question, please use the [PureSourceCode Forum](https://www.pure
 ## Screenshots
 The result of the main application is this one:
 
-![Integrating AdminLTE with ASP.NET Core 3.1](https://www.puresourcecode.com/wp-content/uploads/2021/02/adminlte-aspnet-core-integration-2.png)
+![AdminLTE integration with ASP.NET Core 5](https://www.puresourcecode.com/wp-content/uploads/2021/02/adminlte-aspnet-core-integration-3.png)
 
 ## Login
 
@@ -80,8 +80,6 @@ There are new ASP.NET Core [ViewComponents](https://www.puresourcecode.com/dotne
     - Pie
 - Card (simple)
 - Timeline
-
-![AdminLTE integration with ASP.NET Core 5 - Creation of new view components](https://www.puresourcecode.com/wp-content/uploads/2021/02/adminlte-aspnet-core-integration-3.png)
 
 ## Integration with IdentityServer4
 In the project you find an integration with `IdentityServer4`. To enable the authentication with `IdentityServer`, you have to change the `appsettings.json` under **Authentication** and modify **UseIdentityServer** to `true`.
