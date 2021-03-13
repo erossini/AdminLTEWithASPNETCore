@@ -79,6 +79,7 @@ There are new ASP.NET Core [ViewComponents](https://www.puresourcecode.com/dotne
     - Line
     - Pie
 - Card (simple)
+- Timeline
 
 ![AdminLTE integration with ASP.NET Core 5 - Creation of new view components](https://www.puresourcecode.com/wp-content/uploads/2021/02/adminlte-aspnet-core-integration-3.png)
 
