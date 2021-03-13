@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -288,9 +289,9 @@ namespace AdminLTEWithASPNETCore
             #region Database creation
             // ensure the database is created
             db.Database.EnsureCreated();
-
             dbPSC.Database.EnsureCreated();
-            dbPSC.Database.Migrate();
+            if (dbPSC.Database.GetPendingMigrations().Count() > 0)
+                dbPSC.Database.Migrate();
             #endregion
             #region Configure Hangfire  
             app.UseHangfireServer();

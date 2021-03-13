@@ -8,24 +8,6 @@ namespace PSC.Repositories.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Audit_Countries",
-                columns: table => new
-                {
-                    AuditId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ID = table.Column<long>(type: "bigint", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Order = table.Column<int>(type: "int", nullable: false),
-                    AuditAction = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AuditDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Audit_Countries", x => x.AuditId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Audit_Messages",
                 columns: table => new
                 {
@@ -48,6 +30,24 @@ namespace PSC.Repositories.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Audit_Messages", x => x.AuditId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Audit_tbl_Countries",
+                columns: table => new
+                {
+                    AuditId = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ID = table.Column<long>(type: "bigint", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Order = table.Column<int>(type: "int", nullable: false),
+                    AuditAction = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AuditDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Audit_tbl_Countries", x => x.AuditId);
                 });
 
             migrationBuilder.CreateTable(
@@ -320,10 +320,10 @@ namespace PSC.Repositories.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Audit_Countries");
+                name: "Audit_Messages");
 
             migrationBuilder.DropTable(
-                name: "Audit_Messages");
+                name: "Audit_tbl_Countries");
 
             migrationBuilder.DropTable(
                 name: "Messages");

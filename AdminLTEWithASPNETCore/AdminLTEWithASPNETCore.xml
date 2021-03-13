@@ -119,6 +119,46 @@
             <param name="search">The search</param>
             <returns>IEnumerable&lt;System.String&gt;.</returns>
         </member>
+        <member name="T:AdminLTEWithASPNETCore.Enums.ButtonType">
+            <summary>
+            Enum TimelineButtonType
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.ButtonType.Default">
+            <summary>
+            The default
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.ButtonType.Danger">
+            <summary>
+            The danger
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.ButtonType.Info">
+            <summary>
+            The information
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.ButtonType.Primary">
+            <summary>
+            The primary
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.ButtonType.Secondary">
+            <summary>
+            The secondary
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.ButtonType.Success">
+            <summary>
+            The success
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.ButtonType.Warning">
+            <summary>
+            The warning
+            </summary>
+        </member>
         <member name="T:AdminLTEWithASPNETCore.Enums.Components.PositionType">
             <summary>
             Enum PositionType
@@ -167,6 +207,71 @@
         <member name="F:AdminLTEWithASPNETCore.Enums.Components.ShadowType.Large">
             <summary>
             The large
+            </summary>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Enums.Components.Timeline.TimelineEventType">
+            <summary>
+            Enum TimelineEventType
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.Components.Timeline.TimelineEventType.Other">
+            <summary>
+            The other
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.Components.Timeline.TimelineEventType.Highlight">
+            <summary>
+            The highlight
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.Components.Timeline.TimelineEventType.Important">
+            <summary>
+            The important
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.Components.Timeline.TimelineEventType.Information">
+            <summary>
+            The information
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.Components.Timeline.TimelineEventType.Successful">
+            <summary>
+            The successful
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.Components.Timeline.TimelineEventType.UndefinedStatus">
+            <summary>
+            The waiting
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.Components.Timeline.TimelineEventType.Warning">
+            <summary>
+            The warning
+            </summary>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Enums.Components.Timeline.TimelineItemIcon">
+            <summary>
+            Enum TimelineItemIcon
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.Components.Timeline.TimelineItemIcon.Comment">
+            <summary>
+            The comment
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.Components.Timeline.TimelineItemIcon.Letter">
+            <summary>
+            The letter
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.Components.Timeline.TimelineItemIcon.UserActivity">
+            <summary>
+            The user activity
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.Components.Timeline.TimelineItemIcon.Wait">
+            <summary>
+            The wait
             </summary>
         </member>
         <member name="T:AdminLTEWithASPNETCore.Extensions.ClaimExtensions">
@@ -664,6 +769,159 @@
             </summary>
             <value>The text.</value>
         </member>
+        <member name="T:AdminLTEWithASPNETCore.Models.Components.Timeline.TimelineButton">
+            <summary>
+            Class TimelineButton.
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Timeline.TimelineButton.Text">
+            <summary>
+            Gets or sets the text.
+            </summary>
+            <value>The text.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Timeline.TimelineButton.ButtonType">
+            <summary>
+            Gets or sets the type of the button.
+            </summary>
+            <value>The type of the button.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Timeline.TimelineButton.UrlTarget">
+            <summary>Gets or sets the URL target.</summary>
+            <value>The URL target (_self is default)</value>
+            <remarks>
+              <list type="table">
+                <item>
+                  <description>
+                    <strong>Value</strong>
+                  </description>
+                  <description>
+                    <strong>Description</strong>
+                  </description>
+                </item>
+                <item>
+                  <description>_blank<br /></description>
+                  <description>Opens the linked document in a new window or tab</description>
+                </item>
+                <item>
+                  <description>_self </description>
+                  <description>Opens the linked document in the same frame as it was clicked (this is default)</description>
+                </item>
+                <item>
+                  <description>_parent</description>
+                  <description>Opens the linked document in the parent frame</description>
+                </item>
+                <item>
+                  <description>_top</description>
+                  <description>Opens the linked document in the full body of the window</description>
+                </item>
+                <item>
+                  <description>framename </description>
+                  <description>Opens the linked document in the named iframe</description>
+                </item>
+              </list>
+            </remarks>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Timeline.TimelineButton.Url">
+            <summary>
+            Gets or sets the URL.
+            </summary>
+            <value>The URL.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Timeline.TimelineButton.ButtonTypeText">
+            <summary>
+            Gets the button type text.
+            </summary>
+            <value>The button type text.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Timeline.TimelineEvent.EventDate">
+            <summary>
+            Gets or sets the event date.
+            </summary>
+            <value>The event date.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Timeline.TimelineEvent.EventType">
+            <summary>
+            Gets or sets the type of the event.
+            </summary>
+            <value>The type of the event.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Timeline.TimelineEvent.Items">
+            <summary>
+            Gets or sets the items.
+            </summary>
+            <value>The items.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Timeline.TimelineEvent.EventTypeText">
+            <summary>
+            Gets the event type CSS.
+            </summary>
+            <value>The event type CSS.</value>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Models.Components.Timeline.TimelineItem">
+            <summary>
+            Class TimelineItem.
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Timeline.TimelineItem.Body">
+            <summary>
+            Gets or sets the body.
+            </summary>
+            <value>The body.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Timeline.TimelineItem.Footer">
+            <summary>
+            Gets or sets the footer.
+            </summary>
+            <value>The footer.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Timeline.TimelineItem.HeaderText">
+            <summary>
+            Gets or sets the header text.
+            </summary>
+            <value>The header text.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Timeline.TimelineItem.ItemIcon">
+            <summary>
+            Gets or sets the item icon.
+            </summary>
+            <value>The item icon.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Timeline.TimelineItem.ItemType">
+            <summary>
+            Gets or sets the type of the item.
+            </summary>
+            <value>The type of the item.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Timeline.TimelineItem.Time">
+            <summary>
+            Gets or sets the time.
+            </summary>
+            <value>The time.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Timeline.TimelineItem.ItemIconText">
+            <summary>
+            Gets the item icon text.
+            </summary>
+            <value>The item icon text.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Timeline.TimelineItem.ItemTypeText">
+            <summary>
+            Gets the item type text.
+            </summary>
+            <value>The item type text.</value>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Models.Components.Timeline.TimelineModel">
+            <summary>
+            Class TimelineModel.
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Components.Timeline.TimelineModel.Events">
+            <summary>
+            Gets or sets the events.
+            </summary>
+            <value>The events.</value>
+        </member>
         <member name="T:AdminLTEWithASPNETCore.Models.Settings.IdentityServerSettings">
             <summary>
             Class IdentityServerSettings.
@@ -979,6 +1237,19 @@
             <param name="cssBackground">The CSS background.</param>
             <param name="fontawesomeIcon">The fontawesome icon to display</param>
             <param name="shadow">The shadow type for the box</param>
+            <returns>A Task&lt;IViewComponentResult&gt; representing the asynchronous operation.</returns>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Views.Shared.Components.Timeline.TimelineViewComponent">
+            <summary>
+            Class TimelineViewComponent.
+            Implements the <see cref="T:Microsoft.AspNetCore.Mvc.ViewComponent" />
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ViewComponent" />
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Views.Shared.Components.Timeline.TimelineViewComponent.InvokeAsync(AdminLTEWithASPNETCore.Models.Components.Timeline.TimelineModel)">
+            <summary>
+            invoke as an asynchronous operation.
+            </summary>
             <returns>A Task&lt;IViewComponentResult&gt; representing the asynchronous operation.</returns>
         </member>
     </members>

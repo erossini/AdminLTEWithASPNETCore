@@ -10,7 +10,7 @@ using PSC.Repositories;
 namespace PSC.Repositories.Migrations
 {
     [DbContext(typeof(PSCContext))]
-    [Migration("20210312105802_InitialMigration")]
+    [Migration("20210313174224_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,7 +18,7 @@ namespace PSC.Repositories.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.3")
+                .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("PSC.Domain.Audit.AuditMessage", b =>
@@ -99,7 +99,7 @@ namespace PSC.Repositories.Migrations
 
                     b.HasKey("AuditId");
 
-                    b.ToTable("Audit_Countries");
+                    b.ToTable("Audit_tbl_Countries");
                 });
 
             modelBuilder.Entity("PSC.Domain.CommonTables.Country", b =>

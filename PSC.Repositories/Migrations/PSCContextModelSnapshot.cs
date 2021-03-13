@@ -16,7 +16,7 @@ namespace PSC.Repositories.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.3")
+                .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("PSC.Domain.Audit.AuditMessage", b =>
@@ -97,7 +97,7 @@ namespace PSC.Repositories.Migrations
 
                     b.HasKey("AuditId");
 
-                    b.ToTable("Audit_Countries");
+                    b.ToTable("Audit_tbl_Countries");
                 });
 
             modelBuilder.Entity("PSC.Domain.CommonTables.Country", b =>

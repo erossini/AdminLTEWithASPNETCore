@@ -15,7 +15,7 @@
                     @foreach (var f in Model.Fields)
                         if (f.Visible)
                         {
-                    <th>@f.Label</th>
+                            <th>@f.Label</th>
                         }
                     @if (Model.IsEditAllow)
                     {
@@ -51,8 +51,9 @@
     <script src="~/lib/datatables-buttons/js/buttons.html5.js"></script>
     <script src="~/lib/datatables-buttons/js/buttons.print.js"></script>
     <script language="javascript">
+        var tblList;
         $(document).ready(function () {
-            var tblList = $('#list').dataTable({
+            tblList = $('#list').dataTable({
                 "processing": true,
                 "responsive": true,
                 "lengthChange": false,
@@ -87,11 +88,11 @@
                     "datatype": "json"
                 },
                 "initComplete": function (settings, json) {
-                    $('#list tbody').on('click', 'tr', function () {
+                    $('#list tbody').on('click', '.editor-edit', function (e) {
                         Edit(this);
                     });
 
-                    $('#list tbody').on('click', 'tr', function () {
+                    $('#list tbody').on('click', '.editor-delete', function (e) {
                         Delete(this);
                     });
                 }
@@ -99,16 +100,16 @@
 
             // Edit record
             function Edit(el) {
-                var row = $(el).closest('tr');
-                var id = tblList.row(row).data().id;
+                var table = $('#list').DataTable();
+                var id = table.row(el).data().ID;
                 alert('Edit ' + id);
             }
 
             // Delete a record
             function Delete(el) {
-                var row = $(el).closest('tr');
-                var id = tblList.row(row).data().id;
-                alert('Edit ' + id);
+                var table = $('#list').DataTable();
+                var id = table.row(el).data().ID;
+                alert('Delete ' + id);
             }
         });
     </script>
