@@ -25,7 +25,15 @@ In this project template you have already:
 - Integration with Hangfire.io for background processes
 - Integration with SignalR
 - Add `Tables` area for common tables such as **Countries**
-- Create API for the DataTables
+- Create API for the [DataTables](https://www.datatables.net/)
+- Integration with DataTables
+    - View template to display data
+    - Flexible model to manage the Datatables in the UI
+- Import Microsoft Excel files
+    - Import a file from the UI
+    - Validation of the structure of the file
+    - Start a background process with Hangfire.io to import the Excel file
+    - Save in the database and create common tables
 
 If you have any question, please use the [PureSourceCode Forum](https://www.puresourcecode.com/forum/).
 
