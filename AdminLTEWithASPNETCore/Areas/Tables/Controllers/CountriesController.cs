@@ -1,4 +1,5 @@
-﻿using AdminLTEWithASPNETCore.Models.UI.CommonTables;
+﻿using AdminLTEWithASPNETCore.Attributes;
+using AdminLTEWithASPNETCore.Models.UI.CommonTables;
 using Microsoft.AspNetCore.Mvc;
 using PSC.Domain.CommonTables;
 using PSC.Providers;
@@ -19,13 +20,16 @@ namespace AdminLTEWithASPNETCore.Areas.Tables.Controllers
             this._providers = dataProviders;
         }
 
+        [Breadcrumb("Tables")]
+        [Breadcrumb("Countries")]
         public IActionResult Index()
         {
             var model = new TableUI() {
                 ApiUrl = "/api/TableCountries/Search",
                 Fields = new FieldUI[] {
                     new FieldUI() { Label = "ID", Data = "ID" },
-                    new FieldUI() { Label = "Country", Data = "Name" }
+                    new FieldUI() { Label = "Country", Data = "Name" },
+                    new FieldUI() { Label = "Order", Data = "Order"}
                 },
                 EditUrl = "/Tables/Countries/Edit"
             };
@@ -35,6 +39,9 @@ namespace AdminLTEWithASPNETCore.Areas.Tables.Controllers
             return View("~/Areas/Tables/Views/Shared/Index.cshtml", model);
         }
 
+        [Breadcrumb("Tables")]
+        [Breadcrumb("Countries", "Countries", "Index")]
+        [Breadcrumb("Create")]
         public IActionResult Create()
         {
             return View();
@@ -42,7 +49,7 @@ namespace AdminLTEWithASPNETCore.Areas.Tables.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Order")]Country model)
+        public async Task<IActionResult> Create(Country model)
         {
             if (ModelState.IsValid)
             {
@@ -53,11 +60,25 @@ namespace AdminLTEWithASPNETCore.Areas.Tables.Controllers
             return View(model);
         }
 
-        [HttpGet]
+        [Breadcrumb("Tables")]
+        [Breadcrumb("Countries", "Countries", "Index")]
+        [Breadcrumb("Edit")]
         public async Task<IActionResult> Edit(long id)
         {
             var record = await _providers.Countries.GetAsync(id);
             return View(record);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Country model)
+        {
+            if (ModelState.IsValid)
+            {
+                await _providers.Countries.ReplaceAsync(model.ID, model);
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(model);
         }
     }
 }

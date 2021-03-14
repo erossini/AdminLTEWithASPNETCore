@@ -34,6 +34,7 @@ namespace PSC.Repositories
                     .Map<AzureResource, AuditAzureResource>()
                     .Map<AzureResourceGroup, AuditAzureResourceGroup>()
                     .Map<AzureSubcategory, AuditAzureSubcategory>() 
+                    .Map<Country, AuditCountry>()
                     .Map<Message, AuditMessage>()
                     .AuditEntityAction<IAudit>((evt, entry, auditEntity) =>
                     {

@@ -1,4 +1,5 @@
-﻿using AdminLTEWithASPNETCore.Controllers.Apis;
+﻿using AdminLTEWithASPNETCore.Attributes;
+using AdminLTEWithASPNETCore.Controllers.Apis;
 using AdminLTEWithASPNETCore.Models.UI.CommonTables;
 using Microsoft.AspNetCore.Mvc;
 using Ploeh.Hyprlinkr;
@@ -12,6 +13,8 @@ namespace AdminLTEWithASPNETCore.Areas.Tables.Controllers
     [Area("Tables")]
     public class AzureCategoryController : Controller
     {
+        [Breadcrumb("Tables")]
+        [Breadcrumb("Azure Countries")]
         public IActionResult Index()
         {
             var model = new TableUI()

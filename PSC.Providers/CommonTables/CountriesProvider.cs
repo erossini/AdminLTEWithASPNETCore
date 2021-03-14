@@ -64,7 +64,7 @@ namespace PSC.Providers.CommonTables
         /// <param name="id">The identifier.</param>
         /// <param name="value">The value.</param>
         /// <returns>A Task representing the asynchronous operation.</returns>
-        public async Task ReplaceAsync(int id, Country value)
+        public async Task ReplaceAsync(long id, Country value)
         {
             _db.Update(value);
             await _db.SaveChangesAsync();
