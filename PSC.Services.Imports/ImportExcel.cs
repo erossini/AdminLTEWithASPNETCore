@@ -3,6 +3,7 @@ using DocumentFormat.OpenXml.Spreadsheet;
 using PSC.Services.Imports.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,6 +45,9 @@ namespace PSC.Services.Imports
         /// <returns>DataGrid.</returns>
         public DataGrid ReadToGrid(string filePath)
         {
+            if (!File.Exists(filePath))
+                return null;
+
             var grid = new DataGrid();
             grid.Success = true;
 

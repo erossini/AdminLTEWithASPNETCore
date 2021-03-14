@@ -17,6 +17,10 @@
                         {
                             <th>@f.Label</th>
                         }
+                    @if (Model.IsViewAllow)
+                    {
+                        <th></th>
+                    }
                     @if (Model.IsEditAllow)
                     {
                         <th></th>
@@ -68,6 +72,10 @@
                     {
                         @:{ "data": "@item.Data", "name": "@item.Data" },
                     }
+                    @if(Model.IsViewAllow)
+                    {
+                        @:{ data: null, className: "dt-center editor-view", defaultContent: '<i class="fa fa-search"/>', orderable: false, width: "25px" },
+                    }
                     @if(Model.IsEditAllow)
                     {
                         @:{ data: null, className: "dt-center editor-edit", defaultContent: '<i class="fa fa-edit"/>', orderable: false, width: "25px" },
@@ -95,6 +103,10 @@
                     $('#list tbody').on('click', '.editor-delete', function (e) {
                         Delete(this);
                     });
+
+                    $('#list tbody').on('click', '.editor-view', function (e) {
+                        View(this);
+                    });
                 }
             });
 
@@ -102,7 +114,7 @@
             function Edit(el) {
                 var table = $('#list').DataTable();
                 var id = table.row(el).data().ID;
-                alert('Edit ' + id);
+                window.location.href = '@Model.EditUrl?id=' + id; 
             }
 
             // Delete a record
@@ -110,6 +122,13 @@
                 var table = $('#list').DataTable();
                 var id = table.row(el).data().ID;
                 alert('Delete ' + id);
+            }
+
+            // View a record
+            function View(el) {
+                var table = $('#list').DataTable();
+                var id = table.row(el).data().ID;
+                alert('View ' + id);
             }
         });
     </script>

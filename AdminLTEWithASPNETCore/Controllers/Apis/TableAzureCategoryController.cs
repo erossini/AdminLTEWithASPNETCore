@@ -2,10 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PSC.Domain.CommonTables;
+using PSC.Extensions;
 using PSC.Providers;
+using PSC.Services.AspNetCore.TableAPIs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace AdminLTEWithASPNETCore.Controllers.Apis
@@ -69,9 +72,15 @@ namespace AdminLTEWithASPNETCore.Controllers.Apis
         [HttpGet]
         [Route("GetIdByName")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult GetIdByName(string name)
         {
-            return Ok(_providers.AzureCategory.GetIdByNameAsync(name));
+            if (string.IsNullOrEmpty(name))
+                return BadRequest();
+
+            var rtn = _providers.AzureCategory.GetIdByNameAsync(name);
+            return rtn != 0 ? Ok(rtn) : NotFound();
         }
 
         /// <summary>
@@ -82,9 +91,12 @@ namespace AdminLTEWithASPNETCore.Controllers.Apis
         [HttpGet]
         [Route("GetValue")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AzureCategory))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetValue(long id)
         {
-            return Ok(await _providers.AzureCategory.GetAsync(id));
+            var rtn = await _providers.AzureCategory.GetAsync(id);
+            return rtn != null ? Ok(rtn) : NotFound();
         }
 
         /// <summary>
@@ -127,6 +139,34 @@ namespace AdminLTEWithASPNETCore.Controllers.Apis
                 return BadRequest();
 
             return Ok(await _providers.AzureCategory.InsertAsync(value));
+        }
+
+        /// <summary>
+        /// Posts the specified draw.
+        /// </summary>
+        /// <param name="draw">The draw.</param>
+        /// <param name="length">The length.</param>
+        /// <param name="start">The start.</param>
+        /// <param name="columnSort">The column sort.</param>
+        /// <param name="columnDirectrion">The column directrion.</param>
+        /// <param name="search">The search.</param>
+        /// <returns>IActionResult.</returns>
+        [HttpPost]
+        [Route("Search")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IQueryable<AzureCategory>))]
+        public IActionResult Post([FromForm] string draw, [FromForm] string length, [FromForm] string start,
+            string columnSort, string columnDirectrion, string search)
+        {
+            var searchValue = Request.Form.GetValueOrDefault("search[value]", search);
+
+            var customerData = _providers.AzureCategory.GetValues();
+
+            Expression<Func<AzureCategory, bool>> exp = r => r.Name.Contains(searchValue);
+            var service = new TableService<AzureCategory>();
+            var rtn = service.GetRecords(draw, length, start, columnSort, columnDirectrion,
+                searchValue, Request.Form, customerData, exp);
+
+            return StatusCode(StatusCodes.Status200OK, rtn);
         }
 
         #region Delete

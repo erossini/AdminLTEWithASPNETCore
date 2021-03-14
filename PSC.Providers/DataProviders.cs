@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using PSC.Providers.CommonTables;
+using PSC.Providers.Tables;
 using PSC.Repositories;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,7 @@ namespace PSC.Providers
             AzureResourceGroup = new AzureResourceGroupProvider(_db);
             AzureResource = new AzureResourceProvider(_db);
             AzureSubcategory = new AzureSubcategoryProvider(_db);
+            Countries = new CountriesProvider(_db);
             #endregion
         }
 
@@ -38,6 +40,7 @@ namespace PSC.Providers
         public AzureResourceGroupProvider AzureResourceGroup { get; }
         public AzureResourceProvider AzureResource { get; }
         public AzureSubcategoryProvider AzureSubcategory { get; }
+        public CountriesProvider Countries { get; set; }
         #endregion
     }
 }

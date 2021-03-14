@@ -1,5 +1,7 @@
-﻿using AdminLTEWithASPNETCore.Models.UI.CommonTables;
+﻿using AdminLTEWithASPNETCore.Controllers.Apis;
+using AdminLTEWithASPNETCore.Models.UI.CommonTables;
 using Microsoft.AspNetCore.Mvc;
+using Ploeh.Hyprlinkr;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +16,7 @@ namespace AdminLTEWithASPNETCore.Areas.Tables.Controllers
         {
             var model = new TableUI()
             {
-                ApiUrl = "/api/TableAzureCategory",
+                ApiUrl = "/api/TableAzureCategory/Search",
                 Fields = new FieldUI[] {
                     new FieldUI() { Label = "ID", Data = "ID" },
                     new FieldUI() { Label = "Category", Data = "Name" }

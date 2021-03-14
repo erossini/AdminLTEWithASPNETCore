@@ -24,6 +24,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PSC.Infrastructures.Hubs;
 using PSC.Providers;
+using PSC.Providers.Tables;
 using PSC.Repositories;
 using PSC.Services.AspNetCore;
 using PSC.Services.Imports;
@@ -52,13 +53,15 @@ namespace AdminLTEWithASPNETCore
             services.AddRazorPages();
             services.AddLogging();
 
+            #region API version
             services.AddApiVersioning(config =>
             {
                 config.DefaultApiVersion = new ApiVersion(1, 0);
                 config.AssumeDefaultVersionWhenUnspecified = true;
                 config.ReportApiVersions = true;
-                config.ApiVersionReader = new UrlSegmentApiVersionReader();
+                config.ApiVersionReader = new HeaderApiVersionReader("api-version");
             });
+            #endregion
             #region Settings
             services.Configure<SmtpCredentialsSettings>(Configuration.GetSection("SmtpCredentials"));
             services.AddScoped(cfg => cfg.GetService<IOptions<SmtpCredentialsSettings>>().Value);

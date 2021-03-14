@@ -185,6 +185,18 @@
             <param name="value">The value.</param>
             <returns>IActionResult.</returns>
         </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureCategoryController.Post(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Posts the specified draw.
+            </summary>
+            <param name="draw">The draw.</param>
+            <param name="length">The length.</param>
+            <param name="start">The start.</param>
+            <param name="columnSort">The column sort.</param>
+            <param name="columnDirectrion">The column directrion.</param>
+            <param name="search">The search.</param>
+            <returns>IActionResult.</returns>
+        </member>
         <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureCategoryController.Delete(System.Int64)">
             <summary>
             Deletes the specified identifier.
@@ -1146,18 +1158,6 @@
             </summary>
             <value>The fields.</value>
         </member>
-        <member name="P:AdminLTEWithASPNETCore.Models.UI.CommonTables.TableUI.IsEditAllow">
-            <summary>
-            Gets or sets a value indicating whether this instance is edit allow.
-            </summary>
-            <value><c>true</c> if this instance is edit allow; otherwise, <c>false</c>.</value>
-        </member>
-        <member name="P:AdminLTEWithASPNETCore.Models.UI.CommonTables.TableUI.IsDeleteAllow">
-            <summary>
-            Gets or sets a value indicating whether this instance is delete allow.
-            </summary>
-            <value><c>true</c> if this instance is delete allow; otherwise, <c>false</c>.</value>
-        </member>
         <member name="P:AdminLTEWithASPNETCore.Models.UI.CommonTables.TableUI.EditUrl">
             <summary>
             Gets or sets the edit URL.
@@ -1170,10 +1170,34 @@
             </summary>
             <value>The delete URL.</value>
         </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.UI.CommonTables.TableUI.ViewUrl">
+            <summary>
+            Gets or sets the view URL.
+            </summary>
+            <value>The view URL.</value>
+        </member>
         <member name="P:AdminLTEWithASPNETCore.Models.UI.CommonTables.TableUI.FieldString">
             <summary>
             Returns a string with the list of fields
             </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.UI.CommonTables.TableUI.IsEditAllow">
+            <summary>
+            Gets or sets a value indicating whether this instance is edit allow.
+            </summary>
+            <value><c>true</c> if this instance is edit allow; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.UI.CommonTables.TableUI.IsDeleteAllow">
+            <summary>
+            Gets or sets a value indicating whether this instance is delete allow.
+            </summary>
+            <value><c>true</c> if this instance is delete allow; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.UI.CommonTables.TableUI.IsViewAllow">
+            <summary>
+            Gets or sets a value indicating whether this instance is view allow.
+            </summary>
+            <value><c>true</c> if this instance is view allow; otherwise, <c>false</c>.</value>
         </member>
         <member name="T:AdminLTEWithASPNETCore.Resources.StringResources">
             <summary>

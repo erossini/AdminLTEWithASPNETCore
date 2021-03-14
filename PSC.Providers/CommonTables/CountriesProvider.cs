@@ -31,7 +31,7 @@ namespace PSC.Providers.CommonTables
         /// Gets the values.
         /// </summary>
         /// <returns>IEnumerable&lt;Country&gt;.</returns>
-        public IEnumerable<Country> GetValues()
+        public IQueryable<Country> GetValues()
         {
             return _db.Countries;
         }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PSC.Domain.CommonTables;
 using PSC.Extensions;
+using PSC.Providers;
 using PSC.Repositories;
 using PSC.Services.AspNetCore.TableAPIs;
 using System;
@@ -13,15 +14,16 @@ using System.Threading.Tasks;
 
 namespace AdminLTEWithASPNETCore.Controllers.Apis
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/[controller]")]
     public class TableCountriesController : ControllerBase
     {
-        private readonly PSCContext _db;
+        private DataProviders _providers;
 
-        public TableCountriesController(PSCContext db)
+        public TableCountriesController(DataProviders provider)
         {
-            _db = db;
+            _providers = provider;
         }
 
         /// <summary>
@@ -35,13 +37,14 @@ namespace AdminLTEWithASPNETCore.Controllers.Apis
         /// <param name="search">The search</param>
         /// <returns>IEnumerable&lt;System.String&gt;.</returns>
         [HttpPost]
+        [Route("Search")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IQueryable<Country>))]
         public IActionResult Post([FromForm] string draw, [FromForm] string length, [FromForm] string start, 
             string columnSort, string columnDirectrion, string search)
         {
             var searchValue = Request.Form.GetValueOrDefault("search[value]", search);
 
-            var customerData = (from tempcustomer in _db.Countries select tempcustomer);
+            var customerData = _providers.Countries.GetValues();
 
             Expression<Func<Country, bool>> exp = r => r.Name.Contains(searchValue);
             var service = new TableService<Country>();

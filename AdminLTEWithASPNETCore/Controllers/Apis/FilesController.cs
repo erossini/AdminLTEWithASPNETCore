@@ -32,10 +32,13 @@ namespace AdminLTEWithASPNETCore.Controllers.Apis
         /// <returns>DataGrid.</returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(DataGrid))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Get(string filename)
         {
             filename = Path.Combine(FileService.ImportFolder(_environment.WebRootPath), filename);
-            return StatusCode(StatusCodes.Status200OK, _excel.ReadToGrid(filename));
+
+            var rtn = _excel.ReadToGrid(filename);
+            return rtn != null ? StatusCode(StatusCodes.Status200OK, rtn) : StatusCode(StatusCodes.Status404NotFound);
         }
     }
 }

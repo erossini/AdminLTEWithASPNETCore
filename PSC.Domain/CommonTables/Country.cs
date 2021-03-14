@@ -19,6 +19,7 @@ namespace PSC.Domain.CommonTables
         /// Gets or sets the name.
         /// </summary>
         /// <value>The name.</value>
+        [StringLength(150)]
         public string Name { get; set; }
         /// <summary>
         /// Gets or sets the order.

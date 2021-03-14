@@ -41,7 +41,7 @@ namespace PSC.Providers.CommonTables
         /// Gets the values.
         /// </summary>
         /// <returns>IEnumerable&lt;AzureCategory&gt;.</returns>
-        public IEnumerable<AzureCategory> GetValues()
+        public IQueryable<AzureCategory> GetValues()
         {
             return _db.AzureCategories;
         }

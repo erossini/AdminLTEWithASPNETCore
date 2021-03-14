@@ -1,4 +1,5 @@
-﻿using PSC.Domain;
+﻿using Microsoft.Extensions.Logging;
+using PSC.Domain;
 using PSC.Repositories;
 using System;
 using System.Collections.Generic;
@@ -6,35 +7,40 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PSC.Providers
+namespace PSC.Providers.Tables
 {
-    public class MessagesProvider
+    public class AzureCostProvider
     {
         private PSCContext _db;
+        private readonly ILogger _log;
 
-        public MessagesProvider(PSCContext dbContext)
+        public AzureCostProvider(PSCContext dbContext, ILogger log)
         {
             _db = dbContext;
+            _log = log;
         }
 
-        public IEnumerable<Message> GetValues()
+        public IEnumerable<AzureCost> GetValues()
         {
-            return _db.Messages;
+            return _db.AzureCosts;
         }
 
-        public async Task<Message> GetAsync(long id)
+        public async Task<AzureCost> GetAsync(long id)
         {
-            return await _db.Messages.FindAsync(id);
+            return await _db.AzureCosts.FindAsync(id);
         }
 
-        public async Task<long> InsertAsync(Message value)
+        public async Task<long> InsertAsync(AzureCost value)
         {
+            _log.LogDebug("[AzureCost] Start adding a new record");
             await _db.AddAsync(value);
             await _db.SaveChangesAsync();
-            return value.IdMessage;
+
+            _log.LogDebug($"[AzureCost] Added record ID {value.ID}");
+            return value.ID;
         }
 
-        public async Task ReplaceAsync(int id, Message value)
+        public async Task ReplaceAsync(int id, AzureCost value)
         {
             _db.Update(value);
             await _db.SaveChangesAsync();
@@ -42,7 +48,7 @@ namespace PSC.Providers
 
         public async Task<bool> DeleteAsync(long id)
         {
-            var entity = await _db.Messages.FindAsync(id);
+            var entity = await _db.AzureCosts.FindAsync(id);
             if (entity != null)
             {
                 _db.Remove(entity);
