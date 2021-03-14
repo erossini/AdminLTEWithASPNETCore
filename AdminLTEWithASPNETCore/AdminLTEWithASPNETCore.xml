@@ -116,6 +116,89 @@
             </summary>
             <param name="id">The identifier.</param>
         </member>
+        <member name="T:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureCategoryController">
+            <summary>
+            Class TableAzureCategoryController.
+            Implements the <see cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureCategoryController._log">
+            <summary>
+            The log
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureCategoryController._providers">
+            <summary>
+            The providers
+            </summary>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureCategoryController.#ctor(PSC.Providers.DataProviders,Microsoft.Extensions.Logging.ILogger{AdminLTEWithASPNETCore.Controllers.Apis.TableAzureCategoryController})">
+            <summary>
+            Initializes a new instance of the <see cref="T:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureCategoryController"/> class.
+            </summary>
+            <param name="providers">The providers.</param>
+            <param name="log">The log.</param>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureCategoryController.CreateIfNotExist(System.String)">
+            <summary>
+            Creates new Azure category if not exist.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>IActionResult.</returns>
+            <response code="200">Azure Category created</response>
+            <response code="400">The name is missing or invalid values</response>
+            <response code="500">Oops! Can't create your Azure Category</response>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureCategoryController.GetIdByName(System.String)">
+            <summary>
+            Gets the name of the identifier by.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureCategoryController.GetValue(System.Int64)">
+            <summary>
+            Gets the value.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureCategoryController.GetValues">
+            <summary>
+            Gets the values.
+            </summary>
+            <returns>The list of Azure Categories</returns>
+            <response code="200">Retrieved the list of Azure Category</response>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureCategoryController.Patch(PSC.Domain.CommonTables.AzureCategory)">
+            <summary>
+            Patches the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureCategoryController.Post(PSC.Domain.CommonTables.AzureCategory)">
+            <summary>
+            Posts the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureCategoryController.Delete(System.Int64)">
+            <summary>
+            Deletes the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureCategoryController.DeleteList(System.Int64[])">
+            <summary>
+            Deletes the list.
+            </summary>
+            <param name="ids">The ids.</param>
+            <returns>IActionResult.</returns>
+        </member>
         <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableCountriesController.Post(System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
             Returns the list of countries

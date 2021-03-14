@@ -240,9 +240,10 @@ namespace AdminLTEWithASPNETCore.Controllers
             return View();
         }
 
+        [HttpGet]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         [Route("/Home/Error/{statusCode}")]
-        public IActionResult Error(int statusCode)
+        public IActionResult Error(int? statusCode)
         {
             if (statusCode == 404)
             {
@@ -254,10 +255,10 @@ namespace AdminLTEWithASPNETCore.Controllers
                 return View("~/Views/Home/Error404.cshtml", new ErrorViewModel
                 {
                     RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
-                    StatusCode = statusCode
+                    StatusCode = (int)statusCode
                 });
             }
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier, StatusCode = statusCode });
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier, StatusCode = (int)statusCode });
         }
     }
 }

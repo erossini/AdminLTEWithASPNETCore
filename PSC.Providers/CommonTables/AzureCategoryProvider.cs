@@ -41,7 +41,7 @@ namespace PSC.Providers.CommonTables
         /// Gets the values.
         /// </summary>
         /// <returns>IEnumerable&lt;AzureCategory&gt;.</returns>
-            public IEnumerable<AzureCategory> GetValues()
+        public IEnumerable<AzureCategory> GetValues()
         {
             return _db.AzureCategories;
         }
@@ -84,7 +84,7 @@ namespace PSC.Providers.CommonTables
         /// <param name="id">The identifier.</param>
         /// <param name="value">The value.</param>
         /// <returns>A Task representing the asynchronous operation.</returns>
-        public async Task ReplaceAsync(int id, AzureCategory value)
+        public async Task ReplaceAsync(long id, AzureCategory value)
         {
             _db.Update(value);
             await _db.SaveChangesAsync();

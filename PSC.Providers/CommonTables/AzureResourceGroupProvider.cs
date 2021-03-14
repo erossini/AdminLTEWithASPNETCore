@@ -52,7 +52,7 @@ namespace PSC.Providers.CommonTables
             return value.ID;
         }
 
-        public async Task ReplaceAsync(int id, AzureResourceGroup value)
+        public async Task ReplaceAsync(long id, AzureResourceGroup value)
         {
             _db.Update(value);
             await _db.SaveChangesAsync();

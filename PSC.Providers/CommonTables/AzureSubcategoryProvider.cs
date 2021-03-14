@@ -52,7 +52,7 @@ namespace PSC.Providers.CommonTables
             return value.ID;
         }
 
-        public async Task ReplaceAsync(int id, AzureSubcategory value)
+        public async Task ReplaceAsync(long id, AzureSubcategory value)
         {
             _db.Update(value);
             await _db.SaveChangesAsync();
