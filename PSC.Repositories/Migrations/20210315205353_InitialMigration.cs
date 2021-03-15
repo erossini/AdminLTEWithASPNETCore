@@ -36,6 +36,7 @@ namespace PSC.Repositories.Migrations
                     ID = table.Column<long>(type: "bigint", nullable: false),
                     FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Period = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AuditAction = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AuditDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -172,63 +173,18 @@ namespace PSC.Repositories.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AuditMessages",
-                columns: table => new
-                {
-                    AuditId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IdMessage = table.Column<long>(type: "bigint", nullable: false),
-                    Body = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ReceiverId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SenderId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Subject = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Priority = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Category = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsNew = table.Column<bool>(type: "bit", nullable: false),
-                    AuditAction = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AuditDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AuditMessages", x => x.AuditId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AzureCostImports",
                 columns: table => new
                 {
                     ID = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Period = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Period = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AzureCostImports", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Messages",
-                columns: table => new
-                {
-                    IdMessage = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Body = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ReceiverId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SenderId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Subject = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Priority = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Category = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsNew = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Messages", x => x.IdMessage);
                 });
 
             migrationBuilder.CreateTable(
@@ -302,7 +258,7 @@ namespace PSC.Repositories.Migrations
                 {
                     ID = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
                     Order = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -319,7 +275,8 @@ namespace PSC.Repositories.Migrations
                     AzureCostImportId = table.Column<long>(type: "bigint", nullable: false),
                     LogData = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LogType = table.Column<int>(type: "int", nullable: false),
-                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -338,14 +295,15 @@ namespace PSC.Repositories.Migrations
                 {
                     ID = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ResourceId = table.Column<long>(type: "bigint", nullable: false),
-                    LocationId = table.Column<long>(type: "bigint", nullable: false),
-                    ResourceGroupId = table.Column<long>(type: "bigint", nullable: false),
-                    CategoryId = table.Column<long>(type: "bigint", nullable: false),
-                    SubcategoryId = table.Column<long>(type: "bigint", nullable: false),
+                    ResourceId = table.Column<long>(type: "bigint", nullable: true),
+                    LocationId = table.Column<long>(type: "bigint", nullable: true),
+                    ResourceGroupId = table.Column<long>(type: "bigint", nullable: true),
+                    CategoryId = table.Column<long>(type: "bigint", nullable: true),
+                    SubcategoryId = table.Column<long>(type: "bigint", nullable: true),
                     AzureCostImportId = table.Column<long>(type: "bigint", nullable: true),
                     Quantity = table.Column<decimal>(type: "decimal(24,20)", precision: 24, scale: 20, nullable: false),
-                    Cost = table.Column<decimal>(type: "decimal(24,20)", precision: 24, scale: 20, nullable: false)
+                    Cost = table.Column<decimal>(type: "decimal(24,20)", precision: 24, scale: 20, nullable: false),
+                    ImportDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -361,31 +319,31 @@ namespace PSC.Repositories.Migrations
                         column: x => x.CategoryId,
                         principalTable: "tbl_AzureCategories",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_AzureCosts_tbl_AzureLocations_LocationId",
                         column: x => x.LocationId,
                         principalTable: "tbl_AzureLocations",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_AzureCosts_tbl_AzureResourceGroups_ResourceGroupId",
                         column: x => x.ResourceGroupId,
                         principalTable: "tbl_AzureResourceGroups",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_AzureCosts_tbl_AzureResources_ResourceId",
                         column: x => x.ResourceId,
                         principalTable: "tbl_AzureResources",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_AzureCosts_tbl_AzureSubcategories_SubcategoryId",
                         column: x => x.SubcategoryId,
                         principalTable: "tbl_AzureSubcategories",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
@@ -685,16 +643,10 @@ namespace PSC.Repositories.Migrations
                 name: "Audit_tbl_Countries");
 
             migrationBuilder.DropTable(
-                name: "AuditMessages");
-
-            migrationBuilder.DropTable(
                 name: "AzureCostImportLogs");
 
             migrationBuilder.DropTable(
                 name: "AzureCosts");
-
-            migrationBuilder.DropTable(
-                name: "Messages");
 
             migrationBuilder.DropTable(
                 name: "tbl_Countries");

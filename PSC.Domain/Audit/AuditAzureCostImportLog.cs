@@ -1,4 +1,5 @@
 ﻿using PSC.Domain.Enums;
+using PSC.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 namespace PSC.Domain.Audit
 {
     [Table("Audit_AzureCostImportLogs")]
-    public class AuditAzureCostImportLog
+    public class AuditAzureCostImportLog: IAudit
     {
         /// <summary>
         /// Gets or sets the audit identifier.

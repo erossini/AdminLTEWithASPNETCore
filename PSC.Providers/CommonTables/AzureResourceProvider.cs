@@ -1,4 +1,5 @@
-﻿using PSC.Domain.CommonTables;
+﻿using Microsoft.Extensions.Logging;
+using PSC.Domain.CommonTables;
 using PSC.Repositories;
 using System;
 using System.Collections.Generic;
@@ -8,17 +9,9 @@ using System.Threading.Tasks;
 
 namespace PSC.Providers.CommonTables
 {
-    public class AzureResourceProvider
+    public class AzureResourceProvider : ProviderBase<AzureResource>
     {
-        /// <summary>
-        /// The database
-        /// </summary>
-        private PSCContext _db;
-
-        public AzureResourceProvider(PSCContext dbContext)
-        {
-            _db = dbContext;
-        }
+        public AzureResourceProvider(PSCContext db, ILogger log) : base(db, log) { }
 
         public async Task<AzureResource> CreateIfNotExist(string name)
         {
@@ -30,7 +23,7 @@ namespace PSC.Providers.CommonTables
             return await GetAsync(id);
         }
 
-        public IEnumerable<AzureResource> GetValues()
+        public IQueryable<AzureResource> GetValues()
         {
             return _db.AzureResources;
         }
@@ -45,20 +38,7 @@ namespace PSC.Providers.CommonTables
             return _db.AzureResources.Where(r => r.Name.ToLower() == name.ToLower())?.FirstOrDefault()?.ID ?? 0;
         }
 
-        public async Task<long> InsertAsync(AzureResource value)
-        {
-            await _db.AddAsync(value);
-            await _db.SaveChangesAsync();
-            return value.ID;
-        }
-
-        public async Task ReplaceAsync(long id, AzureResource value)
-        {
-            _db.Update(value);
-            await _db.SaveChangesAsync();
-        }
-
-        public async Task<bool> DeleteAsync(long id)
+        public override async Task<bool> DeleteAsync(long id)
         {
             var entity = await _db.AzureResources.FindAsync(id);
             if (entity != null)
@@ -68,16 +48,6 @@ namespace PSC.Providers.CommonTables
                 return true;
             }
             return false;
-        }
-
-        public async Task<long> DeleteMultipleAsync(long[] ids)
-        {
-            long c = 0;
-            foreach (long id in ids)
-            {
-                c += await DeleteAsync(id) ? 1 : 0;
-            }
-            return c;
         }
     }
 }

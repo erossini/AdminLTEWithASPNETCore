@@ -9,63 +9,52 @@ using System.Threading.Tasks;
 
 namespace PSC.Providers.Tables
 {
-    public class AzureCostProvider
+    /// <summary>
+    /// Class AzureCostProvider.
+    /// </summary>
+    public class AzureCostProvider : ProviderBase<AzureCost>
     {
-        private PSCContext _db;
-        private readonly ILogger _log;
+        public AzureCostProvider(PSCContext db, ILogger log) : base(db, log) { }
 
-        public AzureCostProvider(PSCContext dbContext, ILogger log)
-        {
-            _db = dbContext;
-            _log = log;
-        }
-
+        /// <summary>
+        /// Gets the values.
+        /// </summary>
+        /// <returns>IEnumerable&lt;AzureCost&gt;.</returns>
         public IEnumerable<AzureCost> GetValues()
         {
             return _db.AzureCosts;
         }
 
+        /// <summary>
+        /// get as an asynchronous operation.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>A Task&lt;AzureCost&gt; representing the asynchronous operation.</returns>
         public async Task<AzureCost> GetAsync(long id)
         {
             return await _db.AzureCosts.FindAsync(id);
         }
 
-        public async Task<long> InsertAsync(AzureCost value)
+        /// <summary>
+        /// delete as an asynchronous operation.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
+        public override async Task<bool> DeleteAsync(long id)
         {
-            _log.LogDebug("[AzureCost] Start adding a new record");
-            await _db.AddAsync(value);
-            await _db.SaveChangesAsync();
-
-            _log.LogDebug($"[AzureCost] Added record ID {value.ID}");
-            return value.ID;
-        }
-
-        public async Task ReplaceAsync(int id, AzureCost value)
-        {
-            _db.Update(value);
-            await _db.SaveChangesAsync();
-        }
-
-        public async Task<bool> DeleteAsync(long id)
-        {
+            _log.LogDebug($"[AzureCost] Deleting the record Id {id}");
             var entity = await _db.AzureCosts.FindAsync(id);
             if (entity != null)
             {
                 _db.Remove(entity);
                 await _db.SaveChangesAsync();
+
+                _log.LogDebug($"[AzureCost] Deleted the record Id {id}");
                 return true;
             }
-            return false;
-        }
 
-        public async Task<long> DeleteMultipleAsync(long[] ids)
-        {
-            long c = 0;
-            foreach (long id in ids)
-            {
-                c += await DeleteAsync(id) ? 1 : 0;
-            }
-            return c;
+            _log.LogDebug($"[AzureCost] Can't delete the record Id {id}");
+            return false;
         }
     }
 }

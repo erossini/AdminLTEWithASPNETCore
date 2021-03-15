@@ -38,6 +38,11 @@ namespace PSC.Domain.Audit
         /// </summary>
         /// <value>The period.</value>
         public string Period { get; set; }
+        /// <summary>
+        /// Gets or sets the user identifier.
+        /// </summary>
+        /// <value>The user identifier.</value>
+        public string UserId { get; set; }
 
         public string AuditAction { get; set; }
         public DateTime AuditDate { get; set; }

@@ -9,6 +9,7 @@ using PSC.Services.Imports;
 using PSC.Services.Imports.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,15 +29,17 @@ namespace AdminLTEWithASPNETCore.Code.Processes
         {
             _log.LogDebug($"User {username} started the import for {filename}");
 
+            long id = _providers.AzureCostImport.GetIdByNameAsync(Path.GetFileName(filename));
+
             var (IsValid, Errors, Data) = ReadData(filename, FileStructure.AzureReportStructure);
             if (IsValid)
             {
-                await ImportFile(Data);
+                await ImportFile(Data, id);
                 await ProcessComplete(username, filename);
             }
         }
 
-        public async Task ImportFile(DataGrid data)
+        public async Task ImportFile(DataGrid data, long fileId)
         {
             _log.LogDebug("Read the file and save in the database");
 
@@ -47,6 +50,7 @@ namespace AdminLTEWithASPNETCore.Code.Processes
             {
                 _log.LogDebug("Start a new row");
                 var cost = new AzureCost();
+                cost.AzureCostImportId = fileId;
                 if (row.ContainsKey("Resource")) cost.AzureResource = await _providers.AzureResource.CreateIfNotExist(row["Resource"]);
                 if (row.ContainsKey("Location")) cost.AzureLocation = await _providers.AzureLocation.CreateIfNotExist(row["Location"]);
                 if (row.ContainsKey("Resource Group")) cost.AzureResourceGroup = await _providers.AzureResourceGroup.CreateIfNotExist(row["Resource Group"]);
@@ -58,10 +62,16 @@ namespace AdminLTEWithASPNETCore.Code.Processes
                 long id = await _providers.AzureCost.InsertAsync(cost);
                 totalImports++;
 
-                _log.LogDebug($"End import {totalImports}/{totalRecords}");
+                _log.LogDebug($"Import progress {totalImports}/{totalRecords}");
             }
 
             _log.LogInformation($"Import completed: {totalImports}/{totalRecords}");
+            await _providers.AzureCostImportLog.InsertAsync(new PSC.Domain.AzureCostImportLog()
+            {
+                AzureCostImportId = fileId,
+                LogType = PSC.Domain.Enums.LogType.Information,
+                Message = $"Import completed: {totalImports}/{totalRecords}"
+            });
         }
     }
 }

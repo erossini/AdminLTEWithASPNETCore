@@ -1,4 +1,5 @@
-﻿using PSC.Domain.CommonTables;
+﻿using Microsoft.Extensions.Logging;
+using PSC.Domain.CommonTables;
 using PSC.Repositories;
 using System;
 using System.Collections.Generic;
@@ -8,17 +9,9 @@ using System.Threading.Tasks;
 
 namespace PSC.Providers.CommonTables
 {
-    public class AzureSubcategoryProvider
+    public class AzureSubcategoryProvider : ProviderBase<AzureSubcategory>
     {
-        /// <summary>
-        /// The database
-        /// </summary>
-        private PSCContext _db;
-
-        public AzureSubcategoryProvider(PSCContext dbContext)
-        {
-            _db = dbContext;
-        }
+        public AzureSubcategoryProvider(PSCContext db, ILogger log) : base(db, log) { }
 
         public async Task<AzureSubcategory> CreateIfNotExist(string name)
         {
@@ -30,7 +23,7 @@ namespace PSC.Providers.CommonTables
             return await GetAsync(id);
         }
 
-        public IEnumerable<AzureSubcategory> GetValues()
+        public IQueryable<AzureSubcategory> GetValues()
         {
             return _db.AzureSubcategories;
         }
@@ -45,20 +38,7 @@ namespace PSC.Providers.CommonTables
             return _db.AzureSubcategories.Where(r => r.Name.ToLower() == name.ToLower())?.FirstOrDefault()?.ID ?? 0;
         }
 
-        public async Task<long> InsertAsync(AzureSubcategory value)
-        {
-            await _db.AddAsync(value);
-            await _db.SaveChangesAsync();
-            return value.ID;
-        }
-
-        public async Task ReplaceAsync(long id, AzureSubcategory value)
-        {
-            _db.Update(value);
-            await _db.SaveChangesAsync();
-        }
-
-        public async Task<bool> DeleteAsync(long id)
+        public override async Task<bool> DeleteAsync(long id)
         {
             var entity = await _db.AzureSubcategories.FindAsync(id);
             if (entity != null)
@@ -68,16 +48,6 @@ namespace PSC.Providers.CommonTables
                 return true;
             }
             return false;
-        }
-
-        public async Task<long> DeleteMultipleAsync(long[] ids)
-        {
-            long c = 0;
-            foreach (long id in ids)
-            {
-                c += await DeleteAsync(id) ? 1 : 0;
-            }
-            return c;
         }
     }
 }

@@ -21,18 +21,22 @@ namespace PSC.Providers
             _log = log;
 
             AzureCost = new AzureCostProvider(_db, _log);
+            AzureCostImport = new AzureCostImportProvider(_db, _log);
+            AzureCostImportLog = new AzureCostImportLogProvider(_db, _log);
 
             #region Common table
-            AzureCategory = new AzureCategoryProvider(_db);
-            AzureLocation = new AzureLocationProvider(_db);
-            AzureResourceGroup = new AzureResourceGroupProvider(_db);
-            AzureResource = new AzureResourceProvider(_db);
-            AzureSubcategory = new AzureSubcategoryProvider(_db);
+            AzureCategory = new AzureCategoryProvider(_db, _log);
+            AzureLocation = new AzureLocationProvider(_db, _log);
+            AzureResourceGroup = new AzureResourceGroupProvider(_db, _log);
+            AzureResource = new AzureResourceProvider(_db, _log);
+            AzureSubcategory = new AzureSubcategoryProvider(_db, _log);
             Countries = new CountriesProvider(_db);
             #endregion
         }
 
         public AzureCostProvider AzureCost { get; }
+        public AzureCostImportProvider AzureCostImport { get; set; }
+        public AzureCostImportLogProvider AzureCostImportLog { get; set; }
 
         #region Common tables
         public AzureCategoryProvider AzureCategory { get; }

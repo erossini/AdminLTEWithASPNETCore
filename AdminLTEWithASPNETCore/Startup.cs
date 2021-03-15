@@ -78,7 +78,6 @@ namespace AdminLTEWithASPNETCore
             #endregion
             #region Dependency Injection
             services.AddTransient<IEmailSender, EmailSender>();
-            services.AddTransient<MessagesProvider>();
 
             services.AddTransient<ImportExcel>();
             services.AddTransient<UploadFiles>();

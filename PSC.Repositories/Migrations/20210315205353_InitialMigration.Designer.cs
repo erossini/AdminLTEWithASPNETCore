@@ -10,7 +10,7 @@ using PSC.Repositories;
 namespace PSC.Repositories.Migrations
 {
     [DbContext(typeof(PSCContext))]
-    [Migration("20210313225411_InitialMigration")]
+    [Migration("20210315205353_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -90,6 +90,9 @@ namespace PSC.Repositories.Migrations
                     b.Property<string>("Period")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
@@ -132,57 +135,6 @@ namespace PSC.Repositories.Migrations
                     b.HasKey("AuditId");
 
                     b.ToTable("Audit_AzureCostImportLogs");
-                });
-
-            modelBuilder.Entity("PSC.Domain.Audit.AuditMessage", b =>
-                {
-                    b.Property<long>("AuditId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AuditAction")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("AuditDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Body")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Category")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("IdMessage")
-                        .HasColumnType("bigint");
-
-                    b.Property<bool>("IsNew")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Priority")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ReceiverId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SenderId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Subject")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("AuditId");
-
-                    b.ToTable("AuditMessages");
                 });
 
             modelBuilder.Entity("PSC.Domain.Audit.CommonTables.AuditAzureCategory", b =>
@@ -360,27 +312,30 @@ namespace PSC.Repositories.Migrations
                     b.Property<long?>("AzureCostImportId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("CategoryId")
+                    b.Property<long?>("CategoryId")
                         .HasColumnType("bigint");
 
                     b.Property<decimal>("Cost")
                         .HasPrecision(24, 20)
                         .HasColumnType("decimal(24,20)");
 
-                    b.Property<long>("LocationId")
+                    b.Property<DateTime>("ImportDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LocationId")
                         .HasColumnType("bigint");
 
                     b.Property<decimal>("Quantity")
                         .HasPrecision(24, 20)
                         .HasColumnType("decimal(24,20)");
 
-                    b.Property<long>("ResourceGroupId")
+                    b.Property<long?>("ResourceGroupId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("ResourceId")
+                    b.Property<long?>("ResourceId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("SubcategoryId")
+                    b.Property<long?>("SubcategoryId")
                         .HasColumnType("bigint");
 
                     b.HasKey("ID");
@@ -413,6 +368,9 @@ namespace PSC.Repositories.Migrations
                     b.Property<string>("Period")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ID");
 
                     b.ToTable("AzureCostImports");
@@ -435,6 +393,9 @@ namespace PSC.Repositories.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -527,7 +488,8 @@ namespace PSC.Repositories.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<int>("Order")
                         .HasColumnType("int");
@@ -1715,45 +1677,6 @@ namespace PSC.Repositories.Migrations
                         });
                 });
 
-            modelBuilder.Entity("PSC.Domain.Message", b =>
-                {
-                    b.Property<long>("IdMessage")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Body")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Category")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsNew")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Priority")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ReceiverId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SenderId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Subject")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("IdMessage");
-
-                    b.ToTable("Messages");
-                });
-
             modelBuilder.Entity("PSC.Domain.AzureCost", b =>
                 {
                     b.HasOne("PSC.Domain.AzureCostImport", "AzureCostImport")
@@ -1762,33 +1685,23 @@ namespace PSC.Repositories.Migrations
 
                     b.HasOne("PSC.Domain.CommonTables.AzureCategory", "AzureCategory")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
 
                     b.HasOne("PSC.Domain.CommonTables.AzureLocation", "AzureLocation")
                         .WithMany()
-                        .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LocationId");
 
                     b.HasOne("PSC.Domain.CommonTables.AzureResourceGroup", "AzureResourceGroup")
                         .WithMany()
-                        .HasForeignKey("ResourceGroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ResourceGroupId");
 
                     b.HasOne("PSC.Domain.CommonTables.AzureResource", "AzureResource")
                         .WithMany()
-                        .HasForeignKey("ResourceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ResourceId");
 
                     b.HasOne("PSC.Domain.CommonTables.AzureSubcategory", "AzureSubcategory")
                         .WithMany()
-                        .HasForeignKey("SubcategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SubcategoryId");
 
                     b.Navigation("AzureCategory");
 
@@ -1806,12 +1719,17 @@ namespace PSC.Repositories.Migrations
             modelBuilder.Entity("PSC.Domain.AzureCostImportLog", b =>
                 {
                     b.HasOne("PSC.Domain.AzureCostImport", "AzureCostImport")
-                        .WithMany()
+                        .WithMany("ImportLogs")
                         .HasForeignKey("AzureCostImportId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AzureCostImport");
+                });
+
+            modelBuilder.Entity("PSC.Domain.AzureCostImport", b =>
+                {
+                    b.Navigation("ImportLogs");
                 });
 #pragma warning restore 612, 618
         }

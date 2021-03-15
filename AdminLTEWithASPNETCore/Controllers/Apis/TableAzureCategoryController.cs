@@ -32,6 +32,7 @@ namespace AdminLTEWithASPNETCore.Controllers.Apis
         /// The providers
         /// </summary>
         private DataProviders _providers;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="TableAzureCategoryController"/> class.
         /// </summary>
@@ -71,7 +72,7 @@ namespace AdminLTEWithASPNETCore.Controllers.Apis
         /// <returns>IActionResult.</returns>
         [HttpGet]
         [Route("GetIdByName")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(long))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult GetIdByName(string name)
@@ -110,6 +111,7 @@ namespace AdminLTEWithASPNETCore.Controllers.Apis
         {
             return Ok(_providers.AzureCategory.GetValues());
         }
+
         /// <summary>
         /// Patches the specified value.
         /// </summary>
@@ -131,7 +133,7 @@ namespace AdminLTEWithASPNETCore.Controllers.Apis
         /// <param name="value">The value.</param>
         /// <returns>IActionResult.</returns>
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(long))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Post(AzureCategory value)
         {

@@ -36,7 +36,7 @@ namespace AdminLTEWithASPNETCore.Areas.Tables.Controllers
 
             ViewData["Title"] = "Tables";
             ViewData["TableTitle"] = "Countries";
-            return View("~/Areas/Tables/Views/Shared/Index.cshtml", model);
+            return View("~/Views/Shared/TableView.cshtml", model);
         }
 
         [Breadcrumb("Tables")]

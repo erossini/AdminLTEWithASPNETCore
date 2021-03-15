@@ -1,4 +1,5 @@
-﻿using PSC.Domain.CommonTables;
+﻿using Microsoft.Extensions.Logging;
+using PSC.Domain.CommonTables;
 using PSC.Repositories;
 using System;
 using System.Collections.Generic;
@@ -8,18 +9,10 @@ using System.Threading.Tasks;
 
 namespace PSC.Providers.CommonTables
 {
-    public class AzureResourceGroupProvider
+    public class AzureResourceGroupProvider : ProviderBase<AzureResourceGroup>
     {
-        /// <summary>
-        /// The database
-        /// </summary>
-        private PSCContext _db;
-
-        public AzureResourceGroupProvider(PSCContext dbContext)
-        {
-            _db = dbContext;
-        }
-
+        public AzureResourceGroupProvider(PSCContext db, ILogger log): base(db, log) { }
+        
         public async Task<AzureResourceGroup> CreateIfNotExist(string name)
         {
             long id = GetIdByNameAsync(name);
@@ -30,7 +23,7 @@ namespace PSC.Providers.CommonTables
             return await GetAsync(id);
         }
 
-        public IEnumerable<AzureResourceGroup> GetValues()
+        public IQueryable<AzureResourceGroup> GetValues()
         {
             return _db.AzureResourceGroups;
         }
@@ -45,20 +38,7 @@ namespace PSC.Providers.CommonTables
             return _db.AzureResourceGroups.Where(r => r.Name.ToLower() == name.ToLower())?.FirstOrDefault()?.ID ?? 0;
         }
 
-        public async Task<long> InsertAsync(AzureResourceGroup value)
-        {
-            await _db.AddAsync(value);
-            await _db.SaveChangesAsync();
-            return value.ID;
-        }
-
-        public async Task ReplaceAsync(long id, AzureResourceGroup value)
-        {
-            _db.Update(value);
-            await _db.SaveChangesAsync();
-        }
-
-        public async Task<bool> DeleteAsync(long id)
+        public override async Task<bool> DeleteAsync(long id)
         {
             var entity = await _db.AzureResourceGroups.FindAsync(id);
             if (entity != null)
@@ -68,16 +48,6 @@ namespace PSC.Providers.CommonTables
                 return true;
             }
             return false;
-        }
-
-        public async Task<long> DeleteMultipleAsync(long[] ids)
-        {
-            long c = 0;
-            foreach (long id in ids)
-            {
-                c += await DeleteAsync(id) ? 1 : 0;
-            }
-            return c;
         }
     }
 }

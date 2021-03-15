@@ -47,10 +47,18 @@
                     </a>
                     <ul class="nav nav-treeview" style="display: none;">
                         <li class="nav-item">
+                            <a asp-area="" asp-controller="ExcelImport" asp-action="List" class="nav-link @Url.MakeActiveClass("ExcelImport", "List")">
+                                <i class="nav-icon fas fa-digital-tachograph"></i>
+                                <p>
+                                    View all data
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a asp-area="" asp-controller="ExcelImport" asp-action="Index" class="nav-link @Url.MakeActiveClass("ExcelImport", "Index")">
                                 <i class="nav-icon fas fa-file-excel"></i>
                                 <p>
-                                    Excel
+                                    New Excel
                                 </p>
                             </a>
                         </li>
@@ -132,6 +140,38 @@
                                 <i class="nav-icon fas fa-table"></i>
                                 <p>
                                     Azure Categories
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @Url.MakeActiveClass("AzureLocation", "Index")" asp-area="Tables" asp-controller="AzureLocation" asp-action="Index" title="Azure Location">
+                                <i class="nav-icon fas fa-table"></i>
+                                <p>
+                                    Azure Locations
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @Url.MakeActiveClass("AzureResource", "Index")" asp-area="Tables" asp-controller="AzureResource" asp-action="Index" title="Azure Resource">
+                                <i class="nav-icon fas fa-table"></i>
+                                <p>
+                                    Azure Resources
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @Url.MakeActiveClass("AzureResourceGroup", "Index")" asp-area="Tables" asp-controller="AzureResourceGroup" asp-action="Index" title="Azure Resource Group">
+                                <i class="nav-icon fas fa-table"></i>
+                                <p>
+                                    Azure Resources Group
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @Url.MakeActiveClass("AzureSubcategory", "Index")" asp-area="Tables" asp-controller="AzureSubcategory" asp-action="Index" title="Azure Subcategory">
+                                <i class="nav-icon fas fa-table"></i>
+                                <p>
+                                    Azure Subcategory
                                 </p>
                             </a>
                         </li>

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PSC.Domain.Interfaces;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PSC.Domain.CommonTables
@@ -7,7 +8,7 @@ namespace PSC.Domain.CommonTables
     /// Class Country.
     /// </summary>
     [Table("tbl_Countries")]
-    public class Country
+    public class Country : ITable
     {
         /// <summary>
         /// Gets or sets the identifier country.

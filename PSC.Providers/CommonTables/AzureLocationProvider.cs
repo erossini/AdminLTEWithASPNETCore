@@ -1,4 +1,5 @@
-﻿using PSC.Domain.CommonTables;
+﻿using Microsoft.Extensions.Logging;
+using PSC.Domain.CommonTables;
 using PSC.Repositories;
 using System;
 using System.Collections.Generic;
@@ -8,18 +9,25 @@ using System.Threading.Tasks;
 
 namespace PSC.Providers.CommonTables
 {
-    public class AzureLocationProvider
+    /// <summary>
+    /// Class AzureLocationProvider.
+    /// Implements the <see cref="PSC.Providers.ProviderBase{PSC.Domain.CommonTables.AzureLocation}" />
+    /// </summary>
+    /// <seealso cref="PSC.Providers.ProviderBase{PSC.Domain.CommonTables.AzureLocation}" />
+    public class AzureLocationProvider : ProviderBase<AzureLocation>
     {
         /// <summary>
-        /// The database
+        /// Initializes a new instance of the <see cref="AzureLocationProvider"/> class.
         /// </summary>
-        private PSCContext _db;
+        /// <param name="db">The database.</param>
+        /// <param name="log">The log.</param>
+        public AzureLocationProvider(PSCContext db, ILogger log) : base(db, log) { }
 
-        public AzureLocationProvider(PSCContext dbContext)
-        {
-            _db = dbContext;
-        }
-
+        /// <summary>
+        /// Creates if not exist.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>AzureLocation.</returns>
         public async Task<AzureLocation> CreateIfNotExist(string name)
         {
             long id = GetIdByNameAsync(name);
@@ -30,35 +38,41 @@ namespace PSC.Providers.CommonTables
             return await GetAsync(id);
         }
 
-        public IEnumerable<AzureLocation> GetValues()
+        /// <summary>
+        /// Gets the values.
+        /// </summary>
+        /// <returns>IQueryable&lt;AzureLocation&gt;.</returns>
+        public IQueryable<AzureLocation> GetValues()
         {
             return _db.AzureLocations;
         }
 
+        /// <summary>
+        /// get as an asynchronous operation.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>A Task&lt;AzureLocation&gt; representing the asynchronous operation.</returns>
         public async Task<AzureLocation> GetAsync(long id)
         {
             return await _db.AzureLocations.FindAsync(id);
         }
 
+        /// <summary>
+        /// Gets the identifier by name asynchronous.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>System.Int64.</returns>
         public long GetIdByNameAsync(string name)
         {
             return _db.AzureLocations.Where(r => r.Name.ToLower() == name.ToLower())?.FirstOrDefault()?.ID ?? 0;
         }
 
-        public async Task<long> InsertAsync(AzureLocation value)
-        {
-            await _db.AddAsync(value);
-            await _db.SaveChangesAsync();
-            return value.ID;
-        }
-
-        public async Task ReplaceAsync(long id, AzureLocation value)
-        {
-            _db.Update(value);
-            await _db.SaveChangesAsync();
-        }
-
-        public async Task<bool> DeleteAsync(long id)
+        /// <summary>
+        /// delete as an asynchronous operation.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
+        public override async Task<bool> DeleteAsync(long id)
         {
             var entity = await _db.AzureLocations.FindAsync(id);
             if (entity != null)
@@ -68,16 +82,6 @@ namespace PSC.Providers.CommonTables
                 return true;
             }
             return false;
-        }
-
-        public async Task<long> DeleteMultipleAsync(long[] ids)
-        {
-            long c = 0;
-            foreach (long id in ids)
-            {
-                c += await DeleteAsync(id) ? 1 : 0;
-            }
-            return c;
         }
     }
 }

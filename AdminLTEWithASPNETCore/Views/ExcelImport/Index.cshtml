@@ -6,24 +6,30 @@
 <input type="hidden" id="filename" value="" />
 <div class="bs-stepper">
     <div class="bs-stepper-header" role="tablist">
-        <!-- your steps here -->
+        <div class="step" data-target="#metadata-part">
+            <button type="button" class="step-trigger" role="tab" aria-controls="metadata-part" id="metadata-part-trigger">
+                <span class="bs-stepper-circle">1</span>
+                <span class="bs-stepper-label">Details</span>
+            </button>
+        </div>
+        <div class="line"></div>
         <div class="step" data-target="#upload-part">
             <button type="button" class="step-trigger" role="tab" aria-controls="logins-part" id="upload-part-trigger">
-                <span class="bs-stepper-circle">1</span>
+                <span class="bs-stepper-circle">2</span>
                 <span class="bs-stepper-label">Update file</span>
             </button>
         </div>
         <div class="line"></div>
         <div class="step" data-target="#validate-part">
             <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="validate-part-trigger">
-                <span class="bs-stepper-circle">2</span>
+                <span class="bs-stepper-circle">3</span>
                 <span class="bs-stepper-label">Validate file</span>
             </button>
         </div>
         <div class="line"></div>
         <div class="step" data-target="#start-part">
             <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="start-part-trigger">
-                <span class="bs-stepper-circle">3</span>
+                <span class="bs-stepper-circle">4</span>
                 <span class="bs-stepper-label">In progress</span>
             </button>
         </div>
@@ -34,6 +40,13 @@
             <h5><i class="icon fas fa-ban"></i> File doesn't recognized</h5>
             This procecure allows you to upload only Microsoft Excel files (with extension <i>.xls</i> or <i>.xlsx</i>). Please check your file again.
             <span id="spanAlert1"></span>
+        </div>
+        <div id="metadata-part" class="content" role="tabpanel" aria-labelledby="metadata-part-trigger">
+            <div class="form-group">
+                <label for="inputPeriod">Period of Azure costs</label>
+                <input type="text" class="form-control" id="inputPeriod" placeholder="Enter period">
+            </div>
+            <button id="btnPeriod" class="btn btn-primary">Next</button>
         </div>
         <div id="upload-part" class="content" role="tabpanel" aria-labelledby="upload-part-trigger">
             <div id="dropSection">
@@ -94,9 +107,17 @@
     <script language="javascript">
         $(document).ready(function () {
             $('#divAlert1').hide();
+
             var stepper = new Stepper($('.bs-stepper')[0])
             var files;
             var nextStep = false;
+
+            $('#btnPeriod').click(function () {
+                if ($('#inputPeriod').val() === '')
+                    $('#inputPeriod').addClass("is-invalid");
+                else
+                    stepper.next();
+            });
 
             $('#btnImport').click(function () {
                 startProcess('@Url.Action("StartProcess")', $('#filename').val());
@@ -127,6 +148,7 @@
 
                         files = response.substring(8, response.lengh).split(',');
                         $('#filename').val(files[0]);
+                        setMetadata('@Url.Action("SetMetadata", "Files")', files[0], $('#inputPeriod').val());
                         readExcelFile('@Url.Action("Get", "Files")', 'preview', files[0], 5);
                     }
                     if (response.includes('Error')) {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PSC.Domain.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,7 +13,7 @@ namespace PSC.Domain.CommonTables
     /// Class AzureCategory.
     /// </summary>
     [Table("tbl_AzureCategories")]
-    public class AzureCategory
+    public class AzureCategory : ITable
     {
         /// <summary>
         /// Gets or sets the identifier.

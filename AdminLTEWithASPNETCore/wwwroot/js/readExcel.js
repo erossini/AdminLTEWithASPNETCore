@@ -55,6 +55,17 @@
     });
 }
 
+function setMetadata(url, filename, text) {
+    var json = { "filename": filename, "text": text};
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: JSON.stringify(json),
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json'
+    })
+}
+
 function startProcess(url, filename) {
     $.ajax({
         url: url,

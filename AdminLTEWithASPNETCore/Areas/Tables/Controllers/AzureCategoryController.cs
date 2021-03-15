@@ -14,7 +14,7 @@ namespace AdminLTEWithASPNETCore.Areas.Tables.Controllers
     public class AzureCategoryController : Controller
     {
         [Breadcrumb("Tables")]
-        [Breadcrumb("Azure Countries")]
+        [Breadcrumb("Azure Category")]
         public IActionResult Index()
         {
             var model = new TableUI()
@@ -27,8 +27,8 @@ namespace AdminLTEWithASPNETCore.Areas.Tables.Controllers
             };
 
             ViewData["Title"] = "Tables";
-            ViewData["TableTitle"] = "Azure Catagories";
-            return View("~/Areas/Tables/Views/Shared/Index.cshtml", model);
+            ViewData["TableTitle"] = "Azure Category";
+            return View("~/Views/Shared/TableView.cshtml", model);
         }
     }
 }

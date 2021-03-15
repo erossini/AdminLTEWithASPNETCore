@@ -4,12 +4,14 @@ using PSC.Domain;
 using PSC.Domain.Audit;
 using PSC.Domain.Audit.CommonTables;
 using PSC.Domain.CommonTables;
+using PSC.Domain.Interfaces;
 using PSC.Repositories.Extensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PSC.Repositories
@@ -21,12 +23,10 @@ namespace PSC.Repositories
         public DbSet<AzureCost> AzureCosts { get; set; }
         public DbSet<AzureCostImport> AzureCostImports { get; set; }
         public DbSet<AzureCostImportLog> AzureCostImportLogs { get; set; }
-        public DbSet<Message> Messages { get; set; }
 
         public DbSet<AuditAzureCost> AuditAzureCosts { get; set; }
         public DbSet<AuditAzureCostImport> AuditAzureCostImports { get; set; }
         public DbSet<AuditAzureCostImportLog> AuditAzureCostImportLogs { get; set; }
-        public DbSet<AuditMessage> AuditMessages { get; set; }
 
         #region Common Tables
         public DbSet<AzureCategory> AzureCategories { get; set; }

@@ -70,51 +70,97 @@
             <param name="rowDef">The row definition.</param>
             <returns>System.ValueTuple&lt;System.Boolean, List&lt;System.String&gt;, DataGrid&gt;.</returns>
         </member>
+        <member name="T:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostImportController">
+            <summary>
+            Class TableAzureCategoryController.
+            Implements the <see cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostImportController._log">
+            <summary>
+            The log
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostImportController._providers">
+            <summary>
+            The providers
+            </summary>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostImportController.#ctor(PSC.Providers.DataProviders,Microsoft.Extensions.Logging.ILogger{AdminLTEWithASPNETCore.Controllers.Apis.AzureCostImportController})">
+            <summary>
+            Initializes a new instance of the <see cref="T:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostImportController"/> class.
+            </summary>
+            <param name="providers">The providers.</param>
+            <param name="log">The log.</param>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostImportController.GetIdByName(System.String)">
+            <summary>
+            Gets the name of the identifier by.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostImportController.GetValue(System.Int64)">
+            <summary>
+            Gets the value.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostImportController.GetValues">
+            <summary>
+            Gets the values.
+            </summary>
+            <returns>The list of Azure Cost Import</returns>
+            <response code="200">Retrieved the list of Azure Cost Import</response>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostImportController.Patch(PSC.Domain.AzureCostImport)">
+            <summary>
+            Patches the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostImportController.Post(PSC.Domain.AzureCostImport)">
+            <summary>
+            Posts the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostImportController.Post(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Posts the specified draw.
+            </summary>
+            <param name="draw">The draw.</param>
+            <param name="length">The length.</param>
+            <param name="start">The start.</param>
+            <param name="columnSort">The column sort.</param>
+            <param name="columnDirectrion">The column directrion.</param>
+            <param name="search">The search.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostImportController.Delete(System.Int64)">
+            <summary>
+            Deletes the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostImportController.DeleteList(System.Int64[])">
+            <summary>
+            Deletes the list.
+            </summary>
+            <param name="ids">The ids.</param>
+            <returns>IActionResult.</returns>
+        </member>
         <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.FilesController.Get(System.String)">
             <summary>
             Gets the specified filename.
             </summary>
             <param name="filename">The filename.</param>
             <returns>DataGrid.</returns>
-        </member>
-        <member name="T:AdminLTEWithASPNETCore.Controllers.Apis.MessagesController">
-            <summary>
-            Class MessagesController.
-            Implements the <see cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
-            </summary>
-            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
-        </member>
-        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.MessagesController.Get">
-            <summary>
-            Gets this instance.
-            </summary>
-            <returns>IEnumerable&lt;System.String&gt;.</returns>
-        </member>
-        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.MessagesController.Get(System.Int32)">
-            <summary>
-            Gets the specified identifier.
-            </summary>
-            <param name="id">The identifier.</param>
-            <returns>System.String.</returns>
-        </member>
-        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.MessagesController.Post(System.String)">
-            <summary>
-            Posts the specified value.
-            </summary>
-            <param name="value">The value.</param>
-        </member>
-        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.MessagesController.Put(System.Int32,System.String)">
-            <summary>
-            Puts the specified identifier.
-            </summary>
-            <param name="id">The identifier.</param>
-            <param name="value">The value.</param>
-        </member>
-        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.MessagesController.Delete(System.Int32)">
-            <summary>
-            Deletes the specified identifier.
-            </summary>
-            <param name="id">The identifier.</param>
         </member>
         <member name="T:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureCategoryController">
             <summary>
@@ -205,6 +251,386 @@
             <returns>IActionResult.</returns>
         </member>
         <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureCategoryController.DeleteList(System.Int64[])">
+            <summary>
+            Deletes the list.
+            </summary>
+            <param name="ids">The ids.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureLocationController">
+            <summary>
+            Class TableAzureLocationController.
+            Implements the <see cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureLocationController._log">
+            <summary>
+            The log
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureLocationController._providers">
+            <summary>
+            The providers
+            </summary>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureLocationController.#ctor(PSC.Providers.DataProviders,Microsoft.Extensions.Logging.ILogger{AdminLTEWithASPNETCore.Controllers.Apis.TableAzureLocationController})">
+            <summary>
+            Initializes a new instance of the <see cref="T:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureLocationController"/> class.
+            </summary>
+            <param name="providers">The providers.</param>
+            <param name="log">The log.</param>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureLocationController.CreateIfNotExist(System.String)">
+            <summary>
+            Creates new Azure category if not exist.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>IActionResult.</returns>
+            <response code="200">Azure Location created</response>
+            <response code="400">The name is missing or invalid values</response>
+            <response code="500">Oops! Can't create your Azure Location</response>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureLocationController.GetIdByName(System.String)">
+            <summary>
+            Gets the name of the identifier by.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureLocationController.GetValue(System.Int64)">
+            <summary>
+            Gets the value.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureLocationController.GetValues">
+            <summary>
+            Gets the values.
+            </summary>
+            <returns>The list of Azure Location</returns>
+            <response code="200">Retrieved the list of Azure Location</response>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureLocationController.Patch(PSC.Domain.CommonTables.AzureLocation)">
+            <summary>
+            Patches the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureLocationController.Post(PSC.Domain.CommonTables.AzureLocation)">
+            <summary>
+            Posts the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureLocationController.Post(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Posts the specified draw.
+            </summary>
+            <param name="draw">The draw.</param>
+            <param name="length">The length.</param>
+            <param name="start">The start.</param>
+            <param name="columnSort">The column sort.</param>
+            <param name="columnDirectrion">The column directrion.</param>
+            <param name="search">The search.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureLocationController.Delete(System.Int64)">
+            <summary>
+            Deletes the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureLocationController.DeleteList(System.Int64[])">
+            <summary>
+            Deletes the list.
+            </summary>
+            <param name="ids">The ids.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceController">
+            <summary>
+            Class TableAzureResourceController.
+            Implements the <see cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceController._log">
+            <summary>
+            The log
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceController._providers">
+            <summary>
+            The providers
+            </summary>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceController.#ctor(PSC.Providers.DataProviders,Microsoft.Extensions.Logging.ILogger{AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceController})">
+            <summary>
+            Initializes a new instance of the <see cref="T:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceController"/> class.
+            </summary>
+            <param name="providers">The providers.</param>
+            <param name="log">The log.</param>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceController.CreateIfNotExist(System.String)">
+            <summary>
+            Creates new Azure category if not exist.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>IActionResult.</returns>
+            <response code="200">Azure Resource created</response>
+            <response code="400">The name is missing or invalid values</response>
+            <response code="500">Oops! Can't create your Azure Resource</response>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceController.GetIdByName(System.String)">
+            <summary>
+            Gets the name of the identifier by.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceController.GetValue(System.Int64)">
+            <summary>
+            Gets the value.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceController.GetValues">
+            <summary>
+            Gets the values.
+            </summary>
+            <returns>The list of Azure Resource</returns>
+            <response code="200">Retrieved the list of Azure Resource</response>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceController.Patch(PSC.Domain.CommonTables.AzureResource)">
+            <summary>
+            Patches the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceController.Post(PSC.Domain.CommonTables.AzureResource)">
+            <summary>
+            Posts the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceController.Post(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Posts the specified draw.
+            </summary>
+            <param name="draw">The draw.</param>
+            <param name="length">The length.</param>
+            <param name="start">The start.</param>
+            <param name="columnSort">The column sort.</param>
+            <param name="columnDirectrion">The column directrion.</param>
+            <param name="search">The search.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceController.Delete(System.Int64)">
+            <summary>
+            Deletes the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceController.DeleteList(System.Int64[])">
+            <summary>
+            Deletes the list.
+            </summary>
+            <param name="ids">The ids.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceGroupController">
+            <summary>
+            Class TableAzureResourceGroupController.
+            Implements the <see cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceGroupController._log">
+            <summary>
+            The log
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceGroupController._providers">
+            <summary>
+            The providers
+            </summary>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceGroupController.#ctor(PSC.Providers.DataProviders,Microsoft.Extensions.Logging.ILogger{AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceGroupController})">
+            <summary>
+            Initializes a new instance of the <see cref="T:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceGroupController"/> class.
+            </summary>
+            <param name="providers">The providers.</param>
+            <param name="log">The log.</param>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceGroupController.CreateIfNotExist(System.String)">
+            <summary>
+            Creates new Azure category if not exist.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>IActionResult.</returns>
+            <response code="200">Azure Resource Group created</response>
+            <response code="400">The name is missing or invalid values</response>
+            <response code="500">Oops! Can't create your Azure Resource Group</response>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceGroupController.GetIdByName(System.String)">
+            <summary>
+            Gets the name of the identifier by.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceGroupController.GetValue(System.Int64)">
+            <summary>
+            Gets the value.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceGroupController.GetValues">
+            <summary>
+            Gets the values.
+            </summary>
+            <returns>The list of Azure Resource Group</returns>
+            <response code="200">Retrieved the list of Azure Resource Group</response>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceGroupController.Patch(PSC.Domain.CommonTables.AzureResourceGroup)">
+            <summary>
+            Patches the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceGroupController.Post(PSC.Domain.CommonTables.AzureResourceGroup)">
+            <summary>
+            Posts the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceGroupController.Post(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Posts the specified draw.
+            </summary>
+            <param name="draw">The draw.</param>
+            <param name="length">The length.</param>
+            <param name="start">The start.</param>
+            <param name="columnSort">The column sort.</param>
+            <param name="columnDirectrion">The column directrion.</param>
+            <param name="search">The search.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceGroupController.Delete(System.Int64)">
+            <summary>
+            Deletes the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureResourceGroupController.DeleteList(System.Int64[])">
+            <summary>
+            Deletes the list.
+            </summary>
+            <param name="ids">The ids.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureSubcategoryController">
+            <summary>
+            Class TableAzureResourceGroupController.
+            Implements the <see cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureSubcategoryController._log">
+            <summary>
+            The log
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureSubcategoryController._providers">
+            <summary>
+            The providers
+            </summary>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureSubcategoryController.#ctor(PSC.Providers.DataProviders,Microsoft.Extensions.Logging.ILogger{AdminLTEWithASPNETCore.Controllers.Apis.TableAzureSubcategoryController})">
+            <summary>
+            Initializes a new instance of the <see cref="T:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureSubcategoryController"/> class.
+            </summary>
+            <param name="providers">The providers.</param>
+            <param name="log">The log.</param>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureSubcategoryController.CreateIfNotExist(System.String)">
+            <summary>
+            Creates new Azure category if not exist.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>IActionResult.</returns>
+            <response code="200">Azure Subcategory created</response>
+            <response code="400">The name is missing or invalid values</response>
+            <response code="500">Oops! Can't create your Azure Subcategory</response>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureSubcategoryController.GetIdByName(System.String)">
+            <summary>
+            Gets the name of the identifier by.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureSubcategoryController.GetValue(System.Int64)">
+            <summary>
+            Gets the value.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureSubcategoryController.GetValues">
+            <summary>
+            Gets the values.
+            </summary>
+            <returns>The list of Azure Subcategory</returns>
+            <response code="200">Retrieved the list of Azure Subcategory</response>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureSubcategoryController.Patch(PSC.Domain.CommonTables.AzureSubcategory)">
+            <summary>
+            Patches the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureSubcategoryController.Post(PSC.Domain.CommonTables.AzureSubcategory)">
+            <summary>
+            Posts the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureSubcategoryController.Post(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Posts the specified draw.
+            </summary>
+            <param name="draw">The draw.</param>
+            <param name="length">The length.</param>
+            <param name="start">The start.</param>
+            <param name="columnSort">The column sort.</param>
+            <param name="columnDirectrion">The column directrion.</param>
+            <param name="search">The search.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureSubcategoryController.Delete(System.Int64)">
+            <summary>
+            Deletes the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.TableAzureSubcategoryController.DeleteList(System.Int64[])">
             <summary>
             Deletes the list.
             </summary>
@@ -1025,6 +1451,46 @@
             Gets or sets the events.
             </summary>
             <value>The events.</value>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Models.Controllers.Api.FileMetadata">
+            <summary>
+            Class FileMetadata.
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Controllers.Api.FileMetadata.Filename">
+            <summary>
+            Gets or sets the filename.
+            </summary>
+            <value>The filename.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Controllers.Api.FileMetadata.Text">
+            <summary>
+            Gets or sets the text.
+            </summary>
+            <value>The text.</value>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Models.Controllers.FileViewModel">
+            <summary>
+            Class FileViewModel.
+            </summary>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Controllers.FileViewModel.FileId">
+            <summary>
+            Gets or sets the file identifier.
+            </summary>
+            <value>The file identifier.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Controllers.FileViewModel.FileName">
+            <summary>
+            Gets or sets the name of the file.
+            </summary>
+            <value>The name of the file.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Controllers.FileViewModel.Timeline">
+            <summary>
+            Gets or sets the timeline.
+            </summary>
+            <value>The timeline.</value>
         </member>
         <member name="F:AdminLTEWithASPNETCore.Models.Imports.FileStructure.AzureReportStructure">
             <summary>
