@@ -41,6 +41,7 @@ namespace AdminLTEWithASPNETCore.Code.Processes
                 {
                     AzureCostImportId = id,
                     LogType = PSC.Domain.Enums.LogType.EndProcess,
+                    Message = "Import completed",
                     CreatedBy = CommonConst.SystemUser
                 });
             }

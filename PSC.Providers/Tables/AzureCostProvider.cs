@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using PSC.Domain;
 using PSC.Repositories;
 using System;
@@ -22,7 +23,12 @@ namespace PSC.Providers.Tables
         /// <returns>IQueryable&lt;AzureCost&gt;.</returns>
         public IQueryable<AzureCost> GetValues()
         {
-            return _db.AzureCosts;
+            return _db.AzureCosts
+                        .Include(c => c.AzureCategory)
+                        .Include(c => c.AzureLocation)
+                        .Include(c => c.AzureResource)
+                        .Include(c => c.AzureResourceGroup)
+                        .Include(c => c.AzureSubcategory);
         }
 
         /// <summary>

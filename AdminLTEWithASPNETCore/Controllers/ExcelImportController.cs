@@ -145,9 +145,9 @@ namespace AdminLTEWithASPNETCore.Controllers
                 ApiUrl = "/api/AzureCost/Search",
                 Fields = new FieldUI[] {
                     new FieldUI() { Label = "ID", Data = "ID" },
-                    new FieldUI() { Label = "Resource", Data = "ResourceId" },
-                    new FieldUI() { Label = "Location", Data = "LocationId" },
-                    new FieldUI() { Label = "Resource Group", Data = "ResourceGroupId" },
+                    new FieldUI() { Label = "Resource", Data = "AzureResource.Name" },
+                    new FieldUI() { Label = "Location", Data = "AzureLocation.Name" },
+                    new FieldUI() { Label = "Resource Group", Data = "AzureResourceGroup.Name" },
                     new FieldUI() { Label = "Quantity", Data = "Quantity" },
                     new FieldUI() { Label = "Cost", Data = "Cost" }
                 }
