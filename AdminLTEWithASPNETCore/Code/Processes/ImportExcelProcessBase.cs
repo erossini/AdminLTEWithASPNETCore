@@ -37,10 +37,10 @@ namespace AdminLTEWithASPNETCore.Code.Processes
         {
         }
 
-        public async Task ProcessComplete(string username, string filename)
+        public async Task ProcessComplete(string username, string filename, string title, string message)
         {
             _log.LogInformation($"Process complete for {filename}");
-            await _hubContext.Clients.All.SendAsync("Send", username, "File imported!", "The file ... has been imported in the database.");
+            await _hubContext.Clients.All.SendAsync("Send", username, title, message);
         }
 
         /// <summary>

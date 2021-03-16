@@ -35,7 +35,7 @@ namespace AdminLTEWithASPNETCore.Code.Processes
             if (IsValid)
             {
                 await ImportFile(Data, id);
-                await ProcessComplete(username, filename);
+                await ProcessComplete(username, filename, "File imported", $"The file {Path.GetFileName(filename)} has been imported. See it on Import > View all imports");
 
                 await _providers.AzureCostImportLog.InsertAsync(new PSC.Domain.AzureCostImportLog()
                 {

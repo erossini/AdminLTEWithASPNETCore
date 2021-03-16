@@ -105,7 +105,7 @@ namespace AdminLTEWithASPNETCore.Controllers
                         return Content("Success:" + string.Join(',', response.Files));
                     else
                         return Content("Error:Check the following errors: <ul>" +
-                            string.Join(',', errors.Select(e => "<li>" + e + "</li>"))
+                            string.Join(' ', errors.Select(e => "<li>" + e + "</li>"))
                             + "</ul>");
                 }
             }
