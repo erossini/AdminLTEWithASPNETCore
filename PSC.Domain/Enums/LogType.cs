@@ -11,6 +11,7 @@ namespace PSC.Domain.Enums
     /// </summary>
     public enum LogType
     {
+        EndProcess,
         Error,
         Information,
         ServiceMessage,

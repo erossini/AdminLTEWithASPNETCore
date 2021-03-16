@@ -19,8 +19,8 @@ namespace PSC.Providers.Tables
         /// <summary>
         /// Gets the values.
         /// </summary>
-        /// <returns>IEnumerable&lt;AzureCost&gt;.</returns>
-        public IEnumerable<AzureCost> GetValues()
+        /// <returns>IQueryable&lt;AzureCost&gt;.</returns>
+        public IQueryable<AzureCost> GetValues()
         {
             return _db.AzureCosts;
         }

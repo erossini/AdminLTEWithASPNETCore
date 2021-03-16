@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using PSC.Extensions;
+using PSC.Services.AspNetCore.Models.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,16 +13,24 @@ namespace PSC.Services.AspNetCore.TableAPIs
 {
     public class TableService<T> where T : class
     {
+        string drawValue;
+        string lengthValue;
+        string startValue;
+        string sortColumn;
+        string sortColumnDirection;
+        string searchValue;
+        long recordsTotal;
+
         public object GetRecords(string draw, string length, string start, string columnSort,
             string columnDirectrion, string search, IFormCollection form, IQueryable<T> data,
             Expression<Func<T, bool>> condition)
         {
-            var drawValue = form.GetValueOrDefault("draw", draw);
-            var lengthValue = form.GetValueOrDefault("length", length);
-            var startValue = form.GetValueOrDefault("start", start);
-            var sortColumn = columnSort ?? form["columns[" + form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
-            var sortColumnDirection = form.GetValueOrDefault("order[0][dir]", columnDirectrion);
-            var searchValue = form.GetValueOrDefault("search[value]", search);
+            drawValue = form.GetValueOrDefault("draw", draw);
+            lengthValue = form.GetValueOrDefault("length", length);
+            startValue = form.GetValueOrDefault("start", start);
+            sortColumn = columnSort ?? form["columns[" + form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
+            sortColumnDirection = form.GetValueOrDefault("order[0][dir]", columnDirectrion);
+            searchValue = form.GetValueOrDefault("search[value]", search);
 
             int pageSize = !string.IsNullOrEmpty(length) ? Convert.ToInt32(lengthValue) : 10;
             int skip = !string.IsNullOrEmpty(start) ? Convert.ToInt32(startValue) : 0;
@@ -32,9 +41,9 @@ namespace PSC.Services.AspNetCore.TableAPIs
             if (!string.IsNullOrEmpty(searchValue))
                 data = data.Where(condition);
 
-            long recordsTotal = data.Count();
+            recordsTotal = data.Count();
 
-            var rtn = data.Skip(skip).Take(pageSize).ToList();
+            var rtn = data.Skip(skip).Take(pageSize);
             var jsonData = new { draw = drawValue, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = rtn };
             return jsonData;
         }

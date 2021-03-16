@@ -1,4 +1,5 @@
 ﻿using AdminLTEWithASPNETCore.Attributes;
+using AdminLTEWithASPNETCore.Code;
 using AdminLTEWithASPNETCore.Code.Processes;
 using AdminLTEWithASPNETCore.Enums.Components.Timeline;
 using AdminLTEWithASPNETCore.Models.Controllers;
@@ -58,20 +59,23 @@ namespace AdminLTEWithASPNETCore.Controllers
             var id = await _providers.AzureCostImport.InsertAsync(new PSC.Domain.AzureCostImport()
             {
                 FileName = Path.GetFileName(response.Files.FirstOrDefault()),
-                UserId = User.Identity.Name
+                UserId = User.Identity.Name, 
+                CreatedBy = CommonConst.SystemUser
             });
             await _providers.AzureCostImportLog.InsertAsync(new PSC.Domain.AzureCostImportLog()
             {
                 AzureCostImportId = id,
                 LogType = PSC.Domain.Enums.LogType.UserInteraction,
-                Username = User.Identity.Name,
-                Message = $"User asked to import {filename}"
+                UserId = User.Identity.Name,
+                Message = $"User asked to import {filename}",
+                CreatedBy = CommonConst.SystemUser
             });
             await _providers.AzureCostImportLog.InsertAsync(new PSC.Domain.AzureCostImportLog()
             {
                 AzureCostImportId = id,
                 LogType = PSC.Domain.Enums.LogType.Error,
-                Message = $"{filename} has been uploaded " + (response.Success ? "without errors" : "with errors")
+                Message = $"{filename} has been uploaded " + (response.Success ? "without errors" : "with errors"),
+                CreatedBy = CommonConst.SystemUser
             });
 
             if (response.Success)
@@ -85,14 +89,16 @@ namespace AdminLTEWithASPNETCore.Controllers
                     {
                         AzureCostImportId = id,
                         LogType = IsValid ? PSC.Domain.Enums.LogType.Information : PSC.Domain.Enums.LogType.Error,
-                        Message = $"{filename} has been validated: header is " + (IsValid ? "" : "not") + " valid"
+                        Message = $"{filename} has been validated: header is " + (IsValid ? "" : "not") + " valid",
+                        CreatedBy = CommonConst.SystemUser
                     });
                     if (!IsValid)
                         await _providers.AzureCostImportLog.InsertAsync(new PSC.Domain.AzureCostImportLog()
                         {
                             AzureCostImportId = id,
                             LogType = PSC.Domain.Enums.LogType.Error,
-                            Message = $"{filename} can't be imported"
+                            Message = $"{filename} can't be imported",
+                            CreatedBy = CommonConst.SystemUser
                         });
 
                     if (IsValid)
@@ -118,7 +124,8 @@ namespace AdminLTEWithASPNETCore.Controllers
                     new FieldUI() { Label = "ID", Data = "ID" },
                     new FieldUI() { Label = "FileName", Data = "FileName" },
                     new FieldUI() { Label = "Period", Data = "Period" },
-                    new FieldUI() { Label = "UserId", Data = "UserId" }
+                    new FieldUI() { Label = "UserId", Data = "UserId" },
+                    new FieldUI() { Label = "Date", Data = "CreatedAt" }
                 }, 
                 ViewUrl = "/ExcelImport/ViewFile"
             };
@@ -127,6 +134,30 @@ namespace AdminLTEWithASPNETCore.Controllers
             ViewData["TableTitle"] = "Import Azure Files";
             return View("~/Views/Shared/TableView.cshtml", model);
         }
+
+
+        [Breadcrumb("Import")]
+        [Breadcrumb("Azure Costs")]
+        public IActionResult ListCosts()
+        {
+            var model = new TableUI()
+            {
+                ApiUrl = "/api/AzureCost/Search",
+                Fields = new FieldUI[] {
+                    new FieldUI() { Label = "ID", Data = "ID" },
+                    new FieldUI() { Label = "Resource", Data = "ResourceId" },
+                    new FieldUI() { Label = "Location", Data = "LocationId" },
+                    new FieldUI() { Label = "Resource Group", Data = "ResourceGroupId" },
+                    new FieldUI() { Label = "Quantity", Data = "Quantity" },
+                    new FieldUI() { Label = "Cost", Data = "Cost" }
+                }
+            };
+
+            ViewData["Title"] = "Tables";
+            ViewData["TableTitle"] = "Azure Costs";
+            return View("~/Views/Shared/TableView.cshtml", model);
+        }
+
 
         [HttpGet]
         public IActionResult StartProcess(string filename)
@@ -143,6 +174,12 @@ namespace AdminLTEWithASPNETCore.Controllers
             var record = await _providers.AzureCostImport.GetAsync(id);
             if (record != null)
             {
+                model.Card = new Models.Components.Cards.CardModel()
+                {
+                    Title = "Import file " + model.FileName,
+                    Body = "This file has successfully imported. See the timeline for more details."
+                };
+
                 model.FileId = id;
                 model.FileName = record.FileName;
 
@@ -152,7 +189,6 @@ namespace AdminLTEWithASPNETCore.Controllers
                 {
                     items.Add(new Models.Components.Timeline.TimelineItem()
                     {
-                        Body = ev.Message,
                         HeaderText = ev.Message,
                         ItemIcon = GetTimelineItemIcon(ev.LogType),
                         ItemType = GetTimelineEventType(ev.LogType),
@@ -166,7 +202,7 @@ namespace AdminLTEWithASPNETCore.Controllers
                     {
                         new Models.Components.Timeline.TimelineEvent()
                         {
-                            EventDate = record.Period ?? DateTime.Now.ToString(),
+                            EventDate = record.CreatedAt.ToString("MMM dd, yyyy") + " (" + record.Period + ")",
                             EventType = Enums.Components.Timeline.TimelineEventType.Important,
                             Items = items
                         }
@@ -194,6 +230,9 @@ namespace AdminLTEWithASPNETCore.Controllers
                 case LogType.UserInteraction:
                     rtn = TimelineItemIcon.UserActivity;
                     break;
+                case LogType.EndProcess:
+                    rtn = TimelineItemIcon.Check;
+                    break;
             }
             return rtn;
         }
@@ -212,6 +251,7 @@ namespace AdminLTEWithASPNETCore.Controllers
                 case LogType.Warning:
                     rtn = TimelineEventType.Warning;
                     break;
+                case LogType.EndProcess:
                 case LogType.SendNotification:
                 case LogType.ServiceMessage:
                     rtn = TimelineEventType.UndefinedStatus;

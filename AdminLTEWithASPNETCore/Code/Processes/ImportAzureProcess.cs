@@ -36,6 +36,13 @@ namespace AdminLTEWithASPNETCore.Code.Processes
             {
                 await ImportFile(Data, id);
                 await ProcessComplete(username, filename);
+
+                await _providers.AzureCostImportLog.InsertAsync(new PSC.Domain.AzureCostImportLog()
+                {
+                    AzureCostImportId = id,
+                    LogType = PSC.Domain.Enums.LogType.EndProcess,
+                    CreatedBy = CommonConst.SystemUser
+                });
             }
         }
 
@@ -70,7 +77,8 @@ namespace AdminLTEWithASPNETCore.Code.Processes
             {
                 AzureCostImportId = fileId,
                 LogType = PSC.Domain.Enums.LogType.Information,
-                Message = $"Import completed: {totalImports}/{totalRecords}"
+                Message = $"Import completed: {totalImports}/{totalRecords}",
+                CreatedBy = CommonConst.SystemUser
             });
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using PSC.Domain.Interfaces;
 using PSC.Repositories;
+using System;
 using System.Threading.Tasks;
 
 namespace PSC.Providers
@@ -47,6 +48,7 @@ namespace PSC.Providers
         /// <returns>A Task representing the asynchronous operation.</returns>
         public async Task ReplaceAsync(long id, T value)
         {
+            value.ModifiedAt = DateTime.Now;
             _log.LogDebug($"[{nameof(T)}] Replace the record Id {id}");
             _db.Update(value);
             await _db.SaveChangesAsync();

@@ -16,13 +16,35 @@ namespace PSC.Domain
     [Table("AzureCostImportLogs")]
     public class AzureCostImportLog : ITable
     {
+        #region ITable implementation
         /// <summary>
-        /// Gets or sets the identifier.
+        /// Gets or sets the identifier country.
         /// </summary>
-        /// <value>The identifier.</value>
+        /// <value>The identifier country.</value>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long ID { get; set; }
+        /// <summary>
+        /// Gets or sets the created at.
+        /// </summary>
+        /// <value>The created at.</value>
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        /// <summary>
+        /// Gets or sets the created by.
+        /// </summary>
+        /// <value>The created by.</value>
+        public string CreatedBy { get; set; }
+        /// <summary>
+        /// Gets or sets the modified at.
+        /// </summary>
+        /// <value>The modified at.</value>
+        public DateTime? ModifiedAt { get; set; }
+        /// <summary>
+        /// Gets or sets the modified by.
+        /// </summary>
+        /// <value>The modified by.</value>
+        public string ModifiedBy { get; set; }
+        #endregion
 
         public long AzureCostImportId { get; set; }
         [ForeignKey("AzureCostImportId")]
@@ -30,7 +52,8 @@ namespace PSC.Domain
 
         public DateTime LogData { get; set; } = DateTime.Now;
         public LogType LogType { get; set; } = LogType.Information;
+        public string Body { get; set; }
         public string Message { get; set; }
-        public string Username { get; set; }
+        public string UserId { get; set; }
     }
 }

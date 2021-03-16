@@ -49,6 +49,16 @@
             </summary>
             <value><c>true</c> if [pass arguments]; otherwise, <c>false</c>.</value>
         </member>
+        <member name="T:AdminLTEWithASPNETCore.Code.CommonConst">
+            <summary>
+            Class CommonConst.
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Code.CommonConst.SystemUser">
+            <summary>
+            The system user
+            </summary>
+        </member>
         <member name="T:AdminLTEWithASPNETCore.Code.Processes.ImportExcelProcessBase">
             <summary>
             Class ImportExcelProcess.
@@ -69,6 +79,84 @@
             <param name="filename">The filename.</param>
             <param name="rowDef">The row definition.</param>
             <returns>System.ValueTuple&lt;System.Boolean, List&lt;System.String&gt;, DataGrid&gt;.</returns>
+        </member>
+        <member name="T:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostController">
+            <summary>
+            Class TableAzureCategoryController.
+            Implements the <see cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostController._log">
+            <summary>
+            The log
+            </summary>
+        </member>
+        <member name="F:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostController._providers">
+            <summary>
+            The providers
+            </summary>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostController.#ctor(PSC.Providers.DataProviders,PSC.Repositories.PSCContext,Microsoft.Extensions.Logging.ILogger{AdminLTEWithASPNETCore.Controllers.Apis.AzureCostController})">
+            <summary>
+            Initializes a new instance of the <see cref="T:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostController"/> class.
+            </summary>
+            <param name="providers">The providers.</param>
+            <param name="log">The log.</param>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostController.GetValue(System.Int64)">
+            <summary>
+            Gets the value.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostController.GetValues">
+            <summary>
+            Gets the values.
+            </summary>
+            <returns>The list of Azure Cost</returns>
+            <response code="200">Retrieved the list of Azure Cost</response>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostController.Patch(PSC.Domain.AzureCost)">
+            <summary>
+            Patches the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostController.Post(PSC.Domain.AzureCost)">
+            <summary>
+            Posts the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostController.Post(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Posts the specified draw.
+            </summary>
+            <param name="draw">The draw.</param>
+            <param name="length">The length.</param>
+            <param name="start">The start.</param>
+            <param name="columnSort">The column sort.</param>
+            <param name="columnDirectrion">The column directrion.</param>
+            <param name="search">The search.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostController.Delete(System.Int64)">
+            <summary>
+            Deletes the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostController.DeleteList(System.Int64[])">
+            <summary>
+            Deletes the list.
+            </summary>
+            <param name="ids">The ids.</param>
+            <returns>IActionResult.</returns>
         </member>
         <member name="T:AdminLTEWithASPNETCore.Controllers.Apis.AzureCostImportController">
             <summary>
@@ -789,6 +877,11 @@
             The comment
             </summary>
         </member>
+        <member name="F:AdminLTEWithASPNETCore.Enums.Components.Timeline.TimelineItemIcon.Check">
+            <summary>
+            The check
+            </summary>
+        </member>
         <member name="F:AdminLTEWithASPNETCore.Enums.Components.Timeline.TimelineItemIcon.Letter">
             <summary>
             The letter
@@ -1491,6 +1584,12 @@
             Gets or sets the timeline.
             </summary>
             <value>The timeline.</value>
+        </member>
+        <member name="P:AdminLTEWithASPNETCore.Models.Controllers.FileViewModel.Card">
+            <summary>
+            Gets or sets the card.
+            </summary>
+            <value>The card.</value>
         </member>
         <member name="F:AdminLTEWithASPNETCore.Models.Imports.FileStructure.AzureReportStructure">
             <summary>

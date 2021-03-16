@@ -47,6 +47,14 @@
                     </a>
                     <ul class="nav nav-treeview" style="display: none;">
                         <li class="nav-item">
+                            <a asp-area="" asp-controller="ExcelImport" asp-action="ListCosts" class="nav-link @Url.MakeActiveClass("ExcelImport", "ListCosts")">
+                                <i class="nav-icon fas fa-digital-tachograph"></i>
+                                <p>
+                                    View costs
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a asp-area="" asp-controller="ExcelImport" asp-action="List" class="nav-link @Url.MakeActiveClass("ExcelImport", "List")">
                                 <i class="nav-icon fas fa-digital-tachograph"></i>
                                 <p>

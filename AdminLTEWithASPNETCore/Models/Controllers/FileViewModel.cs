@@ -1,4 +1,5 @@
-﻿using AdminLTEWithASPNETCore.Models.Components.Timeline;
+﻿using AdminLTEWithASPNETCore.Models.Components.Cards;
+using AdminLTEWithASPNETCore.Models.Components.Timeline;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,5 +27,10 @@ namespace AdminLTEWithASPNETCore.Models.Controllers
         /// </summary>
         /// <value>The timeline.</value>
         public TimelineModel Timeline { get; set; }
+        /// <summary>
+        /// Gets or sets the card.
+        /// </summary>
+        /// <value>The card.</value>
+        public CardModel Card { get; set; }
     }
 }

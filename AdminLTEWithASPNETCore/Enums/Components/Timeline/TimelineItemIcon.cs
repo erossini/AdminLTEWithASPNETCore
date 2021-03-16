@@ -17,6 +17,11 @@ namespace AdminLTEWithASPNETCore.Enums.Components.Timeline
         [Description("fa-comment")]
         Comment,
         /// <summary>
+        /// The check
+        /// </summary>
+        [Description("fa-check-square")]
+        Check,
+        /// <summary>
         /// The letter
         /// </summary>
         [Description("fa-envelope")]

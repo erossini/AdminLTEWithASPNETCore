@@ -18,11 +18,35 @@ namespace PSC.Domain.Audit
         /// <value>The audit identifier.</value>
         [Key]
         public long AuditId { get; set; }
+
+        #region ITable implementation
         /// <summary>
         /// Gets or sets the identifier country.
         /// </summary>
         /// <value>The identifier country.</value>
         public long ID { get; set; }
+        /// <summary>
+        /// Gets or sets the created at.
+        /// </summary>
+        /// <value>The created at.</value>
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        /// <summary>
+        /// Gets or sets the created by.
+        /// </summary>
+        /// <value>The created by.</value>
+        public string CreatedBy { get; set; }
+        /// <summary>
+        /// Gets or sets the modified at.
+        /// </summary>
+        /// <value>The modified at.</value>
+        public DateTime? ModifiedAt { get; set; }
+        /// <summary>
+        /// Gets or sets the modified by.
+        /// </summary>
+        /// <value>The modified by.</value>
+        public string ModifiedBy { get; set; }
+        #endregion
+
         /// <summary>
         /// Gets or sets the resource identifier.
         /// </summary>
@@ -49,6 +73,11 @@ namespace PSC.Domain.Audit
         /// <value>The subcategory identifier.</value>
         public long SubcategoryId { get; set; }
         /// <summary>
+        /// Gets or sets the azure cost import identifier.
+        /// </summary>
+        /// <value>The azure cost import identifier.</value>
+        public long AzureCostImportId { get; set; }
+        /// <summary>
         /// Gets or sets the quantity.
         /// </summary>
         /// <value>The quantity.</value>
@@ -58,6 +87,7 @@ namespace PSC.Domain.Audit
         /// </summary>
         /// <value>The cost.</value>
         public decimal Cost { get; set; }
+        public DateTime ImportDate { get; set; } = DateTime.Now;
 
         public string AuditAction { get; set; }
         public DateTime AuditDate { get; set; }
