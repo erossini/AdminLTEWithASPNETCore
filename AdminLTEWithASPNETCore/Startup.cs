@@ -1,3 +1,4 @@
+using AdminLTEWithASPNETCore.Code.Configurations;
 using AdminLTEWithASPNETCore.Code.Processes;
 using AdminLTEWithASPNETCore.Data;
 using AdminLTEWithASPNETCore.Models.Settings;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -28,6 +30,7 @@ using PSC.Providers.Tables;
 using PSC.Repositories;
 using PSC.Services.AspNetCore;
 using PSC.Services.Imports;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
@@ -44,6 +47,15 @@ namespace AdminLTEWithASPNETCore
             Configuration = configuration;
         }
 
+        static string XmlCommentsFileName
+        {
+            get
+            {
+                var fileName = typeof(Startup).GetTypeInfo().Assembly.GetName().Name + ".xml";
+                return fileName;
+            }
+        }
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -53,15 +65,6 @@ namespace AdminLTEWithASPNETCore
             services.AddRazorPages();
             services.AddLogging();
 
-            #region API version
-            services.AddApiVersioning(config =>
-            {
-                config.DefaultApiVersion = new ApiVersion(1, 0);
-                config.AssumeDefaultVersionWhenUnspecified = true;
-                config.ReportApiVersions = true;
-                config.ApiVersionReader = new HeaderApiVersionReader("api-version");
-            });
-            #endregion
             #region Settings
             services.Configure<SmtpCredentialsSettings>(Configuration.GetSection("SmtpCredentials"));
             services.AddScoped(cfg => cfg.GetService<IOptions<SmtpCredentialsSettings>>().Value);
@@ -251,32 +254,56 @@ namespace AdminLTEWithASPNETCore
                 hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(1);
             });
             #endregion
-            #region Swagger
-            services.AddSwaggerGen(c =>
+            #region API version
+            services.AddApiVersioning(config =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo
+                //config.DefaultApiVersion = new ApiVersion(1, 0);
+                //config.AssumeDefaultVersionWhenUnspecified = true;
+                config.ReportApiVersions = true;
+                //config.ApiVersionReader = new HeaderApiVersionReader("api-version");
+            });
+            services.AddVersionedApiExplorer(options =>
+            {
+                // add the versioned api explorer, which also adds IApiVersionDescriptionProvider service
+                // note: the specified format code will format the version as "'v'major[.minor][-status]"
+                options.GroupNameFormat = "'v'VVV";
+                // note: this option is only necessary when versioning by url segment. the SubstitutionFormat
+                // can also be used to control the format of the API version in route templates
+                options.SubstituteApiVersionInUrl = true;
+            });
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+            services.AddSwaggerGen(
+            options =>
+            {
+                // add a custom operation filter which sets default values
+                options.OperationFilter<SwaggerDefaultValues>();
+                // integrate xml comments
+                options.IncludeXmlComments(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), XmlCommentsFileName));
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    Contact = new OpenApiContact()
-                    {
-                        Email = StringResources.APIContactEmail,
-                        Url = new Uri(StringResources.APIContactUrl),
-                        Name = StringResources.APIContactName
-                    },
-                    Description = StringResources.APIDescription,
-                    Title = StringResources.APITitle,
-                    Version = StringResources.V1
+                    In = ParameterLocation.Header,
+                    Description = "Please insert JWT with Bearer into field",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
                 });
-
-                // Set the comments path for the Swagger JSON and UI.
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                c.IncludeXmlComments(xmlPath);
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                    {
+                    new OpenApiSecurityScheme{
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    new string[] { }
+                    }
+                });
             });
             #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider,
             ApplicationDbContext db, PSCContext dbPSC)
         {
             if (env.IsDevelopment())
@@ -285,7 +312,14 @@ namespace AdminLTEWithASPNETCore
                 //app.UseDeveloperExceptionPage();
 
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", StringResources.APITitleV1));
+                app.UseSwaggerUI(options =>
+                {
+                    // build a swagger endpoint for each discovered API version
+                    foreach (var description in provider.ApiVersionDescriptions)
+                    {
+                        options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+                    }
+                });
             }
             else
             {
@@ -338,9 +372,12 @@ namespace AdminLTEWithASPNETCore
                 endpoints.MapControllerRoute(
                     name: "Tables",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllers();
                 endpoints.MapRazorPages();
             });
         }

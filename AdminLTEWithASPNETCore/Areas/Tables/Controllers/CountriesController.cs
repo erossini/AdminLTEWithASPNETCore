@@ -25,7 +25,7 @@ namespace AdminLTEWithASPNETCore.Areas.Tables.Controllers
         public IActionResult Index()
         {
             var model = new TableUI() {
-                ApiUrl = "/api/TableCountries/Search",
+                ApiUrl = "/api/v1/TableCountries/Search",
                 Fields = new FieldUI[] {
                     new FieldUI() { Label = "ID", Data = "ID" },
                     new FieldUI() { Label = "Country", Data = "Name" },

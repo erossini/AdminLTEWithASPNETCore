@@ -19,7 +19,7 @@ namespace AdminLTEWithASPNETCore.Areas.Tables.Controllers
         {
             var model = new TableUI()
             {
-                ApiUrl = "/api/TableAzureSubcategory/Search",
+                ApiUrl = "/api/v1/TableAzureSubcategory/Search",
                 Fields = new FieldUI[] {
                     new FieldUI() { Label = "ID", Data = "ID" },
                     new FieldUI() { Label = "Subcategory", Data = "Name" }

@@ -19,7 +19,7 @@ namespace AdminLTEWithASPNETCore.Areas.Tables.Controllers
         {
             var model = new TableUI()
             {
-                ApiUrl = "/api/TableAzureLocation/Search",
+                ApiUrl = "/api/v1/TableAzureLocation/Search",
                 Fields = new FieldUI[] {
                     new FieldUI() { Label = "ID", Data = "ID" },
                     new FieldUI() { Label = "Location", Data = "Name" }

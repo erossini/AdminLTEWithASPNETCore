@@ -14,8 +14,9 @@ using System.Threading.Tasks;
 
 namespace AdminLTEWithASPNETCore.Controllers.Apis
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class FilesController : ControllerBase
     {
         private readonly DataProviders _providers;
