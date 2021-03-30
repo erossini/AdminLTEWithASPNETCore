@@ -148,8 +148,8 @@
 
                         files = response.substring(8, response.lengh).split(',');
                         $('#filename').val(files[0]);
-                        setMetadata('@Url.Action("SetMetadata", "Files")', files[0], $('#inputPeriod').val());
-                        readExcelFile('@Url.Action("Get", "Files")', 'preview', files[0], 5);
+                        setMetadata('/api/v1/Files/SetMetadata', files[0], $('#inputPeriod').val());
+                        readExcelFile('/api/v1/Files', 'preview', files[0], 5);
                     }
                     if (response.includes('Error')) {
                         $('#spanAlert1').html(response.substring(6));

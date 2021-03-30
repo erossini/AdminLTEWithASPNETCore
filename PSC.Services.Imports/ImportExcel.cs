@@ -80,7 +80,8 @@ namespace PSC.Services.Imports
                                 }
                                 else
                                 {
-                                    var header = grid.Headers[columnIndex];
+                                    int cellRef = CellReferenceToIndex(cell);
+                                    var header = grid.Headers[cellRef];
                                     dictionary.Add(header, value);
                                 }
 
@@ -97,9 +98,68 @@ namespace PSC.Services.Imports
             }
 
             document.Close();
+            return CheckGrid(grid);
+        }
 
-            // TODO: check if some columns are missing because blank in the Excel file
-            return grid;
+        /// <summary>
+        /// Checks the grid.
+        /// </summary>
+        /// <param name="grid">The grid.</param>
+        /// <returns>DataGrid.</returns>
+        public DataGrid CheckGrid(DataGrid grid)
+        {
+            DataGrid rtn = new DataGrid();
+            rtn.Headers.AddRange(grid.Headers);
+            rtn.Success = grid.Success;
+
+            int nColumns = grid.Headers.Count;
+
+            foreach (var item in grid.Rows)
+            {
+                if (item.Count == nColumns)
+                    rtn.Rows.Add(item);
+                else
+                {
+                    var dictionary = new Dictionary<string, string>();
+
+                    foreach (var head in rtn.Headers)
+                    {
+                        string value = item.ContainsKey(head) ? item[head] : "";
+                        dictionary.Add(head, value);
+                    }
+
+                    rtn.Rows.Add(dictionary);
+                }
+            }
+
+            return rtn;
+        }
+
+        /// <summary>Cells the index of the reference to.</summary>
+        /// <param name="cell">The cell.</param>
+        /// <returns>System.Int32.</returns>
+        /// <remarks>
+        /// The moment you have even a single empty cell in a row then things go haywire. 
+        /// Essentially we need to figure out the original column index of the cell in case there were empty cells before it. 
+        /// This function obtains the original/correct index of any cell.
+        /// </remarks>
+        private static int CellReferenceToIndex(Cell cell)
+        {
+            int index = 0;
+            string reference = cell.CellReference.ToString().ToUpper();
+            foreach (char ch in reference)
+            {
+                if (Char.IsLetter(ch))
+                {
+                    int value = (int)ch - (int)'A';
+                    index = (index == 0) ? value : ((index + 1) * 26) + value;
+                }
+                else
+                {
+                    return index;
+                }
+            }
+            return index;
         }
     }
 }
