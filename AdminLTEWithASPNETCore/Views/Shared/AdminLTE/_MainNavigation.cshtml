@@ -90,7 +90,7 @@
                             <p>Manage your account</p>
                             <i class="right fas fa-angle-left"></i>
                         </a>
-                        <ul class="nav nav-treeview" style="display: none;">
+                        <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="@_settings.IdentityServer.IdentityServerUrl" target="_blank" class="nav-link">
                                     <i class="nav-icon fas fa-external-link-alt"></i>
@@ -108,7 +108,7 @@
                             <p>Manage your account</p>
                             <i class="right fas fa-angle-left"></i>
                         </a>
-                        <ul class="nav nav-treeview" style="display: none;">
+                        <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a class="nav-link @Url.MakeAreaActiveClass("Identity", "/Account/Manage/Index")" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
                                     <i class="far fa-circle nav-icon"></i>
@@ -148,7 +148,7 @@
                         <p>System</p>
                         <i class="right fas fa-angle-left"></i>
                     </a>
-                    <ul class="nav nav-treeview" style="display: none;">
+                    <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="/jobs" target="_blank" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -173,46 +173,56 @@
                         <p>Tables</p>
                         <i class="right fas fa-angle-left"></i>
                     </a>
-                    <ul class="nav nav-treeview" style="display: none;">
+                    <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a class="nav-link @Url.MakeActiveClass("AzureCategory", "Index")" asp-area="Tables" asp-controller="AzureCategory" asp-action="Index" title="Azure Categories">
-                                <i class="nav-icon fas fa-table"></i>
-                                <p>
-                                    Azure Categories
-                                </p>
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-cloud nav-icon"></i>
+                                <p>Azure Costs</p>
+                                <i class="right fas fa-angle-left"></i>
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link @Url.MakeActiveClass("AzureLocation", "Index")" asp-area="Tables" asp-controller="AzureLocation" asp-action="Index" title="Azure Location">
-                                <i class="nav-icon fas fa-table"></i>
-                                <p>
-                                    Azure Locations
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link @Url.MakeActiveClass("AzureResource", "Index")" asp-area="Tables" asp-controller="AzureResource" asp-action="Index" title="Azure Resource">
-                                <i class="nav-icon fas fa-table"></i>
-                                <p>
-                                    Azure Resources
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link @Url.MakeActiveClass("AzureResourceGroup", "Index")" asp-area="Tables" asp-controller="AzureResourceGroup" asp-action="Index" title="Azure Resource Group">
-                                <i class="nav-icon fas fa-table"></i>
-                                <p>
-                                    Azure Resources Group
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link @Url.MakeActiveClass("AzureSubcategory", "Index")" asp-area="Tables" asp-controller="AzureSubcategory" asp-action="Index" title="Azure Subcategory">
-                                <i class="nav-icon fas fa-table"></i>
-                                <p>
-                                    Azure Subcategory
-                                </p>
-                            </a>
+
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a class="nav-link @Url.MakeActiveClass("AzureCategory", "Index")" asp-area="Tables" asp-controller="AzureCategory" asp-action="Index" title="Azure Categories">
+                                        <i class="nav-icon fas fa-table"></i>
+                                        <p>
+                                            Azure Categories
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link @Url.MakeActiveClass("AzureLocation", "Index")" asp-area="Tables" asp-controller="AzureLocation" asp-action="Index" title="Azure Location">
+                                        <i class="nav-icon fas fa-table"></i>
+                                        <p>
+                                            Azure Locations
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link @Url.MakeActiveClass("AzureResource", "Index")" asp-area="Tables" asp-controller="AzureResource" asp-action="Index" title="Azure Resource">
+                                        <i class="nav-icon fas fa-table"></i>
+                                        <p>
+                                            Azure Resources
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link @Url.MakeActiveClass("AzureResourceGroup", "Index")" asp-area="Tables" asp-controller="AzureResourceGroup" asp-action="Index" title="Azure Resource Group">
+                                        <i class="nav-icon fas fa-table"></i>
+                                        <p>
+                                            Azure Resources Group
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link @Url.MakeActiveClass("AzureSubcategory", "Index")" asp-area="Tables" asp-controller="AzureSubcategory" asp-action="Index" title="Azure Subcategory">
+                                        <i class="nav-icon fas fa-table"></i>
+                                        <p>
+                                            Azure Subcategory
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link @Url.MakeActiveClass("Countries", "Index")" asp-area="Tables" asp-controller="Countries" asp-action="Index" title="Countries">
