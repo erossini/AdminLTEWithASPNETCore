@@ -6,24 +6,19 @@ using System.Threading.Tasks;
 namespace AdminLTEWithASPNETCore.Models.Settings
 {
     /// <summary>
-    /// Class IdentityServerSettings.
+    /// Class ClientSettings.
     /// </summary>
-    public class IdentityServerSettings
+    public class ClientSettings
     {
         /// <summary>
-        /// Gets or sets the identity server URL.
-        /// </summary>
-        /// <value>The identity server URL.</value>
-        public string IdentityServerUrl { get; set; }
-        /// <summary>
-        /// Gets or sets the client identifier.
+        /// Gets or sets the client identifier. ClientId is also AppId for Faceboook and ConsumerAPIKey for Twitter
         /// </summary>
         /// <value>The client identifier.</value>
         public string ClientId { get; set; }
         /// <summary>
-        /// Gets or sets the client password.
+        /// Gets or sets the client secret. ClientSecret is also AppSecret for Facebook and ConsumerSecret for Twitter
         /// </summary>
-        /// <value>The client password.</value>
+        /// <value>The client secret.</value>
         public string ClientSecret { get; set; }
     }
 }

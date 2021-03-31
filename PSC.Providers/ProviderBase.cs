@@ -2,6 +2,7 @@
 using PSC.Domain.Interfaces;
 using PSC.Repositories;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PSC.Providers

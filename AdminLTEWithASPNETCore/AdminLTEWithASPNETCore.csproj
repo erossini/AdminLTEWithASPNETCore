@@ -23,13 +23,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Audit.NET.SqlServer" Version="16.5.4" />
-    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.19" />
-    <PackageReference Include="Hangfire.Core" Version="1.7.19" />
+    <PackageReference Include="Audit.NET.SqlServer" Version="17.0.0" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.20" />
+    <PackageReference Include="Hangfire.Core" Version="1.7.20" />
     <PackageReference Include="Hangfire.Dashboard.Basic.Authentication" Version="5.0.0" />
-    <PackageReference Include="Hangfire.SqlServer" Version="1.7.19" />
-    <PackageReference Include="Hyprlinkr" Version="2.0.1" />
-    <PackageReference Include="IdentityModel" Version="5.0.1" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.7.20" />
+    <PackageReference Include="IdentityModel" Version="5.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="5.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="5.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="5.0.4" />
@@ -49,11 +48,11 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="5.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.1.1" />
-    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.8" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.9" />
   </ItemGroup>
 
   <ItemGroup>
@@ -72,12 +71,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AdminLTEWithASPNETCore.App\AdminLTEWithASPNETCore.App.csproj" />
     <ProjectReference Include="..\PSC.Domain.Interfaces\PSC.Domain.Interfaces.csproj" />
     <ProjectReference Include="..\PSC.Domain\PSC.Domain.csproj" />
     <ProjectReference Include="..\PSC.Extensions\PSC.Extensions.csproj" />
     <ProjectReference Include="..\PSC.Infrastructures\PSC.Infrastructures.csproj" />
-    <ProjectReference Include="..\PSC.Providers\PSC.Providers.csproj" />
-    <ProjectReference Include="..\PSC.Repositories\PSC.Repositories.csproj" />
+    <ProjectReference Include="..\PSC.Repositories\PSC.Persistence.csproj" />
     <ProjectReference Include="..\PSC.Services.AspNetCore\PSC.Services.AspNetCore.csproj" />
     <ProjectReference Include="..\PSC.Services.Imports\PSC.Services.Imports.csproj" />
     <ProjectReference Include="..\PSC.Services\PSC.Services.csproj" />

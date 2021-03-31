@@ -13,7 +13,7 @@ namespace PSC.Domain.CommonTables
     /// Class Resource.
     /// </summary>
     [Table("tbl_AzureResources")]
-    public class AzureResource : ITable
+    public class AzureResource : ICommonTable
     {
         #region ITable implementation
         /// <summary>

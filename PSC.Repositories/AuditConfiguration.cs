@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PSC.Repositories
+namespace PSC.Persistence
 {
     /// <summary>
     /// Class AuditConfiguration.

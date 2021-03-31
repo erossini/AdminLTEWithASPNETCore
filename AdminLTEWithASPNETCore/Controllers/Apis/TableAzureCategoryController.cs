@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AdminLTEWithASPNETCore.App.Services.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PSC.Domain.CommonTables;
 using PSC.Extensions;
-using PSC.Providers;
-using PSC.Services.AspNetCore.TableAPIs;
+using PSC.Persistence.Interfaces.CommonTables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,28 +21,14 @@ namespace AdminLTEWithASPNETCore.Controllers.Apis
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class TableAzureCategoryController : ControllerBase
+    public class TableAzureCategoryController : CommonTableController<AzureCategory>
     {
-        /// <summary>
-        /// The log
-        /// </summary>
-        private ILogger<TableAzureCategoryController> _log;
-
-        /// <summary>
-        /// The providers
-        /// </summary>
-        private DataProviders _providers;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="TableAzureCategoryController"/> class.
         /// </summary>
-        /// <param name="providers">The providers.</param>
+        /// <param name="repository">The providers.</param>
         /// <param name="log">The log.</param>
-        public TableAzureCategoryController(DataProviders providers, ILogger<TableAzureCategoryController> log)
-        {
-            _log = log;
-            _providers = providers;
-        }
+        public TableAzureCategoryController(IAzureCategoryRepository repository, ILogger<TableAzureCategoryController> log) : base(repository, log) { }
 
         /// <summary>
         /// Creates new Azure category if not exist.
@@ -62,7 +48,7 @@ namespace AdminLTEWithASPNETCore.Controllers.Apis
             if (string.IsNullOrEmpty(name))
                 return BadRequest();
 
-            return Ok(await _providers.AzureCategory.CreateIfNotExist(name));
+            return Ok(await _db.CreateIfNotExist(name));
         }
 
         /// <summary>
@@ -80,67 +66,8 @@ namespace AdminLTEWithASPNETCore.Controllers.Apis
             if (string.IsNullOrEmpty(name))
                 return BadRequest();
 
-            var rtn = _providers.AzureCategory.GetIdByNameAsync(name);
+            var rtn = _db.GetIdByNameAsync(name);
             return rtn != 0 ? Ok(rtn) : NotFound();
-        }
-
-        /// <summary>
-        /// Gets the value.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns>IActionResult.</returns>
-        [HttpGet]
-        [Route("GetValue")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AzureCategory))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetValue(long id)
-        {
-            var rtn = await _providers.AzureCategory.GetAsync(id);
-            return rtn != null ? Ok(rtn) : NotFound();
-        }
-
-        /// <summary>
-        /// Gets the values.
-        /// </summary>
-        /// <returns>The list of Azure Categories</returns>
-        /// <response code="200">Retrieved the list of Azure Category</response>
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<AzureCategory>))]
-        public IActionResult GetValues()
-        {
-            return Ok(_providers.AzureCategory.GetValues());
-        }
-
-        /// <summary>
-        /// Patches the specified value.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>IActionResult.</returns>
-        [HttpPatch]
-        public async Task<IActionResult> Patch(AzureCategory value)
-        {
-            if (value == null)
-                return BadRequest();
-
-            await _providers.AzureCategory.ReplaceAsync(value.ID, value);
-            return Ok();
-        }
-
-        /// <summary>
-        /// Posts the specified value.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>IActionResult.</returns>
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(long))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Post(AzureCategory value)
-        {
-            if (value == null)
-                return BadRequest();
-
-            return Ok(await _providers.AzureCategory.InsertAsync(value));
         }
 
         /// <summary>
@@ -161,41 +88,12 @@ namespace AdminLTEWithASPNETCore.Controllers.Apis
         {
             var searchValue = Request.Form.GetValueOrDefault("search[value]", search);
 
-            var customerData = _providers.AzureCategory.GetValues();
-
             Expression<Func<AzureCategory, bool>> exp = r => r.Name.Contains(searchValue);
-            var service = new TableService<AzureCategory>();
-            var rtn = service.GetRecords(draw, length, start, columnSort, columnDirectrion,
-                searchValue, Request.Form, customerData, exp);
+
+            var rtn = CommonTableService<AzureCategory>.GetTableForUI(_db, Request.Form, draw, length, start,
+                columnSort, columnDirectrion, search, exp);
 
             return StatusCode(StatusCodes.Status200OK, rtn);
         }
-
-        #region Delete
-        /// <summary>
-        /// Deletes the specified identifier.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns>IActionResult.</returns>
-        [HttpDelete]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
-        public async Task<IActionResult> Delete(long id)
-        {
-            return Ok(await _providers.AzureCategory.DeleteAsync(id));
-        }
-
-        /// <summary>
-        /// Deletes the list.
-        /// </summary>
-        /// <param name="ids">The ids.</param>
-        /// <returns>IActionResult.</returns>
-        [HttpDelete]
-        [Route("DeleteList")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
-        public async Task<IActionResult> DeleteList(long[] ids)
-        {
-            return Ok(await _providers.AzureCategory.DeleteMultipleAsync(ids));
-        }
-        #endregion
     }
 }

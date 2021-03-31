@@ -9,7 +9,7 @@ namespace PSC.Domain.CommonTables
     /// Class Country.
     /// </summary>
     [Table("tbl_Countries")]
-    public class Country : ITable
+    public class Country : ICommonTable
     {
         #region ITable implementation
         /// <summary>

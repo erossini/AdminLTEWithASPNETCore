@@ -17,7 +17,7 @@ namespace AdminLTEWithASPNETCore.Code.Processes
     {
         private readonly ImportExcel _excel;
         private readonly IHubContext<NotificationHub> _hubContext;
-        protected readonly ILogger _log;
+        protected readonly ILogger<ImportExcelProcessBase> _log;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ImportExcelProcessBase" /> class.

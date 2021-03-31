@@ -2,10 +2,7 @@
 using AdminLTEWithASPNETCore.Models.UI.CommonTables;
 using Microsoft.AspNetCore.Mvc;
 using PSC.Domain.CommonTables;
-using PSC.Providers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using PSC.Persistence.Interfaces.CommonTables;
 using System.Threading.Tasks;
 
 namespace AdminLTEWithASPNETCore.Areas.Tables.Controllers
@@ -13,11 +10,11 @@ namespace AdminLTEWithASPNETCore.Areas.Tables.Controllers
     [Area("Tables")]
     public class CountriesController : Controller
     {
-        private readonly DataProviders _providers;
+        private readonly ICountryRepository _db;
 
-        public CountriesController(DataProviders dataProviders)
+        public CountriesController(ICountryRepository db)
         {
-            this._providers = dataProviders;
+            _db = db;
         }
 
         [Breadcrumb("Tables")]
@@ -53,7 +50,7 @@ namespace AdminLTEWithASPNETCore.Areas.Tables.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _providers.Countries.InsertAsync(model);
+                await _db.AddAsync(model);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -65,7 +62,7 @@ namespace AdminLTEWithASPNETCore.Areas.Tables.Controllers
         [Breadcrumb("Edit")]
         public async Task<IActionResult> Edit(long id)
         {
-            var record = await _providers.Countries.GetAsync(id);
+            var record = await _db.GetByIdAsync(id);
             return View(record);
         }
 
@@ -74,7 +71,7 @@ namespace AdminLTEWithASPNETCore.Areas.Tables.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _providers.Countries.ReplaceAsync(model.ID, model);
+                await _db.UpdateAsync(model);
                 return RedirectToAction(nameof(Index));
             }
 

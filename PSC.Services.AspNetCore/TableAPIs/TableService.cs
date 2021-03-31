@@ -11,6 +11,10 @@ using System.Threading.Tasks;
 
 namespace PSC.Services.AspNetCore.TableAPIs
 {
+    /// <summary>
+    /// Class TableService.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class TableService<T> where T : class
     {
         public object GetRecords(string draw, string length, string start, string columnSort,

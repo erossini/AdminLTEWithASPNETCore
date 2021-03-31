@@ -13,7 +13,7 @@ namespace PSC.Domain.CommonTables
     /// Class AzureSubcategory.
     /// </summary>
     [Table("tbl_AzureSubcategories")]
-    public class AzureSubcategory : ITable 
+    public class AzureSubcategory : ICommonTable
     {
         #region ITable implementation
         /// <summary>

@@ -5,7 +5,7 @@ using PSC.Domain.Audit;
 using PSC.Domain.Audit.CommonTables;
 using PSC.Domain.CommonTables;
 using PSC.Domain.Interfaces;
-using PSC.Repositories.Extensions;
+using PSC.Persistence.Extensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PSC.Repositories
+namespace PSC.Persistence
 {
     public class PSCContext : AuditDbContext
     {

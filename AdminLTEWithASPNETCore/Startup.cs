@@ -12,22 +12,19 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PSC.Infrastructures.Hubs;
-using PSC.Providers;
-using PSC.Providers.Tables;
-using PSC.Repositories;
+using PSC.Persistence;
 using PSC.Services.AspNetCore;
 using PSC.Services.Imports;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -42,6 +39,8 @@ namespace AdminLTEWithASPNETCore
 {
     public class Startup
     {
+        private readonly ILogger _logger;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -69,8 +68,8 @@ namespace AdminLTEWithASPNETCore
             services.Configure<SmtpCredentialsSettings>(Configuration.GetSection("SmtpCredentials"));
             services.AddScoped(cfg => cfg.GetService<IOptions<SmtpCredentialsSettings>>().Value);
 
-            services.Configure<IdentityServerSettings>(Configuration.GetSection("IdentityAuthentication"));
-            services.AddScoped(cfg => cfg.GetService<IOptions<IdentityServerSettings>>().Value);
+            services.Configure<AuthenticationSettings>(Configuration.GetSection("Authentication"));
+            services.AddScoped(cfg => cfg.GetService<IOptions<AuthenticationSettings>>().Value);
             #endregion
             #region Setting Db
             services.AddDbContext<ApplicationDbContext>(_ => _.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContextConnection")));
@@ -84,10 +83,10 @@ namespace AdminLTEWithASPNETCore
 
             services.AddTransient<ImportExcel>();
             services.AddTransient<UploadFiles>();
-            services.AddTransient<ImportExcelProcessBase>();
-            services.AddTransient<ImportAzureProcess>();
+            services.AddScoped<ImportExcelProcessBase>();
+            services.AddScoped<ImportAzureProcess>();
 
-            services.AddTransient<DataProviders>();
+            services.AddPersistenceServices(Configuration);
             #endregion
             #region Authentication and IdentityServer4
             services.AddDistributedMemoryCache();
@@ -99,7 +98,7 @@ namespace AdminLTEWithASPNETCore
 
             if (Convert.ToBoolean(Configuration["Authentication:UseIdentityServer"]))
             {
-                var idsrv = Configuration.GetSection("Authentication:IdentityServer").Get<IdentityServerSettings>();
+                var idsrv = Configuration.GetSection("Authentication:IdentityServer").Get<IdentityserverSettings>();
                 services.AddAuthentication(options =>
                 {
                     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -200,17 +199,15 @@ namespace AdminLTEWithASPNETCore
             }
             else
             {
-                if (!string.IsNullOrEmpty(Configuration["Authentication:Facebook:AppId"]) &&
-                    !string.IsNullOrEmpty(Configuration["Authentication:Facebook:AppSecret"]))
+                if (CheckAuthenticationWith("Facebook"))
                 {
                     services.AddAuthentication().AddFacebook(facebookOptions =>
                     {
-                        facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
-                        facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                        facebookOptions.AppId = Configuration["Authentication:Facebook:ClientId"];
+                        facebookOptions.AppSecret = Configuration["Authentication:Facebook:ClientSecret"];
                     });
                 }
-                if (!string.IsNullOrEmpty(Configuration["Authentication:Google:ClientId"]) &&
-                    !string.IsNullOrEmpty(Configuration["Authentication:Google:ClientSecret"]))
+                if (CheckAuthenticationWith("Google"))
                 {
                     services.AddAuthentication().AddGoogle(googleOptions =>
                     {
@@ -218,8 +215,7 @@ namespace AdminLTEWithASPNETCore
                         googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
                     });
                 }
-                if (!string.IsNullOrEmpty(Configuration["Authentication:Microsoft:ClientId"]) &&
-                    !string.IsNullOrEmpty(Configuration["Authentication:Microsoft:ClientSecret"]))
+                if (CheckAuthenticationWith("Microsoft"))
                 {
                     services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
                     {
@@ -227,13 +223,12 @@ namespace AdminLTEWithASPNETCore
                         microsoftOptions.ClientSecret = Configuration["Authentication:Microsoft:ClientSecret"];
                     });
                 }
-                if (!string.IsNullOrEmpty(Configuration["Authentication:Twitter:ConsumerAPIKey"]) &&
-                    !string.IsNullOrEmpty(Configuration["Authentication:Twitter:ConsumerSecret"]))
+                if (CheckAuthenticationWith("Twitter"))
                 {
                     services.AddAuthentication().AddTwitter(twitterOptions =>
                     {
-                        twitterOptions.ConsumerKey = Configuration["Authentication:Twitter:ConsumerAPIKey"];
-                        twitterOptions.ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
+                        twitterOptions.ConsumerKey = Configuration["Authentication:Twitter:ClientId"];
+                        twitterOptions.ConsumerSecret = Configuration["Authentication:Twitter:ClientSecret"];
                         twitterOptions.RetrieveUserDetails = true;
                     });
                 }
@@ -380,6 +375,17 @@ namespace AdminLTEWithASPNETCore
                 endpoints.MapControllers();
                 endpoints.MapRazorPages();
             });
+        }
+
+        /// <summary>
+        /// Checks the authentication with.
+        /// </summary>
+        /// <param name="socialMediaName">Name of the social media.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        private bool CheckAuthenticationWith(string socialMediaName)
+        {
+            return !string.IsNullOrEmpty(Configuration[$"Authentication:{socialMediaName}:ClientId"]) &&
+                   !string.IsNullOrEmpty(Configuration[$"Authentication:{socialMediaName}:ClientSecret"]);
         }
     }
 }

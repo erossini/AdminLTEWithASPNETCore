@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PSC.Domain;
-using PSC.Domain.CommonTables;
 using PSC.Extensions;
-using PSC.Providers;
+using PSC.Persistence.Interfaces.Tables;
 using PSC.Services.AspNetCore.TableAPIs;
 using System;
 using System.Collections.Generic;
@@ -22,27 +21,13 @@ namespace AdminLTEWithASPNETCore.Controllers.Apis
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class AzureCostImportController : ControllerBase
+    public class AzureCostImportController : TableController<AzureCostImport>
     {
-        /// <summary>
-        /// The log
-        /// </summary>
-        private ILogger<AzureCostImportController> _log;
+        private readonly IAzureCostImportRepository _repo;
 
-        /// <summary>
-        /// The providers
-        /// </summary>
-        private DataProviders _providers;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AzureCostImportController"/> class.
-        /// </summary>
-        /// <param name="providers">The providers.</param>
-        /// <param name="log">The log.</param>
-        public AzureCostImportController(DataProviders providers, ILogger<AzureCostImportController> log)
+        public AzureCostImportController(IAzureCostImportRepository db, ILogger<AzureCostImportController> log) : base(db, log)
         {
-            _log = log;
-            _providers = providers;
+            _repo = db;
         }
 
         /// <summary>
@@ -60,67 +45,8 @@ namespace AdminLTEWithASPNETCore.Controllers.Apis
             if (string.IsNullOrEmpty(name))
                 return BadRequest();
 
-            var rtn = _providers.AzureCostImport.GetIdByNameAsync(name);
+            var rtn = _repo.GetIdByNameAsync(name);
             return rtn != 0 ? Ok(rtn) : NotFound();
-        }
-
-        /// <summary>
-        /// Gets the value.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns>IActionResult.</returns>
-        [HttpGet]
-        [Route("GetValue")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AzureCostImport))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetValue(long id)
-        {
-            var rtn = await _providers.AzureCostImport.GetAsync(id);
-            return rtn != null ? Ok(rtn) : NotFound();
-        }
-
-        /// <summary>
-        /// Gets the values.
-        /// </summary>
-        /// <returns>The list of Azure Cost Import</returns>
-        /// <response code="200">Retrieved the list of Azure Cost Import</response>
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<AzureCostImport>))]
-        public IActionResult GetValues()
-        {
-            return Ok(_providers.AzureCostImport.GetValues());
-        }
-
-        /// <summary>
-        /// Patches the specified value.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>IActionResult.</returns>
-        [HttpPatch]
-        public async Task<IActionResult> Patch(AzureCostImport value)
-        {
-            if (value == null)
-                return BadRequest();
-
-            await _providers.AzureCostImport.ReplaceAsync(value.ID, value);
-            return Ok();
-        }
-
-        /// <summary>
-        /// Posts the specified value.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>IActionResult.</returns>
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(long))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Post(AzureCostImport value)
-        {
-            if (value == null)
-                return BadRequest();
-
-            return Ok(await _providers.AzureCostImport.InsertAsync(value));
         }
 
         /// <summary>
@@ -141,7 +67,7 @@ namespace AdminLTEWithASPNETCore.Controllers.Apis
         {
             var searchValue = Request.Form.GetValueOrDefault("search[value]", search);
 
-            var customerData = _providers.AzureCostImport.GetValues();
+            var customerData = _db.ListAllQuerableAsync();
 
             Expression<Func<AzureCostImport, bool>> exp = r => r.FileName.Contains(searchValue) || r.Period.Contains(searchValue);
             var service = new TableService<AzureCostImport>();
@@ -150,32 +76,5 @@ namespace AdminLTEWithASPNETCore.Controllers.Apis
 
             return StatusCode(StatusCodes.Status200OK, rtn);
         }
-
-        #region Delete
-        /// <summary>
-        /// Deletes the specified identifier.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns>IActionResult.</returns>
-        [HttpDelete]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
-        public async Task<IActionResult> Delete(long id)
-        {
-            return Ok(await _providers.AzureCostImport.DeleteAsync(id));
-        }
-
-        /// <summary>
-        /// Deletes the list.
-        /// </summary>
-        /// <param name="ids">The ids.</param>
-        /// <returns>IActionResult.</returns>
-        [HttpDelete]
-        [Route("DeleteList")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
-        public async Task<IActionResult> DeleteList(long[] ids)
-        {
-            return Ok(await _providers.AzureCostImport.DeleteMultipleAsync(ids));
-        }
-        #endregion
     }
 }

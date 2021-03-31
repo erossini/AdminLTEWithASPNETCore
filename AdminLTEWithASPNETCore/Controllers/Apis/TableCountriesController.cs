@@ -1,14 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AdminLTEWithASPNETCore.App.Services.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using PSC.Domain.CommonTables;
 using PSC.Extensions;
-using PSC.Providers;
-using PSC.Repositories;
-using PSC.Services.AspNetCore.TableAPIs;
+using PSC.Persistence.Interfaces.CommonTables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -17,13 +16,50 @@ namespace AdminLTEWithASPNETCore.Controllers.Apis
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class TableCountriesController : ControllerBase
+    public class TableCountriesController : CommonTableController<Country>
     {
-        private DataProviders _providers;
-
-        public TableCountriesController(DataProviders provider)
+        public TableCountriesController(ICountryRepository db, ILogger<TableCountriesController> log) : base(db, log)
         {
-            _providers = provider;
+        }
+
+        /// <summary>
+        /// Creates new Azure category if not exist.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>IActionResult.</returns>
+        /// <response code="200">Azure Subcategory created</response>
+        /// <response code="400">The name is missing or invalid values</response>
+        /// <response code="500">Oops! Can't create your Azure Subcategory</response>
+        [HttpPost]
+        [Route("CreateIfNotExist")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Country))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> CreateIfNotExist(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                return BadRequest();
+
+            return Ok(await _db.CreateIfNotExist(name));
+        }
+
+        /// <summary>
+        /// Gets the name of the identifier by.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>IActionResult.</returns>
+        [HttpGet]
+        [Route("GetIdByName")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(long))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetIdByName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                return BadRequest();
+
+            var rtn = _db.GetIdByNameAsync(name);
+            return rtn != 0 ? Ok(rtn) : NotFound();
         }
 
         /// <summary>
@@ -44,12 +80,10 @@ namespace AdminLTEWithASPNETCore.Controllers.Apis
         {
             var searchValue = Request.Form.GetValueOrDefault("search[value]", search);
 
-            var customerData = _providers.Countries.GetValues();
+            Expression<Func<Country, bool>> exp = r => r.Name.Contains(search);
 
-            Expression<Func<Country, bool>> exp = r => r.Name.Contains(searchValue);
-            var service = new TableService<Country>();
-            var rtn = service.GetRecords(draw, length, start, columnSort, columnDirectrion,
-                searchValue, Request.Form, customerData, exp);
+            var rtn = CommonTableService<Country>.GetTableForUI(_db, Request.Form, draw, length, start,
+                columnSort, columnDirectrion, search, exp);
 
             return StatusCode(StatusCodes.Status200OK, rtn);
         }

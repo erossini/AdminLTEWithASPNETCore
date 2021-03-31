@@ -2,7 +2,6 @@
 using AdminLTEWithASPNETCore.Controllers.Apis;
 using AdminLTEWithASPNETCore.Models.UI.CommonTables;
 using Microsoft.AspNetCore.Mvc;
-using Ploeh.Hyprlinkr;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -13,7 +13,7 @@ namespace PSC.Domain.CommonTables
     /// Class AzureLocation.
     /// </summary>
     [Table("tbl_AzureLocations")]
-    public class AzureLocation : ITable
+    public class AzureLocation : ICommonTable
     {
         #region ITable implementation
         /// <summary>

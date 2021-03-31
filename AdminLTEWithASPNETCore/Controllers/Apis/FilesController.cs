@@ -3,13 +3,10 @@ using AdminLTEWithASPNETCore.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PSC.Providers;
+using PSC.Persistence.Interfaces.Tables;
 using PSC.Services.Imports;
 using PSC.Services.Imports.Models;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AdminLTEWithASPNETCore.Controllers.Apis
@@ -19,11 +16,11 @@ namespace AdminLTEWithASPNETCore.Controllers.Apis
     [Route("api/v{version:apiVersion}/[controller]")]
     public class FilesController : ControllerBase
     {
-        private readonly DataProviders _providers;
+        private readonly IAzureCostImportRepository _providers;
         private readonly ImportExcel _excel;
         private readonly IWebHostEnvironment _environment;
 
-        public FilesController(DataProviders providers, IWebHostEnvironment environment, ImportExcel excel)
+        public FilesController(IAzureCostImportRepository providers, IWebHostEnvironment environment, ImportExcel excel)
         {
             _providers = providers;
             _environment = environment;
@@ -50,12 +47,12 @@ namespace AdminLTEWithASPNETCore.Controllers.Apis
         [Route("SetMetadata")]
         public async Task<IActionResult> SetMetadata(FileMetadata metadata)
         {
-            var id = _providers.AzureCostImport.GetIdByNameAsync(Path.GetFileName(metadata.Filename));
+            var id = _providers.GetIdByNameAsync(Path.GetFileName(metadata.Filename));
             if (id > 0)
             {
-                var record = await _providers.AzureCostImport.GetAsync(id);
+                var record = await _providers.GetByIdAsync(id);
                 record.Period = metadata.Text;
-                await _providers.AzureCostImport.ReplaceAsync(id, record);
+                await _providers.UpdateAsync(record);
             }
 
             return StatusCode(StatusCodes.Status200OK);

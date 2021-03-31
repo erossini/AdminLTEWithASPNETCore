@@ -10,8 +10,9 @@ using Hangfire;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PSC.Domain;
 using PSC.Domain.Enums;
-using PSC.Providers;
+using PSC.Persistence.Interfaces.Tables;
 using PSC.Services.AspNetCore;
 using PSC.Services.AspNetCore.Models.Responses;
 using PSC.Services.Imports;
@@ -20,26 +21,33 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace AdminLTEWithASPNETCore.Controllers
 {
     public class ExcelImportController : Controller
     {
-        private readonly DataProviders _providers;
         private readonly IWebHostEnvironment _environment;
         private readonly ImportExcel _excel;
         private readonly ImportAzureProcess _process;
         private readonly UploadFiles _upload;
 
-        public ExcelImportController(DataProviders providers, IWebHostEnvironment environment, ImportExcel excel,
+        private readonly IAzureCostImportRepository _azureCostImport;
+        private readonly IAzureCostImportLogRepository _azureCostImportLog;
+
+        public ExcelImportController(IAzureCostImportRepository azureCostImport,
+            IAzureCostImportLogRepository azureCostImportLog,
+            IWebHostEnvironment environment, ImportExcel excel,
             ImportAzureProcess process, UploadFiles upload)
         {
-            _providers = providers;
             _environment = environment;
             _excel = excel;
             _process = process;
             _upload = upload;
+
+            _azureCostImport = azureCostImport;
+            _azureCostImportLog = azureCostImportLog;
         }
 
         public IActionResult Index()
@@ -56,23 +64,23 @@ namespace AdminLTEWithASPNETCore.Controllers
 
             UploadResponse response = _upload.Upload(postedFiles, FileService.ImportFolder(_environment.WebRootPath));
 
-            var id = await _providers.AzureCostImport.InsertAsync(new PSC.Domain.AzureCostImport()
+            var cost = await _azureCostImport.AddAsync(new PSC.Domain.AzureCostImport()
             {
                 FileName = Path.GetFileName(response.Files.FirstOrDefault()),
                 UserId = User.Identity.Name, 
                 CreatedBy = CommonConst.SystemUser
             });
-            await _providers.AzureCostImportLog.InsertAsync(new PSC.Domain.AzureCostImportLog()
+            await _azureCostImportLog.AddAsync(new PSC.Domain.AzureCostImportLog()
             {
-                AzureCostImportId = id,
+                AzureCostImportId = cost.ID,
                 LogType = PSC.Domain.Enums.LogType.UserInteraction,
                 UserId = User.Identity.Name,
                 Message = $"User asked to import {filename}",
                 CreatedBy = CommonConst.SystemUser
             });
-            await _providers.AzureCostImportLog.InsertAsync(new PSC.Domain.AzureCostImportLog()
+            await _azureCostImportLog.AddAsync(new PSC.Domain.AzureCostImportLog()
             {
-                AzureCostImportId = id,
+                AzureCostImportId = cost.ID,
                 LogType = PSC.Domain.Enums.LogType.Error,
                 Message = $"{filename} has been uploaded " + (response.Success ? "without errors" : "with errors"),
                 CreatedBy = CommonConst.SystemUser
@@ -85,17 +93,17 @@ namespace AdminLTEWithASPNETCore.Controllers
                 {
                     var (IsValid, errors) = _excel.ValidateHeader(g, FileStructure.AzureReportStructure);
 
-                    await _providers.AzureCostImportLog.InsertAsync(new PSC.Domain.AzureCostImportLog()
+                    await _azureCostImportLog.AddAsync(new PSC.Domain.AzureCostImportLog()
                     {
-                        AzureCostImportId = id,
+                        AzureCostImportId = cost.ID,
                         LogType = IsValid ? PSC.Domain.Enums.LogType.Information : PSC.Domain.Enums.LogType.Error,
                         Message = $"{filename} has been validated: header is " + (IsValid ? "" : "not") + " valid",
                         CreatedBy = CommonConst.SystemUser
                     });
                     if (!IsValid)
-                        await _providers.AzureCostImportLog.InsertAsync(new PSC.Domain.AzureCostImportLog()
+                        await _azureCostImportLog.AddAsync(new PSC.Domain.AzureCostImportLog()
                         {
-                            AzureCostImportId = id,
+                            AzureCostImportId = cost.ID,
                             LogType = PSC.Domain.Enums.LogType.Error,
                             Message = $"{filename} can't be imported",
                             CreatedBy = CommonConst.SystemUser
@@ -119,7 +127,7 @@ namespace AdminLTEWithASPNETCore.Controllers
         {
             var model = new TableUI()
             {
-                ApiUrl = "/api/AzureCostImport/Search",
+                ApiUrl = "/api/v1/AzureCostImport/Search",
                 Fields = new FieldUI[] {
                     new FieldUI() { Label = "ID", Data = "ID" },
                     new FieldUI() { Label = "FileName", Data = "FileName" },
@@ -142,7 +150,7 @@ namespace AdminLTEWithASPNETCore.Controllers
         {
             var model = new TableUI()
             {
-                ApiUrl = "/api/AzureCost/Search",
+                ApiUrl = "/api/v1/AzureCost/Search",
                 Fields = new FieldUI[] {
                     new FieldUI() { Label = "ID", Data = "ID" },
                     new FieldUI() { Label = "Resource", Data = "AzureResource.Name" },
@@ -171,7 +179,7 @@ namespace AdminLTEWithASPNETCore.Controllers
         {
             FileViewModel model = new FileViewModel();
 
-            var record = await _providers.AzureCostImport.GetAsync(id);
+            var record = await _azureCostImport.GetByIdAsync(id);
             if (record != null)
             {
                 model.Card = new Models.Components.Cards.CardModel()
@@ -183,7 +191,8 @@ namespace AdminLTEWithASPNETCore.Controllers
                 model.FileId = id;
                 model.FileName = record.FileName;
 
-                var logs = _providers.AzureCostImportLog.GetValues(id);
+                Expression<Func<AzureCostImportLog, bool>> exp = r => r.AzureCostImportId == id;
+                var logs = _azureCostImportLog.ListAllQuerableAsync(exp);
                 var items = new System.Collections.Generic.List<Models.Components.Timeline.TimelineItem>();
                 foreach(var ev in logs)
                 {
