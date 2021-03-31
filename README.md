@@ -66,17 +66,28 @@ This because I want to follow the guide lines for a [clean architecture](https:/
 *   [How adding an UI built in Blazor](https://www.puresourcecode.com/dotnet/net-core/how-adding-an-ui-built-in-blazor/)
 *   [Improving on the application's behaviour](https://www.puresourcecode.com/dotnet/net-core/improving-on-the-applications-behaviour/)
 
-### Task
-Previous known as “Application Services,” the Tasks Layer serves to tie together any non-business logic from a variety of third-party services or persistence technologies.
-
-### Presentation
-The Presentation Layer contains the familiar MVC project with views, viewmodels and controllers, along with application setup tasks.
-
-### Infrastructure
-The Infrastructure Layer setups up third party data sources. You can extend the repository implementation with additional methods to perform specific queries.
-
-### Domain
-The Domain Layer is where business entities and other business logic resides. The domain layer should be persistence ignorant, with any persistence existing in the Tasks Layer or in the Presentation Layer (for populating viewModels).
+### Layers and code
+*   Core (no dependency to any Infrastructure-related code or package)
+    *   Entities
+    *   Interfaces
+        *   Core
+        *   Infrastructure
+    *   Services
+    *   Exceptions
+*   Infrastructure
+    *   Data access (Entity Framework Core)
+    *   Logging
+    *   Identity
+    *   API clients
+    *   File access
+*   UI
+    *   API/MVC/Razor
+    *   Specific ASP.NET Core items
+        *   Middleware
+        *   Filters
+    *   Interact with services through MediatR
+        *   Loose coupling
+        *   Lightweight controllers
 
 ## New View Components
 
