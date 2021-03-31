@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PSC.Domain\PSC.Domain.csproj" />
+    <ProjectReference Include="..\PSC.Extensions\PSC.Extensions.csproj" />
+    <ProjectReference Include="..\PSC.Persistence.Interfaces\PSC.Persistence.Interfaces.csproj" />
+    <ProjectReference Include="..\PSC.Services.AspNetCore\PSC.Services.AspNetCore.csproj" />
+    <ProjectReference Include="..\PSC.Services.Imports\PSC.Services.Imports.csproj" />
+  </ItemGroup>
+
+</Project>

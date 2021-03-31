@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PSC.Repositories\PSC.Repositories.csproj" />
+    <ProjectReference Include="..\PSC.Repositories\PSC.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,18 +1,15 @@
 ﻿using AdminLTEWithASPNETCore.Attributes;
+using AdminLTEWithASPNETCore.Enums;
 using AdminLTEWithASPNETCore.Models;
 using AdminLTEWithASPNETCore.Models.Controllers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
-using PSC.Infrastructures.Hubs;
-using PSC.Providers;
 using System.Diagnostics;
-using System.Threading.Tasks;
 
 namespace AdminLTEWithASPNETCore.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -22,6 +19,7 @@ namespace AdminLTEWithASPNETCore.Controllers
             _logger = logger;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             HomeModel model = new HomeModel();
@@ -120,8 +118,8 @@ namespace AdminLTEWithASPNETCore.Controllers
             model.SalesPie = new Models.Components.Charts.ChartModel()
             {
                 ChartId = "pieSales",
-                Labels = new System.Collections.Generic.List<string>() { 
-                    "Instore Sales", "Download Sales", "Mail-Order Sales" 
+                Labels = new System.Collections.Generic.List<string>() {
+                    "Instore Sales", "Download Sales", "Mail-Order Sales"
                 },
                 ShowLegend = true,
                 Datasets = new System.Collections.Generic.List<Models.Components.Charts.Dataset>()
@@ -139,20 +137,128 @@ namespace AdminLTEWithASPNETCore.Controllers
                     }
                 }
             };
+            model.Timeline = new Models.Components.Timeline.TimelineModel()
+            {
+                Events = new System.Collections.Generic.List<Models.Components.Timeline.TimelineEvent>()
+                {
+                    new Models.Components.Timeline.TimelineEvent()
+                    {
+                         EventDate = "1 March 2021",
+                         EventType = Enums.Components.Timeline.TimelineEventType.Important,
+                         Items = new System.Collections.Generic.List<Models.Components.Timeline.TimelineItem>()
+                         {
+                             new Models.Components.Timeline.TimelineItem()
+                             {
+                                  Body = "This item accepts HTML tags.",
+                                  HeaderText = "Click here to go <a href ='/Home'>Home</a>",
+                                  ItemIcon = Enums.Components.Timeline.TimelineItemIcon.Letter,
+                                  ItemType = Enums.Components.Timeline.TimelineEventType.Information,
+                                  Time = "00:05"
+                             },
+                             new Models.Components.Timeline.TimelineItem()
+                             {
+                                  Body="The application starts the import process for the file",
+                                  Footer = new System.Collections.Generic.List<Models.Components.Timeline.TimelineButton>()
+                                  {
+                                       new Models.Components.Timeline.TimelineButton()
+                                       {
+                                            ButtonType = ButtonType.Primary,
+                                            Text = "View original file",
+                                            Url = "/ExcelImport/Index"
+                                       }
+                                  },
+                                  HeaderText = "The process is started",
+                                  ItemIcon = Enums.Components.Timeline.TimelineItemIcon.Comment,
+                                  ItemType = Enums.Components.Timeline.TimelineEventType.Highlight,
+                                  Time = "00:07"
+                             },
+                             new Models.Components.Timeline.TimelineItem()
+                             {
+                                  Body = "The import finished but there are some issue that requires the user supervision.",
+                                  Footer = new System.Collections.Generic.List<Models.Components.Timeline.TimelineButton>()
+                                  {
+                                       new Models.Components.Timeline.TimelineButton()
+                                       {
+                                            ButtonType = ButtonType.Danger,
+                                            Text = "Abandon import",
+                                            Url = "/ExcelImport/Index"
+                                       },
+                                       new Models.Components.Timeline.TimelineButton()
+                                       {
+                                            ButtonType = ButtonType.Warning,
+                                            Text = "Restart the process",
+                                            Url = "/ExcelImport/Index"
+                                       }
+                                  },
+                                  HeaderText = "Import has some issues",
+                                  ItemIcon = Enums.Components.Timeline.TimelineItemIcon.Comment,
+                                  ItemType = Enums.Components.Timeline.TimelineEventType.Warning,
+                                  Time = "00:15"
+                             },
+                             new Models.Components.Timeline.TimelineItem()
+                             {
+                                  HeaderText = "Waiting user activity",
+                                  ItemIcon = Enums.Components.Timeline.TimelineItemIcon.UserActivity,
+                                  ItemType = Enums.Components.Timeline.TimelineEventType.UndefinedStatus,
+                                  Time = "00:20"
+                             },
+                             new Models.Components.Timeline.TimelineItem()
+                             {
+                                  Body = "The user checked the data and accepted the error.",
+                                  HeaderText = "User accepted the errors",
+                                  ItemIcon = Enums.Components.Timeline.TimelineItemIcon.UserActivity,
+                                  ItemType = Enums.Components.Timeline.TimelineEventType.Successful,
+                                  Time = "00:20"
+                             }
+                         }
+                    },
+                    new Models.Components.Timeline.TimelineEvent()
+                    {
+                         EventDate = "2 March 2021",
+                         EventType = Enums.Components.Timeline.TimelineEventType.Information
+                    },
+                    new Models.Components.Timeline.TimelineEvent()
+                    {
+                         EventDate = "3 March 2021",
+                         EventType = Enums.Components.Timeline.TimelineEventType.Successful
+                    },
+                    new Models.Components.Timeline.TimelineEvent()
+                    {
+                         EventDate = "4 March 2021",
+                         EventType = Enums.Components.Timeline.TimelineEventType.Warning
+                    },
+                }
+            };
 
             return View("Index", model);
         }
 
+        [Authorize]
         [Breadcrumb("Privacy")]
         public IActionResult Privacy()
         {
             return View();
         }
 
+        [HttpGet]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [Route("/Home/Error/{statusCode}")]
+        public IActionResult Error(int? statusCode)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (statusCode == 404)
+            {
+                var statusFeature = HttpContext.Features.Get<IStatusCodeReExecuteFeature>();
+                if (statusFeature != null)
+                {
+                    //log.LogWarning("handled 404 for url: {OriginalPath}", statusFeature.OriginalPath);
+                }
+                return View("~/Views/Home/Error404.cshtml", new ErrorViewModel
+                {
+                    RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
+                    StatusCode = (int)statusCode
+                });
+            }
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier, StatusCode = (int)statusCode });
         }
     }
 }

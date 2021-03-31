@@ -1,0 +1,34 @@
+﻿@model PSC.Domain.CommonTables.Country
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Name</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order" class="control-label">Order</label>
+                <input asp-for="Order" class="form-control" type="number" value="0" />
+                <span asp-validation-for="Order" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-area="Tables" asp-controller="Countries" asp-action="Index" title="Countries">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

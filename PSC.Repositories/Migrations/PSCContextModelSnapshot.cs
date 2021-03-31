@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PSC.Repositories;
+using PSC.Persistence;
 
-namespace PSC.Repositories.Migrations
+namespace PSC.Persistence.Migrations
 {
     [DbContext(typeof(PSCContext))]
     partial class PSCContextModelSnapshot : ModelSnapshot
@@ -16,10 +16,10 @@ namespace PSC.Repositories.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.3")
+                .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("PSC.Domain.Audit.AuditMessage", b =>
+            modelBuilder.Entity("PSC.Domain.Audit.AuditAzureCost", b =>
                 {
                     b.Property<long>("AuditId")
                         .ValueGeneratedOnAdd()
@@ -32,34 +32,93 @@ namespace PSC.Repositories.Migrations
                     b.Property<DateTime>("AuditDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Body")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Category")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("IdMessage")
+                    b.Property<long>("AzureCostImportId")
                         .HasColumnType("bigint");
 
-                    b.Property<bool>("IsNew")
-                        .HasColumnType("bit");
+                    b.Property<long>("CategoryId")
+                        .HasColumnType("bigint");
 
-                    b.Property<string>("Priority")
+                    b.Property<decimal>("Cost")
+                        .HasPrecision(24, 20)
+                        .HasColumnType("decimal(24,20)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ReceiverId")
+                    b.Property<long>("ID")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("ImportDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("LocationId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SenderId")
+                    b.Property<decimal>("Quantity")
+                        .HasPrecision(24, 20)
+                        .HasColumnType("decimal(24,20)");
+
+                    b.Property<long>("ResourceGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ResourceId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("SubcategoryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Status")
+                    b.HasKey("AuditId");
+
+                    b.ToTable("Audit_AzureCosts");
+                });
+
+            modelBuilder.Entity("PSC.Domain.Audit.AuditAzureCostImport", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AuditAction")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Subject")
+                    b.Property<DateTime>("AuditDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("ID")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Period")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
@@ -67,7 +126,256 @@ namespace PSC.Repositories.Migrations
 
                     b.HasKey("AuditId");
 
-                    b.ToTable("Audit_Messages");
+                    b.ToTable("Audit_AzureCostImports");
+                });
+
+            modelBuilder.Entity("PSC.Domain.Audit.AuditAzureCostImportLog", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AuditAction")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("AuditDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("AzureCostImportId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Body")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("ID")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("LogData")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("LogType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AuditId");
+
+                    b.ToTable("Audit_AzureCostImportLogs");
+                });
+
+            modelBuilder.Entity("PSC.Domain.Audit.CommonTables.AuditAzureCategory", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AuditAction")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("AuditDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("ID")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AuditId");
+
+                    b.ToTable("Audit_tbl_AzureCategories");
+                });
+
+            modelBuilder.Entity("PSC.Domain.Audit.CommonTables.AuditAzureLocation", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AuditAction")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("AuditDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("ID")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AuditId");
+
+                    b.ToTable("Audit_tbl_AzureLocations");
+                });
+
+            modelBuilder.Entity("PSC.Domain.Audit.CommonTables.AuditAzureResource", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AuditAction")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("AuditDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("ID")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AuditId");
+
+                    b.ToTable("Audit_tbl_AzureResources");
+                });
+
+            modelBuilder.Entity("PSC.Domain.Audit.CommonTables.AuditAzureResourceGroup", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AuditAction")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("AuditDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("ID")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AuditId");
+
+                    b.ToTable("Audit_tbl_AzureResourceGroups");
+                });
+
+            modelBuilder.Entity("PSC.Domain.Audit.CommonTables.AuditAzureSubcategory", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AuditAction")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("AuditDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("ID")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AuditId");
+
+                    b.ToTable("Audit_tbl_AzureSubcategories");
                 });
 
             modelBuilder.Entity("PSC.Domain.Audit.CommonTables.AuditCountry", b =>
@@ -83,8 +391,20 @@ namespace PSC.Repositories.Migrations
                     b.Property<DateTime>("AuditDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("IDCountry")
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("ID")
                         .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -97,1242 +417,1744 @@ namespace PSC.Repositories.Migrations
 
                     b.HasKey("AuditId");
 
-                    b.ToTable("Audit_Countries");
+                    b.ToTable("Audit_tbl_Countries");
                 });
 
-            modelBuilder.Entity("PSC.Domain.CommonTables.Country", b =>
+            modelBuilder.Entity("PSC.Domain.AzureCost", b =>
                 {
-                    b.Property<long>("IDCountry")
+                    b.Property<long>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<long?>("AzureCostImportId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("CategoryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("Cost")
+                        .HasPrecision(24, 20)
+                        .HasColumnType("decimal(24,20)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ImportDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LocationId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Quantity")
+                        .HasPrecision(24, 20)
+                        .HasColumnType("decimal(24,20)");
+
+                    b.Property<long?>("ResourceGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("ResourceId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("SubcategoryId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AzureCostImportId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("LocationId");
+
+                    b.HasIndex("ResourceGroupId");
+
+                    b.HasIndex("ResourceId");
+
+                    b.HasIndex("SubcategoryId");
+
+                    b.ToTable("AzureCosts");
+                });
+
+            modelBuilder.Entity("PSC.Domain.AzureCostImport", b =>
+                {
+                    b.Property<long>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Period")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("AzureCostImports");
+                });
+
+            modelBuilder.Entity("PSC.Domain.AzureCostImportLog", b =>
+                {
+                    b.Property<long>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("AzureCostImportId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Body")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LogData")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("LogType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AzureCostImportId");
+
+                    b.ToTable("AzureCostImportLogs");
+                });
+
+            modelBuilder.Entity("PSC.Domain.CommonTables.AzureCategory", b =>
+                {
+                    b.Property<long>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("tbl_AzureCategories");
+                });
+
+            modelBuilder.Entity("PSC.Domain.CommonTables.AzureLocation", b =>
+                {
+                    b.Property<long>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("tbl_AzureLocations");
+                });
+
+            modelBuilder.Entity("PSC.Domain.CommonTables.AzureResource", b =>
+                {
+                    b.Property<long>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("tbl_AzureResources");
+                });
+
+            modelBuilder.Entity("PSC.Domain.CommonTables.AzureResourceGroup", b =>
+                {
+                    b.Property<long>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("tbl_AzureResourceGroups");
+                });
+
+            modelBuilder.Entity("PSC.Domain.CommonTables.AzureSubcategory", b =>
+                {
+                    b.Property<long>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("tbl_AzureSubcategories");
+                });
+
+            modelBuilder.Entity("PSC.Domain.CommonTables.Country", b =>
+                {
+                    b.Property<long>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<int>("Order")
                         .HasColumnType("int");
 
-                    b.HasKey("IDCountry");
+                    b.HasKey("ID");
 
                     b.ToTable("tbl_Countries");
 
                     b.HasData(
                         new
                         {
-                            IDCountry = 1L,
+                            ID = 1L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 631, DateTimeKind.Local).AddTicks(224),
                             Name = "Afghanistan",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 2L,
+                            ID = 2L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(4906),
                             Name = "Albania",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 3L,
+                            ID = 3L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5019),
                             Name = "Algeria",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 4L,
+                            ID = 4L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5031),
                             Name = "Andorra",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 5L,
+                            ID = 5L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5040),
                             Name = "Angola",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 6L,
+                            ID = 6L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5049),
                             Name = "Antigua and Barbuda",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 7L,
+                            ID = 7L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5074),
                             Name = "Argentina",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 8L,
+                            ID = 8L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5084),
                             Name = "Armenia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 9L,
+                            ID = 9L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5092),
                             Name = "Australia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 10L,
+                            ID = 10L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5100),
                             Name = "Austria",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 11L,
+                            ID = 11L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5109),
                             Name = "Azerbaijan",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 12L,
+                            ID = 12L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5117),
                             Name = "The Bahamas",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 13L,
+                            ID = 13L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5138),
                             Name = "Bahrain",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 14L,
+                            ID = 14L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5147),
                             Name = "Bangladesh",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 15L,
+                            ID = 15L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5156),
                             Name = "Barbados",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 16L,
+                            ID = 16L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5164),
                             Name = "Belarus",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 17L,
+                            ID = 17L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5172),
                             Name = "Belgium",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 18L,
+                            ID = 18L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5179),
                             Name = "Belize",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 19L,
+                            ID = 19L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5187),
                             Name = "Benin",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 20L,
+                            ID = 20L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5195),
                             Name = "Bhutan",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 21L,
+                            ID = 21L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5204),
                             Name = "Bolivia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 22L,
+                            ID = 22L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5212),
                             Name = "Bosnia and Herzegovina",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 23L,
+                            ID = 23L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5220),
                             Name = "Botswana",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 24L,
+                            ID = 24L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5228),
                             Name = "Brazil",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 25L,
+                            ID = 25L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5236),
                             Name = "Brunei",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 26L,
+                            ID = 26L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5244),
                             Name = "Bulgaria",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 27L,
+                            ID = 27L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5251),
                             Name = "Burkina Faso",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 28L,
+                            ID = 28L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5259),
                             Name = "Burundi",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 29L,
+                            ID = 29L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5267),
                             Name = "Cambodia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 30L,
+                            ID = 30L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5275),
                             Name = "Cameroon",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 31L,
+                            ID = 31L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5283),
                             Name = "Canada",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 32L,
+                            ID = 32L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5290),
                             Name = "Cape Verde",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 33L,
+                            ID = 33L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5298),
                             Name = "Central African Republic",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 34L,
+                            ID = 34L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5306),
                             Name = "Chad",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 35L,
+                            ID = 35L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5314),
                             Name = "Chile",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 36L,
+                            ID = 36L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5322),
                             Name = "China",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 37L,
+                            ID = 37L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5330),
                             Name = "Colombia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 38L,
+                            ID = 38L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5338),
                             Name = "Comoros",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 39L,
+                            ID = 39L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5346),
                             Name = "Congo, Republic of the",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 40L,
+                            ID = 40L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5355),
                             Name = "Congo, Democratic Republic of the",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 41L,
+                            ID = 41L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5364),
                             Name = "Costa Rica",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 42L,
+                            ID = 42L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5372),
                             Name = "Cote d'Ivoire",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 43L,
+                            ID = 43L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5379),
                             Name = "Croatia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 44L,
+                            ID = 44L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5388),
                             Name = "Cuba",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 45L,
+                            ID = 45L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5395),
                             Name = "Cyprus",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 46L,
+                            ID = 46L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5403),
                             Name = "Czech Republic",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 47L,
+                            ID = 47L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5411),
                             Name = "Denmark",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 48L,
+                            ID = 48L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5419),
                             Name = "Djibouti",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 49L,
+                            ID = 49L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5427),
                             Name = "Dominica",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 50L,
+                            ID = 50L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5434),
                             Name = "Dominican Republic",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 51L,
+                            ID = 51L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5442),
                             Name = "East Timor (Timor-Leste)",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 52L,
+                            ID = 52L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5450),
                             Name = "Ecuador",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 53L,
+                            ID = 53L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5458),
                             Name = "Egypt",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 54L,
+                            ID = 54L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5466),
                             Name = "El Salvador",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 55L,
+                            ID = 55L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5474),
                             Name = "Equatorial Guinea",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 56L,
+                            ID = 56L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5481),
                             Name = "Eritrea",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 57L,
+                            ID = 57L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5489),
                             Name = "Estonia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 58L,
+                            ID = 58L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5497),
                             Name = "Ethiopia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 59L,
+                            ID = 59L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5505),
                             Name = "Fiji",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 60L,
+                            ID = 60L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5513),
                             Name = "Finland",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 61L,
+                            ID = 61L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5521),
                             Name = "France",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 62L,
+                            ID = 62L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5528),
                             Name = "Gabon",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 63L,
+                            ID = 63L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5536),
                             Name = "The Gambia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 64L,
+                            ID = 64L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5544),
                             Name = "Georgia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 65L,
+                            ID = 65L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5552),
                             Name = "Germany",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 66L,
+                            ID = 66L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5560),
                             Name = "Ghana",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 67L,
+                            ID = 67L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5567),
                             Name = "Greece",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 68L,
+                            ID = 68L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5575),
                             Name = "Grenada",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 69L,
+                            ID = 69L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5583),
                             Name = "Guatemala",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 70L,
+                            ID = 70L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5590),
                             Name = "Guinea",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 71L,
+                            ID = 71L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5598),
                             Name = "Guinea-Bissau",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 72L,
+                            ID = 72L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5606),
                             Name = "Guyana",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 73L,
+                            ID = 73L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5614),
                             Name = "Haiti",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 74L,
+                            ID = 74L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5621),
                             Name = "Honduras",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 75L,
+                            ID = 75L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5629),
                             Name = "Hungary",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 76L,
+                            ID = 76L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5637),
                             Name = "Iceland",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 77L,
+                            ID = 77L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5645),
                             Name = "India",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 78L,
+                            ID = 78L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5652),
                             Name = "Indonesia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 79L,
+                            ID = 79L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5660),
                             Name = "Iran",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 80L,
+                            ID = 80L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5668),
                             Name = "Iraq",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 81L,
+                            ID = 81L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5675),
                             Name = "Ireland",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 82L,
+                            ID = 82L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5776),
                             Name = "Israel",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 83L,
+                            ID = 83L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5787),
                             Name = "Italy",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 84L,
+                            ID = 84L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5795),
                             Name = "Jamaica",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 85L,
+                            ID = 85L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5803),
                             Name = "Japan",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 86L,
+                            ID = 86L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5811),
                             Name = "Jordan",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 87L,
+                            ID = 87L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5819),
                             Name = "Kazakhstan",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 88L,
+                            ID = 88L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5827),
                             Name = "Kenya",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 89L,
+                            ID = 89L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5835),
                             Name = "Kiribati",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 90L,
+                            ID = 90L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5843),
                             Name = "Korea, North",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 91L,
+                            ID = 91L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5851),
                             Name = "Korea, South",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 92L,
+                            ID = 92L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5859),
                             Name = "Kosovo",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 93L,
+                            ID = 93L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5868),
                             Name = "Kuwait",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 94L,
+                            ID = 94L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5875),
                             Name = "Kyrgyzstan",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 95L,
+                            ID = 95L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5884),
                             Name = "Laos",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 96L,
+                            ID = 96L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5892),
                             Name = "Latvia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 97L,
+                            ID = 97L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5899),
                             Name = "Lebanon",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 98L,
+                            ID = 98L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5907),
                             Name = "Lesotho",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 99L,
+                            ID = 99L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5915),
                             Name = "Liberia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 100L,
+                            ID = 100L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5923),
                             Name = "Libya",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 101L,
+                            ID = 101L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5931),
                             Name = "Liechtenstein",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 102L,
+                            ID = 102L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5939),
                             Name = "Lithuania",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 103L,
+                            ID = 103L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5947),
                             Name = "Luxembourg",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 104L,
+                            ID = 104L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5955),
                             Name = "Macedonia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 105L,
+                            ID = 105L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5963),
                             Name = "Madagascar",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 106L,
+                            ID = 106L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5970),
                             Name = "Malawi",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 107L,
+                            ID = 107L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5978),
                             Name = "Malaysia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 108L,
+                            ID = 108L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5986),
                             Name = "Maldives",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 109L,
+                            ID = 109L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(5994),
                             Name = "Mali",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 110L,
+                            ID = 110L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6003),
                             Name = "Malta",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 111L,
+                            ID = 111L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6010),
                             Name = "Marshall Islands",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 112L,
+                            ID = 112L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6018),
                             Name = "Mauritania",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 113L,
+                            ID = 113L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6026),
                             Name = "Mauritius",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 114L,
+                            ID = 114L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6034),
                             Name = "Mexico",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 115L,
+                            ID = 115L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6042),
                             Name = "Micronesia, Federated States of",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 116L,
+                            ID = 116L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6049),
                             Name = "Moldova",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 117L,
+                            ID = 117L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6057),
                             Name = "Monaco",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 118L,
+                            ID = 118L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6065),
                             Name = "Mongolia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 119L,
+                            ID = 119L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6073),
                             Name = "Montenegro",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 120L,
+                            ID = 120L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6081),
                             Name = "Morocco",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 121L,
+                            ID = 121L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6088),
                             Name = "Mozambique",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 122L,
+                            ID = 122L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6096),
                             Name = "Myanmar (Burma)",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 123L,
+                            ID = 123L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6104),
                             Name = "Namibia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 124L,
+                            ID = 124L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6111),
                             Name = "Nauru",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 125L,
+                            ID = 125L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6119),
                             Name = "Nepal",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 126L,
+                            ID = 126L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6127),
                             Name = "Netherlands",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 127L,
+                            ID = 127L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6135),
                             Name = "New Zealand",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 128L,
+                            ID = 128L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6142),
                             Name = "Nicaragua",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 129L,
+                            ID = 129L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6150),
                             Name = "Niger",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 130L,
+                            ID = 130L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6158),
                             Name = "Nigeria",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 131L,
+                            ID = 131L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6166),
                             Name = "Norway",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 132L,
+                            ID = 132L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6174),
                             Name = "Oman",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 133L,
+                            ID = 133L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6181),
                             Name = "Pakistan",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 134L,
+                            ID = 134L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6189),
                             Name = "Palau",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 135L,
+                            ID = 135L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6197),
                             Name = "Panama",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 136L,
+                            ID = 136L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6205),
                             Name = "Papua New Guinea",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 137L,
+                            ID = 137L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6213),
                             Name = "Paraguay",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 138L,
+                            ID = 138L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6221),
                             Name = "Peru",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 139L,
+                            ID = 139L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6228),
                             Name = "Philippines",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 140L,
+                            ID = 140L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6236),
                             Name = "Poland",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 141L,
+                            ID = 141L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6244),
                             Name = "Portugal",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 142L,
+                            ID = 142L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6252),
                             Name = "Qatar",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 143L,
+                            ID = 143L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6259),
                             Name = "Romania",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 144L,
+                            ID = 144L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6267),
                             Name = "Russia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 145L,
+                            ID = 145L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6274),
                             Name = "Rwanda",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 146L,
+                            ID = 146L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6282),
                             Name = "Saint Kitts and Nevis",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 147L,
+                            ID = 147L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6290),
                             Name = "Saint Lucia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 148L,
+                            ID = 148L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6298),
                             Name = "Saint Vincent and the Grenadines",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 149L,
+                            ID = 149L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6306),
                             Name = "Samoa",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 150L,
+                            ID = 150L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6313),
                             Name = "San Marino",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 151L,
+                            ID = 151L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6321),
                             Name = "Sao Tome and Principe",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 152L,
+                            ID = 152L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6329),
                             Name = "Saudi Arabia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 153L,
+                            ID = 153L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6336),
                             Name = "Senegal",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 154L,
+                            ID = 154L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6344),
                             Name = "Serbia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 155L,
+                            ID = 155L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6352),
                             Name = "Seychelles",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 156L,
+                            ID = 156L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6360),
                             Name = "Sierra Leone",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 157L,
+                            ID = 157L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6367),
                             Name = "Singapore",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 158L,
+                            ID = 158L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6375),
                             Name = "Slovakia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 159L,
+                            ID = 159L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6382),
                             Name = "Slovenia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 160L,
+                            ID = 160L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6390),
                             Name = "Solomon Islands",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 161L,
+                            ID = 161L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6398),
                             Name = "Somalia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 162L,
+                            ID = 162L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6406),
                             Name = "South Africa",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 163L,
+                            ID = 163L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6414),
                             Name = "South Sudan",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 164L,
+                            ID = 164L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6421),
                             Name = "Spain",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 165L,
+                            ID = 165L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6429),
                             Name = "Sri Lanka",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 166L,
+                            ID = 166L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6437),
                             Name = "Sudan",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 167L,
+                            ID = 167L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6444),
                             Name = "Suriname",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 168L,
+                            ID = 168L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6452),
                             Name = "Swaziland",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 169L,
+                            ID = 169L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6460),
                             Name = "Sweden",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 170L,
+                            ID = 170L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6468),
                             Name = "Switzerland",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 171L,
+                            ID = 171L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6475),
                             Name = "Syria",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 172L,
+                            ID = 172L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6483),
                             Name = "Taiwan",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 173L,
+                            ID = 173L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6491),
                             Name = "Tajikistan",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 174L,
+                            ID = 174L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6499),
                             Name = "Tanzania",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 175L,
+                            ID = 175L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6507),
                             Name = "Thailand",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 176L,
+                            ID = 176L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6514),
                             Name = "Togo",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 177L,
+                            ID = 177L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6522),
                             Name = "Tonga",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 178L,
+                            ID = 178L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6530),
                             Name = "Trinidad and Tobago",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 179L,
+                            ID = 179L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6538),
                             Name = "Tunisia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 180L,
+                            ID = 180L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6545),
                             Name = "Turkey",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 181L,
+                            ID = 181L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6553),
                             Name = "Turkmenistan",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 182L,
+                            ID = 182L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6561),
                             Name = "Tuvalu",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 183L,
+                            ID = 183L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6569),
                             Name = "Uganda",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 184L,
+                            ID = 184L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6753),
                             Name = "Ukraine",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 185L,
+                            ID = 185L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6764),
                             Name = "United Arab Emirates",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 186L,
+                            ID = 186L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(6773),
                             Name = "United Kingdom",
                             Order = 1
                         },
                         new
                         {
-                            IDCountry = 187L,
+                            ID = 187L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(8322),
                             Name = "United States of America",
                             Order = 1
                         },
                         new
                         {
-                            IDCountry = 188L,
+                            ID = 188L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(8356),
                             Name = "Uruguay",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 189L,
+                            ID = 189L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(8364),
                             Name = "Uzbekistan",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 190L,
+                            ID = 190L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(8372),
                             Name = "Vanuatu",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 191L,
+                            ID = 191L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(8380),
                             Name = "Vatican City (Holy See)",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 192L,
+                            ID = 192L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(8387),
                             Name = "Venezuela",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 193L,
+                            ID = 193L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(8395),
                             Name = "Vietnam",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 194L,
+                            ID = 194L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(8403),
                             Name = "Yemen",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 195L,
+                            ID = 195L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(8411),
                             Name = "Zambia",
                             Order = 0
                         },
                         new
                         {
-                            IDCountry = 196L,
+                            ID = 196L,
+                            CreatedAt = new DateTime(2021, 3, 31, 14, 57, 52, 637, DateTimeKind.Local).AddTicks(8419),
                             Name = "Zimbabwe",
                             Order = 0
                         });
                 });
 
-            modelBuilder.Entity("PSC.Domain.Message", b =>
+            modelBuilder.Entity("PSC.Domain.AzureCost", b =>
                 {
-                    b.Property<long>("IdMessage")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.HasOne("PSC.Domain.AzureCostImport", "AzureCostImport")
+                        .WithMany()
+                        .HasForeignKey("AzureCostImportId");
 
-                    b.Property<string>("Body")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasOne("PSC.Domain.CommonTables.AzureCategory", "AzureCategory")
+                        .WithMany()
+                        .HasForeignKey("CategoryId");
 
-                    b.Property<string>("Category")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasOne("PSC.Domain.CommonTables.AzureLocation", "AzureLocation")
+                        .WithMany()
+                        .HasForeignKey("LocationId");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                    b.HasOne("PSC.Domain.CommonTables.AzureResourceGroup", "AzureResourceGroup")
+                        .WithMany()
+                        .HasForeignKey("ResourceGroupId");
 
-                    b.Property<bool>("IsNew")
-                        .HasColumnType("bit");
+                    b.HasOne("PSC.Domain.CommonTables.AzureResource", "AzureResource")
+                        .WithMany()
+                        .HasForeignKey("ResourceId");
 
-                    b.Property<string>("Priority")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasOne("PSC.Domain.CommonTables.AzureSubcategory", "AzureSubcategory")
+                        .WithMany()
+                        .HasForeignKey("SubcategoryId");
 
-                    b.Property<string>("ReceiverId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Navigation("AzureCategory");
 
-                    b.Property<string>("SenderId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Navigation("AzureCostImport");
 
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
+                    b.Navigation("AzureLocation");
 
-                    b.Property<string>("Subject")
-                        .HasColumnType("nvarchar(max)");
+                    b.Navigation("AzureResource");
 
-                    b.HasKey("IdMessage");
+                    b.Navigation("AzureResourceGroup");
 
-                    b.ToTable("Messages");
+                    b.Navigation("AzureSubcategory");
+                });
+
+            modelBuilder.Entity("PSC.Domain.AzureCostImportLog", b =>
+                {
+                    b.HasOne("PSC.Domain.AzureCostImport", "AzureCostImport")
+                        .WithMany("ImportLogs")
+                        .HasForeignKey("AzureCostImportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AzureCostImport");
+                });
+
+            modelBuilder.Entity("PSC.Domain.AzureCostImport", b =>
+                {
+                    b.Navigation("ImportLogs");
                 });
 #pragma warning restore 612, 618
         }

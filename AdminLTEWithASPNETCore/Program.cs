@@ -12,7 +12,10 @@ namespace AdminLTEWithASPNETCore
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
+            //.ConfigureLogging(loggingBuilder =>
+            //{
+            //})
+            .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
                 });

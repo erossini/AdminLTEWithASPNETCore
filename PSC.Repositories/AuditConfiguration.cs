@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using PSC.Domain;
 using PSC.Domain.Audit;
+using PSC.Domain.Audit.CommonTables;
+using PSC.Domain.CommonTables;
 using PSC.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PSC.Repositories
+namespace PSC.Persistence
 {
     /// <summary>
     /// Class AuditConfiguration.
@@ -24,7 +26,15 @@ namespace PSC.Repositories
             #region Use this when you have another table for audit
             Audit.Core.Configuration.Setup()
                 .UseEntityFramework(ef => ef.AuditTypeExplicitMapper(m => m
-                    .Map<Message, AuditMessage>()
+                    .Map<AzureCost, AuditAzureCost>()
+                    .Map<AzureCostImport, AuditAzureCostImport>()
+                    .Map<AzureCostImportLog, AuditAzureCostImportLog>()
+                    .Map<AzureCategory, AuditAzureCategory>()
+                    .Map<AzureLocation, AuditAzureLocation>()
+                    .Map<AzureResource, AuditAzureResource>()
+                    .Map<AzureResourceGroup, AuditAzureResourceGroup>()
+                    .Map<AzureSubcategory, AuditAzureSubcategory>() 
+                    .Map<Country, AuditCountry>()
                     .AuditEntityAction<IAudit>((evt, entry, auditEntity) =>
                     {
                         auditEntity.AuditDate = DateTime.UtcNow;

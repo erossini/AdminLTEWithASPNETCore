@@ -1,0 +1,18 @@
+﻿#dropSection {
+    border: 3px dashed #6c757d;
+    display: table-cell;
+    min-height: 150px;
+    height: 300px;
+    width: 100vw;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+    #dropSection.active {
+        background-color: #b6ff00 !important;
+    }
+
+#btnUpload {
+    display: none;
+}

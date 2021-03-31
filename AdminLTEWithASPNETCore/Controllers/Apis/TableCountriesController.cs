@@ -1,26 +1,65 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AdminLTEWithASPNETCore.App.Services.Data;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using PSC.Domain.CommonTables;
 using PSC.Extensions;
-using PSC.Repositories;
-using PSC.Services.TableAPIs;
+using PSC.Persistence.Interfaces.CommonTables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace AdminLTEWithASPNETCore.Controllers.Apis
 {
-    [Route("api/[controller]")]
     [ApiController]
-    public class TableCountriesController : ControllerBase
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    public class TableCountriesController : CommonTableController<Country>
     {
-        private readonly PSCContext _db;
-
-        public TableCountriesController(PSCContext db)
+        public TableCountriesController(ICountryRepository db, ILogger<TableCountriesController> log) : base(db, log)
         {
-            _db = db;
+        }
+
+        /// <summary>
+        /// Creates new Azure category if not exist.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>IActionResult.</returns>
+        /// <response code="200">Azure Subcategory created</response>
+        /// <response code="400">The name is missing or invalid values</response>
+        /// <response code="500">Oops! Can't create your Azure Subcategory</response>
+        [HttpPost]
+        [Route("CreateIfNotExist")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Country))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> CreateIfNotExist(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                return BadRequest();
+
+            return Ok(await _db.CreateIfNotExist(name));
+        }
+
+        /// <summary>
+        /// Gets the name of the identifier by.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>IActionResult.</returns>
+        [HttpGet]
+        [Route("GetIdByName")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(long))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetIdByName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                return BadRequest();
+
+            var rtn = _db.GetIdByNameAsync(name);
+            return rtn != 0 ? Ok(rtn) : NotFound();
         }
 
         /// <summary>
@@ -34,19 +73,19 @@ namespace AdminLTEWithASPNETCore.Controllers.Apis
         /// <param name="search">The search</param>
         /// <returns>IEnumerable&lt;System.String&gt;.</returns>
         [HttpPost]
+        [Route("Search")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IQueryable<Country>))]
         public IActionResult Post([FromForm] string draw, [FromForm] string length, [FromForm] string start, 
             string columnSort, string columnDirectrion, string search)
         {
             var searchValue = Request.Form.GetValueOrDefault("search[value]", search);
 
-            var customerData = (from tempcustomer in _db.Countries select tempcustomer);
+            Expression<Func<Country, bool>> exp = r => r.Name.Contains(search);
 
-            Expression<Func<Country, bool>> exp = r => r.Name.Contains(searchValue);
-            var service = new TableService<Country>();
-            var rtn = service.GetRecords(draw, length, start, columnSort, columnDirectrion,
-                searchValue, Request.Form, customerData, exp);
+            var rtn = CommonTableService<Country>.GetTableForUI(_db, Request.Form, draw, length, start,
+                columnSort, columnDirectrion, search, exp);
 
-            return Ok(rtn);
+            return StatusCode(StatusCodes.Status200OK, rtn);
         }
     }
 }

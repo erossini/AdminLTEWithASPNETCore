@@ -1,0 +1,35 @@
+﻿@model AdminLTEWithASPNETCore.Models.Components.Timeline.TimelineModel
+
+<div class="timeline">
+    @foreach (var ev in Model.Events)
+    {
+        <div class="time-label">
+            <span class="@ev.EventTypeText">@ev.EventDate</span>
+        </div>
+        @foreach (var item in ev.Items)
+        {
+            <div>
+                <i class="fas @item.ItemIconText @item.ItemTypeText"></i>
+                <div class="timeline-item">
+                    <span class="time"><i class="fas fa-clock"></i> @item.Time</span>
+                    <h3 class="timeline-header no-border">@Html.Raw(item.HeaderText)</h3>
+                    @if (!string.IsNullOrEmpty(item.Body))
+                    {
+                        <div class="timeline-body">
+                            @Html.Raw(item.Body)
+                        </div>
+                    }
+                    @if (item.Footer.Count > 0)
+                    {
+                        <div class="timeline-footer">
+                            @foreach (var btn in item.Footer)
+                            {
+                                <a href="@btn.Url" target="@btn.UrlTarget" class="btn btn-sm @btn.ButtonTypeText">@btn.Text</a>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    }
+</div>

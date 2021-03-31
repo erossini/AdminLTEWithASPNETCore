@@ -101,6 +101,20 @@
     {
       "library": "jszip@3.5.0",
       "destination": "wwwroot/lib/jszip/"
+    },
+    {
+      "provider": "jsdelivr",
+      "library": "bs-stepper@1.7.0",
+      "destination": "wwwroot/lib/bs-stepper/"
+    },
+    {
+      "provider": "jsdelivr",
+      "library": "@fortawesome/fontawesome-free@5.15.2",
+      "destination": "wwwroot/lib/fontawesome-free/"
+    },
+    {
+      "library": "datatables.net-responsive@2.2.7",
+      "destination": "wwwroot/lib/datatables.net-responsive/"
     }
   ]
 }

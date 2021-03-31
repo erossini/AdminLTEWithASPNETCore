@@ -10,7 +10,7 @@
         <p class="card-text">
             @Model.Body
         </p>
-        @if (Model.Links.Count > 0)
+        @if (Model.Links?.Count > 0)
         {
             foreach (var link in Model.Links)
             {

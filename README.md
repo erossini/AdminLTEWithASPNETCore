@@ -25,14 +25,22 @@ In this project template you have already:
 - Integration with Hangfire.io for background processes
 - Integration with SignalR
 - Add `Tables` area for common tables such as **Countries**
-- Create API for the DataTables
+- Create API for the [DataTables](https://www.datatables.net/)
+- Integration with DataTables
+    - View template to display data
+    - Flexible model to manage the Datatables in the UI
+- Import Microsoft Excel files
+    - Import a file from the UI
+    - Validation of the structure of the file
+    - Start a background process with Hangfire.io to import the Excel file
+    - Save in the database and create common tables
 
 If you have any question, please use the [PureSourceCode Forum](https://www.puresourcecode.com/forum/).
 
 ## Screenshots
 The result of the main application is this one:
 
-![Integrating AdminLTE with ASP.NET Core 3.1](https://www.puresourcecode.com/wp-content/uploads/2021/02/adminlte-aspnet-core-integration-2.png)
+![AdminLTE integration with ASP.NET Core 5](https://www.puresourcecode.com/wp-content/uploads/2021/02/adminlte-aspnet-core-integration-3.png)
 
 ## Login
 
@@ -41,23 +49,45 @@ The result of the main application is this one:
 ## How do I organize the solution?
 The project is divided into the following layers:
 
-- Tasks
 - Domain
 - Infrastructure
-- Presentation
+- Persistence
 - Specs/Tests
+- UI
 
-### Task
-Previous known as “Application Services,” the Tasks Layer serves to tie together any non-business logic from a variety of third-party services or persistence technologies.
+This because I want to follow the guide lines for a [clean architecture](https://www.puresourcecode.com/tag/clean-architecture/) solution. I have create some posts about it and you have the link here:
+*   [Architecting ASP.NET Core applications](https://www.puresourcecode.com/dotnet/net-core/architecting-asp-net-core-applications/)
+*   [Setting up the application core](https://www.puresourcecode.com/dotnet/net-core/setting-up-the-application-asp-net-core/)
+*   [Introducing CQRS in the architecture](https://www.puresourcecode.com/dotnet/introducing-cqrs-in-the-architecture)
+*   [Adding Validation using Fluent](https://www.puresourcecode.com/dotnet/adding-validation-using-fluent-validation/)
+*   [Creating the infrastructure project](https://www.puresourcecode.com/dotnet/creating-the-infrastructure-project/)
+*   [Adding an API using ASP.NET Core](https://www.puresourcecode.com/dotnet/net-core/adding-an-api-using-asp-net-core/)
+*   [How testing the application code](https://www.puresourcecode.com/dotnet/csharp/how-testing-the-application-code/)
+*   [How adding an UI built in Blazor](https://www.puresourcecode.com/dotnet/net-core/how-adding-an-ui-built-in-blazor/)
+*   [Improving on the application's behaviour](https://www.puresourcecode.com/dotnet/net-core/improving-on-the-applications-behaviour/)
 
-### Presentation
-The Presentation Layer contains the familiar MVC project with views, viewmodels and controllers, along with application setup tasks.
-
-### Infrastructure
-The Infrastructure Layer setups up third party data sources. You can extend the repository implementation with additional methods to perform specific queries.
-
-### Domain
-The Domain Layer is where business entities and other business logic resides. The domain layer should be persistence ignorant, with any persistence existing in the Tasks Layer or in the Presentation Layer (for populating viewModels).
+### Layers and code
+*   Core (no dependency to any Infrastructure-related code or package)
+    *   Entities
+    *   Interfaces
+        *   Core
+        *   Infrastructure
+    *   Services
+    *   Exceptions
+*   Infrastructure
+    *   Data access (Entity Framework Core)
+    *   Logging
+    *   Identity
+    *   API clients
+    *   File access
+*   UI
+    *   API/MVC/Razor
+    *   Specific ASP.NET Core items
+        *   Middleware
+        *   Filters
+    *   Interact with services through MediatR
+        *   Loose coupling
+        *   Lightweight controllers
 
 ## New View Components
 
@@ -71,8 +101,7 @@ There are new ASP.NET Core [ViewComponents](https://www.puresourcecode.com/dotne
     - Line
     - Pie
 - Card (simple)
-
-![AdminLTE integration with ASP.NET Core 5 - Creation of new view components](https://www.puresourcecode.com/wp-content/uploads/2021/02/adminlte-aspnet-core-integration-3.png)
+- Timeline
 
 ## Integration with IdentityServer4
 In the project you find an integration with `IdentityServer4`. To enable the authentication with `IdentityServer`, you have to change the `appsettings.json` under **Authentication** and modify **UseIdentityServer** to `true`.

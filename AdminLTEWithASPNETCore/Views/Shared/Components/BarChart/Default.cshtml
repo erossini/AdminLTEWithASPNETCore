@@ -1,5 +1,5 @@
 ﻿@model AdminLTEWithASPNETCore.Models.Components.Charts.ChartModel
-@{ 
+@{
     var tmpName = Guid.NewGuid().ToString().Replace("-", "");
 }
 <canvas id="@Model.ChartId" height="@Model.Height"></canvas>
