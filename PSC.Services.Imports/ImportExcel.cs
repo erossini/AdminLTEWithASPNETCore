@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PSC.Services.Imports
 {
@@ -139,8 +137,8 @@ namespace PSC.Services.Imports
         /// <param name="cell">The cell.</param>
         /// <returns>System.Int32.</returns>
         /// <remarks>
-        /// The moment you have even a single empty cell in a row then things go haywire. 
-        /// Essentially we need to figure out the original column index of the cell in case there were empty cells before it. 
+        /// The moment you have even a single empty cell in a row then things go haywire.
+        /// Essentially we need to figure out the original column index of the cell in case there were empty cells before it.
         /// This function obtains the original/correct index of any cell.
         /// </remarks>
         private static int CellReferenceToIndex(Cell cell)

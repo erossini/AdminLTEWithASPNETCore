@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace AdminLTEWithASPNETCore.Code
+﻿namespace AdminLTEWithASPNETCore.Code
 {
     /// <summary>
     /// Class CommonConst.

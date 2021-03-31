@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using PSC.Services.AspNetCore.Models.Responses;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PSC.Services.AspNetCore
 {
@@ -26,7 +22,7 @@ namespace PSC.Services.AspNetCore
 
             foreach (IFormFile postedFile in postedFiles)
             {
-                string fileName = Path.GetFileNameWithoutExtension(postedFile.FileName) + 
+                string fileName = Path.GetFileNameWithoutExtension(postedFile.FileName) +
                                   "-" + Crypto.RandomString(10) +
                                   Path.GetExtension(postedFile.FileName);
                 string fullPath = Path.Combine(uploadPathFolder, fileName);

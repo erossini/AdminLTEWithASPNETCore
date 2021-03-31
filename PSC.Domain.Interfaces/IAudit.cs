@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PSC.Domain.Interfaces
 {
@@ -16,11 +12,13 @@ namespace PSC.Domain.Interfaces
         /// </summary>
         /// <value>The audit action.</value>
         string AuditAction { get; set; }
+
         /// <summary>
         /// Gets or sets the audit date.
         /// </summary>
         /// <value>The audit date.</value>
         DateTime AuditDate { get; set; }
+
         /// <summary>
         /// Gets or sets the name of the user.
         /// </summary>

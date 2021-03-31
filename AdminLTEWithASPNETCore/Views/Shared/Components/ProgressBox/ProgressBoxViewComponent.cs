@@ -1,9 +1,6 @@
 ﻿using AdminLTEWithASPNETCore.Enums.Components;
 using AdminLTEWithASPNETCore.Models.Components.Boxes;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AdminLTEWithASPNETCore.Views.Shared.Components.ProgressBox
@@ -26,7 +23,7 @@ namespace AdminLTEWithASPNETCore.Views.Shared.Components.ProgressBox
         /// <param name="fontawesomeIcon">The fontawesome icon.</param>
         /// <param name="shadow">The shadow type for the box</param>
         /// <returns>A Task&lt;IViewComponentResult&gt; representing the asynchronous operation.</returns>
-        public async Task<IViewComponentResult> InvokeAsync(string title, string description, 
+        public async Task<IViewComponentResult> InvokeAsync(string title, string description,
             int percent, string percentDescription,
             string cssBackground, string fontawesomeIcon,
             ShadowType shadow)

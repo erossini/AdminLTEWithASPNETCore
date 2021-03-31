@@ -1,5 +1,4 @@
 ﻿; (function ($) {
-
     var default_opts = {
         fallback_id: '',
         fallback_dropzoneClick: true,
@@ -51,7 +50,7 @@
                 height: 0
             });
         }
-        
+
         this.on('drop', drop).on('dragstart', opts.dragStart).on('dragenter', dragEnter).on('dragover', dragOver).on('dragleave', dragLeave);
         $(document).on('drop', docDrop).on('dragenter', docEnter).on('dragover', docOver).on('dragleave', docLeave);
 
@@ -146,7 +145,6 @@
             if (e.lengthComputable) {
                 var percentage = Math.round((e.loaded * 100) / e.total);
                 if (this.currentProgress !== percentage) {
-
                     this.currentProgress = percentage;
                     opts.progressUpdated(this.index, this.file, this.currentProgress);
 
@@ -243,7 +241,6 @@
 
             // Process an upload, recursive
             var process = function () {
-
                 var fileIndex;
 
                 if (stop_loop) {
@@ -305,7 +302,6 @@
                         };
 
                         reader.readAsDataURL(files[fileIndex]);
-
                     } else {
                         filesRejected++;
                     }
@@ -327,7 +323,6 @@
             };
 
             var send = function (e) {
-
                 var fileIndex = (e.srcElement || e.target).index;
 
                 // Sometimes the index is not attached to the
@@ -439,7 +434,6 @@
                         stop_loop = true;
                     }
 
-
                     // Pass any errors to the error option
                     if (xhr.status < 200 || xhr.status > 299) {
                         opts.error(xhr.statusText, file, fileIndex, xhr.status);
@@ -546,5 +540,4 @@
                 this.send(ui8a.buffer);
         };
     } catch (e) { }
-
 })(jQuery);

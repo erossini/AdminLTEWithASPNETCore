@@ -60,7 +60,7 @@
 }
 
 function setMetadata(url, filename, text) {
-    var json = { "filename": filename, "text": text};
+    var json = { "filename": filename, "text": text };
     $.ajax({
         url: url,
         type: 'POST',

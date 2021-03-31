@@ -1,10 +1,5 @@
 ﻿using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Spreadsheet;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PSC.Services.Imports.Models
 {
@@ -42,11 +37,13 @@ namespace PSC.Services.Imports.Models
         /// </summary>
         /// <value>The cell value.</value>
         public CellValue CellValue { get; set; }
+
         /// <summary>
         /// Gets or sets the type of the data.
         /// </summary>
         /// <value>The type of the data.</value>
         public EnumValue<CellValues> DataType { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether [allow new values].
         /// </summary>

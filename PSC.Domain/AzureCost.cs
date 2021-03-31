@@ -1,12 +1,8 @@
 ﻿using PSC.Domain.CommonTables;
 using PSC.Domain.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PSC.Domain
 {
@@ -17,6 +13,7 @@ namespace PSC.Domain
     public class AzureCost : ITable
     {
         #region ITable implementation
+
         /// <summary>
         /// Gets or sets the identifier country.
         /// </summary>
@@ -24,33 +21,39 @@ namespace PSC.Domain
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long ID { get; set; }
+
         /// <summary>
         /// Gets or sets the created at.
         /// </summary>
         /// <value>The created at.</value>
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+
         /// <summary>
         /// Gets or sets the created by.
         /// </summary>
         /// <value>The created by.</value>
         public string CreatedBy { get; set; }
+
         /// <summary>
         /// Gets or sets the modified at.
         /// </summary>
         /// <value>The modified at.</value>
         public DateTime? ModifiedAt { get; set; }
+
         /// <summary>
         /// Gets or sets the modified by.
         /// </summary>
         /// <value>The modified by.</value>
         public string ModifiedBy { get; set; }
-        #endregion
+
+        #endregion ITable implementation
 
         /// <summary>
         /// Gets or sets the resource identifier.
         /// </summary>
         /// <value>The resource identifier.</value>
         public long? ResourceId { get; set; }
+
         /// <summary>
         /// Gets or sets the azure resource.
         /// </summary>
@@ -63,6 +66,7 @@ namespace PSC.Domain
         /// </summary>
         /// <value>The location identifier.</value>
         public long? LocationId { get; set; }
+
         /// <summary>
         /// Gets or sets the azure location.
         /// </summary>
@@ -75,6 +79,7 @@ namespace PSC.Domain
         /// </summary>
         /// <value>The resource group identifier.</value>
         public long? ResourceGroupId { get; set; }
+
         /// <summary>
         /// Gets or sets the azure resource group.
         /// </summary>
@@ -87,6 +92,7 @@ namespace PSC.Domain
         /// </summary>
         /// <value>The category identifier.</value>
         public long? CategoryId { get; set; }
+
         /// <summary>
         /// Gets or sets the azure category.
         /// </summary>
@@ -99,6 +105,7 @@ namespace PSC.Domain
         /// </summary>
         /// <value>The subcategory identifier.</value>
         public long? SubcategoryId { get; set; }
+
         /// <summary>
         /// Gets or sets the azure subcategory.
         /// </summary>
@@ -107,6 +114,7 @@ namespace PSC.Domain
         public virtual AzureSubcategory AzureSubcategory { get; set; }
 
         public long? AzureCostImportId { get; set; }
+
         [ForeignKey("AzureCostImportId")]
         public virtual AzureCostImport AzureCostImport { get; set; }
 
@@ -115,11 +123,13 @@ namespace PSC.Domain
         /// </summary>
         /// <value>The quantity.</value>
         public decimal Quantity { get; set; }
+
         /// <summary>
         /// Gets or sets the cost.
         /// </summary>
         /// <value>The cost.</value>
         public decimal Cost { get; set; }
+
         /// <summary>
         /// Gets or sets the import date.
         /// </summary>

@@ -11,12 +11,15 @@ namespace PSC.Services
     public static class Crypto
     {
         #region Variables
-        // private key and initialization vector. use different ones in your own work. 
+
+        // private key and initialization vector. use different ones in your own work.
         private static readonly byte[] key = HexToBytes("A152AA1E5FC0EC53E84F30AAA46139EEBAFF8A9B7463DE5F");
+
         private static readonly byte[] iv = HexToBytes("3BB17E9111E4F652");
 
         private static readonly TripleDESCryptoServiceProvider des3;
-        #endregion
+
+        #endregion Variables
 
         /// <summary>
         /// Initializes static members of the <see cref="Crypto"/> class.
@@ -91,6 +94,7 @@ namespace PSC.Services
         }
 
         #region Helpers
+
         /// <summary>
         /// Hexadecimals to bytes.
         /// </summary>
@@ -122,6 +126,7 @@ namespace PSC.Services
 
             return hex.ToString();
         }
-        #endregion
+
+        #endregion Helpers
     }
 }

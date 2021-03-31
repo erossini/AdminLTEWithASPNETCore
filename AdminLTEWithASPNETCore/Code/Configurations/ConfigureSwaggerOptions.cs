@@ -5,15 +5,12 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AdminLTEWithASPNETCore.Code.Configurations
 {
     public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
     {
-        readonly IApiVersionDescriptionProvider provider;
+        private readonly IApiVersionDescriptionProvider provider;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConfigureSwaggerOptions"/> class.
@@ -38,7 +35,7 @@ namespace AdminLTEWithASPNETCore.Code.Configurations
             }
         }
 
-        static OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
+        private static OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
         {
             var info = new OpenApiInfo()
             {

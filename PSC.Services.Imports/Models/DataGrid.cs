@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace PSC.Services.Imports.Models
 {
@@ -12,16 +8,19 @@ namespace PSC.Services.Imports.Models
     public class DataGrid
     {
         public bool Success { get; set; } = false;
+
         /// <summary>
         /// Gets the headers.
         /// </summary>
         /// <value>The headers.</value>
         public List<string> Headers { get; } = new List<string>();
+
         /// <summary>
         /// Gets the types.
         /// </summary>
         /// <value>The types.</value>
         public Dictionary<string, string> Types { get; } = new Dictionary<string, string>();
+
         /// <summary>
         /// Gets the rows.
         /// </summary>

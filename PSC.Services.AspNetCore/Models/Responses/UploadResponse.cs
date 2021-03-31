@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace PSC.Services.AspNetCore.Models.Responses
 {
@@ -16,6 +12,7 @@ namespace PSC.Services.AspNetCore.Models.Responses
         /// </summary>
         /// <value><c>true</c> if success; otherwise, <c>false</c>.</value>
         public bool Success { get; set; }
+
         /// <summary>
         /// Gets or sets the files.
         /// </summary>

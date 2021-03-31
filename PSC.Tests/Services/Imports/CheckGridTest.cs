@@ -1,22 +1,18 @@
 ﻿using NUnit.Framework;
 using PSC.Services.Imports;
 using PSC.Services.Imports.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PSC.Tests.Services.Imports
 {
     [TestFixture]
     public class CheckGridTest
     {
-        int nRows = 10;
-        DataGrid dgInput1;
-        DataGrid dbExpect1;
-        DataGrid dgInput2;
-        DataGrid dbExpect2;
+        private int nRows = 10;
+        private DataGrid dgInput1;
+        private DataGrid dbExpect1;
+        private DataGrid dgInput2;
+        private DataGrid dbExpect2;
 
         [Test]
         [SetUp]
@@ -79,8 +75,8 @@ namespace PSC.Tests.Services.Imports
             dictInput2.Add("Resource", "F1");
             dictInput2.Add("Resource Group", "akuks");
             dictInput2.Add("Category", "Azure App Service");
-            dictInput2.Add("Subcategory", "Azure App Service"); 
-            dictInput2.Add("Quantity", "3"); 
+            dictInput2.Add("Subcategory", "Azure App Service");
+            dictInput2.Add("Quantity", "3");
             dictInput2.Add("Cost(£)", "0");
 
             dictExpect2.Add("Resource", "F1");
