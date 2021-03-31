@@ -28,6 +28,7 @@ namespace AdminLTEWithASPNETCore.Areas.Tables.Controllers
                     new FieldUI() { Label = "Country", Data = "Name" },
                     new FieldUI() { Label = "Order", Data = "Order"}
                 },
+                CreateUrl = "/Tables/Countries/Create",
                 EditUrl = "/Tables/Countries/Edit"
             };
 

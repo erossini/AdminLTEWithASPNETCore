@@ -19,29 +19,32 @@ namespace AdminLTEWithASPNETCore.Models.UI.CommonTables
         public string ApiUrl { get; set; }
 
         /// <summary>
-        /// Gets or sets the fields.
+        /// Gets or sets the create URL.
         /// </summary>
-        /// <value>The fields.</value>
-        [JsonProperty("fields")]
-        public FieldUI[] Fields { get; set; }
-        /// <summary>
-        /// Gets or sets the edit URL.
-        /// </summary>
-        /// <value>The edit URL.</value>
-        [JsonProperty("editUrl")]
-        public string EditUrl { get; set; }
+        /// <value>The create URL.</value>
+        [JsonProperty("createUrl")]
+        public string CreateUrl { get; set; }
+
         /// <summary>
         /// Gets or sets the delete URL.
         /// </summary>
         /// <value>The delete URL.</value>
         [JsonProperty("editUrl")]
         public string DeleteUrl { get; set; }
+
         /// <summary>
-        /// Gets or sets the view URL.
+        /// Gets or sets the edit URL.
         /// </summary>
-        /// <value>The view URL.</value>
-        [JsonProperty("viewUrl")]
-        public string ViewUrl { get; set; }
+        /// <value>The edit URL.</value>
+        [JsonProperty("editUrl")]
+        public string EditUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the fields.
+        /// </summary>
+        /// <value>The fields.</value>
+        [JsonProperty("fields")]
+        public FieldUI[] Fields { get; set; }
 
         /// <summary>
         /// Returns a string with the list of fields
@@ -66,22 +69,38 @@ namespace AdminLTEWithASPNETCore.Models.UI.CommonTables
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this instance is edit allow.
+        /// Gets a value indicating whether this instance is create allow.
         /// </summary>
-        /// <value><c>true</c> if this instance is edit allow; otherwise, <c>false</c>.</value>
-        [JsonProperty("isEditAllow")]
-        public bool IsEditAllow => !string.IsNullOrEmpty(EditUrl);
+        /// <value><c>true</c> if this instance is create allow; otherwise, <c>false</c>.</value>
+        [JsonProperty("isCreateAllow")]
+        public bool IsCreateAllow => !string.IsNullOrEmpty(CreateUrl);
+
         /// <summary>
         /// Gets or sets a value indicating whether this instance is delete allow.
         /// </summary>
         /// <value><c>true</c> if this instance is delete allow; otherwise, <c>false</c>.</value>
         [JsonProperty("isDeleteAllow")]
         public bool IsDeleteAllow => !string.IsNullOrEmpty(DeleteUrl);
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is edit allow.
+        /// </summary>
+        /// <value><c>true</c> if this instance is edit allow; otherwise, <c>false</c>.</value>
+        [JsonProperty("isEditAllow")]
+        public bool IsEditAllow => !string.IsNullOrEmpty(EditUrl);
+
         /// <summary>
         /// Gets or sets a value indicating whether this instance is view allow.
         /// </summary>
         /// <value><c>true</c> if this instance is view allow; otherwise, <c>false</c>.</value>
         [JsonProperty("isViewAllow")]
         public bool IsViewAllow => !string.IsNullOrEmpty(ViewUrl);
+
+        /// <summary>
+        /// Gets or sets the view URL.
+        /// </summary>
+        /// <value>The view URL.</value>
+        [JsonProperty("viewUrl")]
+        public string ViewUrl { get; set; }
     }
 }
