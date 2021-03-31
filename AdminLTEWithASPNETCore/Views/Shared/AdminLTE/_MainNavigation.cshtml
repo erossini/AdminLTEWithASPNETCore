@@ -46,30 +46,39 @@
                         <p>Import</p>
                         <i class="right fas fa-angle-left"></i>
                     </a>
-                    <ul class="nav nav-treeview" style="display: none;">
+                    <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a asp-area="" asp-controller="ExcelImport" asp-action="ListCosts" class="nav-link @Url.MakeActiveClass("ExcelImport", "ListCosts")">
-                                <i class="nav-icon fas fa-money-check-alt"></i>
-                                <p>
-                                    View costs
-                                </p>
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-cloud nav-icon"></i>
+                                <p>Azure Costs</p>
+                                <i class="right fas fa-angle-left"></i>
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-area="" asp-controller="ExcelImport" asp-action="List" class="nav-link @Url.MakeActiveClass("ExcelImport", "List")">
-                                <i class="nav-icon fas fa-digital-tachograph"></i>
-                                <p>
-                                    View all imports
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-area="" asp-controller="ExcelImport" asp-action="Index" class="nav-link @Url.MakeActiveClass("ExcelImport", "Index")">
-                                <i class="nav-icon fas fa-file-excel"></i>
-                                <p>
-                                    New Excel
-                                </p>
-                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-area="" asp-controller="ExcelImport" asp-action="ListCosts" class="nav-link @Url.MakeActiveClass("ExcelImport", "ListCosts")">
+                                        <i class="nav-icon fas fa-money-check-alt"></i>
+                                        <p>
+                                            View costs
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-area="" asp-controller="ExcelImport" asp-action="List" class="nav-link @Url.MakeActiveClass("ExcelImport", "List")">
+                                        <i class="nav-icon fas fa-digital-tachograph"></i>
+                                        <p>
+                                            View all imports
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-area="" asp-controller="ExcelImport" asp-action="Index" class="nav-link @Url.MakeActiveClass("ExcelImport", "Index")">
+                                        <i class="nav-icon fas fa-file-excel"></i>
+                                        <p>
+                                            New Excel
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </li>
