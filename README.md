@@ -49,11 +49,22 @@ The result of the main application is this one:
 ## How do I organize the solution?
 The project is divided into the following layers:
 
-- Tasks
 - Domain
 - Infrastructure
-- Presentation
+- Persistence
 - Specs/Tests
+- UI
+
+This because I want to follow the guide lines for a [clean architecture](https://www.puresourcecode.com/tag/clean-architecture/) solution. I have create some posts about it and you have the link here:
+*   [Architecting ASP.NET Core applications](https://www.puresourcecode.com/dotnet/net-core/architecting-asp-net-core-applications/)
+*   [Setting up the application core](https://www.puresourcecode.com/dotnet/net-core/setting-up-the-application-asp-net-core/)
+*   [Introducing CQRS in the architecture](https://www.puresourcecode.com/dotnet/introducing-cqrs-in-the-architecture)
+*   [Adding Validation using Fluent](https://www.puresourcecode.com/dotnet/adding-validation-using-fluent-validation/)
+*   [Creating the infrastructure project](https://www.puresourcecode.com/dotnet/creating-the-infrastructure-project/)
+*   [Adding an API using ASP.NET Core](https://www.puresourcecode.com/dotnet/net-core/adding-an-api-using-asp-net-core/)
+*   [How testing the application code](https://www.puresourcecode.com/dotnet/csharp/how-testing-the-application-code/)
+*   [How adding an UI built in Blazor](https://www.puresourcecode.com/dotnet/net-core/how-adding-an-ui-built-in-blazor/)
+*   [Improving on the application's behaviour](https://www.puresourcecode.com/dotnet/net-core/improving-on-the-applications-behaviour/)
 
 ### Task
 Previous known as “Application Services,” the Tasks Layer serves to tie together any non-business logic from a variety of third-party services or persistence technologies.
