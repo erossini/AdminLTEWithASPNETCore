@@ -72,11 +72,8 @@ namespace AdminLTEWithASPNETCore
             services.AddScoped(cfg => cfg.GetService<IOptions<AuthenticationSettings>>().Value);
             #endregion
             #region Setting Db
-            services.AddDbContext<ApplicationDbContext>(_ => _.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContextConnection")));
-
             var cnnString = Configuration.GetConnectionString("PSCContextConnection");
-            services.AddDbContext<PSCContext>(_ => _.UseSqlServer(cnnString));
-            services.ConfigureAudit(cnnString);
+            services.AddDbContext<ApplicationDbContext>(_ => _.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContextConnection")));
             #endregion
             #region Dependency Injection
             services.AddTransient<IEmailSender, EmailSender>();

@@ -19,8 +19,10 @@ namespace PSC.Persistence
     {
         public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
         {
+            var cnnString = configuration.GetConnectionString("PSCContextConnection");
             services.AddDbContext<PSCContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("GloboTicketTicketManagementConnectionString")));
+                options.UseSqlServer(cnnString));
+            services.ConfigureAudit(cnnString);
 
             services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
 
